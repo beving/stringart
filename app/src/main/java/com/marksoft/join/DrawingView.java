@@ -22,8 +22,9 @@ import java.util.Set;
  */
 public class DrawingView extends View {
     private Set<Point> points = new HashSet<>();
-    public boolean drawLines = false;
+    private boolean drawLines = false;
     private GestureDetector gestureDetector;
+    private final Paint paint = new Paint();
 
     public DrawingView(Context context) {
         super(context);
@@ -49,7 +50,6 @@ public class DrawingView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
         canvas.drawPaint(paint);
