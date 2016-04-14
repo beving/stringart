@@ -1,4 +1,4 @@
-package com.marksoft.join;
+package com.marksoft.stringart;
 
 import android.content.Context;
 import android.graphics.Canvas;

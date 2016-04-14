@@ -1,4 +1,4 @@
-package com.marksoft.join;
+package com.marksoft.stringart;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

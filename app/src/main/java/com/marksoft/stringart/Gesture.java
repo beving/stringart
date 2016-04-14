@@ -1,4 +1,4 @@
-package com.marksoft.join;
+package com.marksoft.stringart;
 
 import android.util.Log;
 import android.view.GestureDetector;

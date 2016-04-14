@@ -1,4 +1,4 @@
-package com.marksoft.join;
+package com.marksoft.stringart;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.marksoft.join;
+package com.marksoft.stringart;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
