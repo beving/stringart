@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         //DrawingView myView = new DrawingView(this);
 
         //setContentView(myView);
-        setContentView(R.layout.activity_main); //TODO  Call my layout here!
+        setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,9 +65,15 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_connect) {
             Log.d("MainActivity", "action_connect");
 
-            DrawingView myView = (DrawingView)findViewById(R.id.drawingView);
-            myView.drawLines();
 
+            DrawingView myView = (DrawingView)findViewById(R.id.drawingView);
+
+            if (!myView.getPoints().isEmpty()) {
+                myView.drawLines();
+            }
+            else {
+                Toast.makeText(getBaseContext(), "Sorry, there are no points to connect.", Toast.LENGTH_LONG).show();
+            }
             return true;
         }
 

@@ -6,7 +6,7 @@ import android.view.MotionEvent;
 
 /**
  * Borrowed by e62032 on 4/7/2016.
- * Orignally from:  http://www.theappguruz.com/blog/android-gestures-tutorial-in-android
+ * Originally from:  http://www.theappguruz.com/blog/android-gestures-tutorial-in-android
  */
 class Gesture extends GestureDetector.SimpleOnGestureListener {
     private DrawingView myView;

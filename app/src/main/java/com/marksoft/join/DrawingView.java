@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Draw points on screen then draw lines to connect them.
  * Created by e62032 on 4/13/2016.
  */
 public class DrawingView extends View {
@@ -29,7 +30,10 @@ public class DrawingView extends View {
     }
 
     public DrawingView(Context context, AttributeSet attrs) {
+
         super(context, attrs);
+
+        gestureDetector = new GestureDetector(this.getContext(), new Gesture(this));
     }
 
     public void createPoint(float x, float y) {
@@ -40,9 +44,9 @@ public class DrawingView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
 
-        if (gestureDetector == null) {
-            gestureDetector = new GestureDetector(this.getContext(), new Gesture(this));
-        }
+//        if (gestureDetector == null) {
+//            gestureDetector = new GestureDetector(this.getContext(), new Gesture(this));
+//        }
         gestureDetector.onTouchEvent(motionEvent);
         return true;
     }
@@ -89,10 +93,13 @@ public class DrawingView extends View {
         this.invalidate(); //Force onDraw to be called.
     }
 
-
     //Round to the nearest 50th so that it is easier to draw.
     //ie Points are easy to draw in a straight line.
     private int round(float number) {
         return Math.round(Precision.round(number, -2, BigDecimal.ROUND_HALF_DOWN));
+    }
+
+    public Set<Point> getPoints() {
+        return points;
     }
 }
