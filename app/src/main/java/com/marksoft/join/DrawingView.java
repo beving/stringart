@@ -82,6 +82,12 @@ public class DrawingView extends View {
         this.invalidate(); //Force onDraw to be called.
     }
 
+    public void clear() {
+        //Clear out the points and lines by emptying the points out.
+        points = new HashSet<>();
+        this.invalidate(); //Force onDraw to be called.
+    }
+
 
     //Round to the nearest 100th so that it is easier to draw.
     //ie Points are easy to draw in a straight line.

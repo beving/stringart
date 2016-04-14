@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DrawingView myView = new DrawingView(this);
+        //DrawingView myView = new DrawingView(this);
 
         //setContentView(myView);
         setContentView(R.layout.activity_main); //TODO  Call my layout here!
@@ -55,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.action_favorite) {
             Log.d("MainActivity", "action_favorite");
+
+            DrawingView myView = (DrawingView)findViewById(R.id.drawingView);
+            myView.clear();
+
             return true;
         }
 
