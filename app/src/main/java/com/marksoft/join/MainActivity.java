@@ -53,11 +53,19 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id == R.id.action_favorite) {
-            Log.d("MainActivity", "action_favorite");
+        if (id == R.id.action_clear) {
+            Log.d("MainActivity", "action_clear");
 
             DrawingView myView = (DrawingView)findViewById(R.id.drawingView);
             myView.clear();
+
+            return true;
+        }
+        if (id == R.id.action_connect) {
+            Log.d("MainActivity", "action_connect");
+
+            DrawingView myView = (DrawingView)findViewById(R.id.drawingView);
+            myView.drawLines();
 
             return true;
         }

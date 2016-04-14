@@ -4,9 +4,15 @@
     tools:context="com.marksoft.join.MainActivity">
 
     <item
-        android:id="@+id/action_favorite"
-        android:icon="@drawable/abc_ic_star_black_16dp"
+        android:id="@+id/action_connect"
+        android:icon="@drawable/ic_star_border"
         android:title="@string/star"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_clear"
+        android:icon="@drawable/ic_clear_all"
+        android:title="@string/clear"
         app:showAsAction="ifRoom"/>
 
     <item

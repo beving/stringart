@@ -12,6 +12,7 @@ import android.view.View;
 
 import org.apache.commons.math3.util.Precision;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -89,9 +90,9 @@ public class DrawingView extends View {
     }
 
 
-    //Round to the nearest 100th so that it is easier to draw.
+    //Round to the nearest 50th so that it is easier to draw.
     //ie Points are easy to draw in a straight line.
     private int round(float number) {
-        return Math.round(Precision.round(number, -2));
+        return Math.round(Precision.round(number, -2, BigDecimal.ROUND_HALF_DOWN));
     }
 }
