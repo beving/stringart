@@ -17,9 +17,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //DrawingView myView = new DrawingView(this);
-
-        //setContentView(myView);
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -44,20 +41,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        DrawingView myView = new DrawingView(this);
+
         Log.d("MainActivity", "... .. .");
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
         if (id == R.id.action_clear) {
             Log.d("MainActivity", "action_clear");
 
-            DrawingView myView = (DrawingView)findViewById(R.id.drawingView);
+            myView = (DrawingView)findViewById(R.id.drawingView);
             myView.clear();
 
             return true;
@@ -65,18 +64,17 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_connect) {
             Log.d("MainActivity", "action_connect");
 
-
-            DrawingView myView = (DrawingView)findViewById(R.id.drawingView);
+            myView = (DrawingView)findViewById(R.id.drawingView);
 
             if (!myView.getPoints().isEmpty()) {
                 myView.drawLines();
             }
             else {
-                Toast.makeText(getBaseContext(), "Sorry, there are no points to connect.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), getResources().getString(R.string.pointless),
+                        Toast.LENGTH_LONG).show();
             }
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

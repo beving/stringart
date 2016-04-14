@@ -25,14 +25,12 @@ public class DrawingView extends View {
     public boolean drawLines = false;
     private GestureDetector gestureDetector;
 
-    public DrawingView(Context context) { //TODO see if this is needed since we have the one below.
+    public DrawingView(Context context) {
         super(context);
     }
 
     public DrawingView(Context context, AttributeSet attrs) {
-
         super(context, attrs);
-
         gestureDetector = new GestureDetector(this.getContext(), new Gesture(this));
     }
 
@@ -43,10 +41,6 @@ public class DrawingView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
-
-//        if (gestureDetector == null) {
-//            gestureDetector = new GestureDetector(this.getContext(), new Gesture(this));
-//        }
         gestureDetector.onTouchEvent(motionEvent);
         return true;
     }

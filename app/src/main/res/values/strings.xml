@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">join</string>
     <string name="action_settings">Settings</string>
+    <string name="pointless">Sorry, there are no points to connect.</string>
     <string name="star">star</string>
     <string name="clear">clear</string>
 </resources>

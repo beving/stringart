@@ -5,13 +5,15 @@ import android.graphics.Point;
 import java.util.Collection;
 
 /**
+ * Utility to convert a Collection of points to an array of floats,
+ * so that Canvas can draw the points.
  * Created by e62032 on 4/13/2016.
  */
 public class PointUtility {
     /**
      * Convert Collection<Point> to float[]
-     * @param points
-     * @return
+     * @param points A collection of points
+     * @return floats[]
      */
     public static float[] toArray(Collection<Point> points) {
         int size = points.size();
