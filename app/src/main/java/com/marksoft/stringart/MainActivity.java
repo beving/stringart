@@ -1,6 +1,5 @@
 package com.marksoft.stringart;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +10,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RetainedFragment dataFragment;
+    private DataHandler dataHandler = new DataHandler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,26 +21,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // find the retained fragment on activity restarts
-        FragmentManager fm = getFragmentManager();
-        dataFragment = (RetainedFragment) fm.findFragmentByTag("pointData");
-
-        // For first time create the fragment and data
-        if (dataFragment == null) {
-            // add the fragment
-            dataFragment = new RetainedFragment();
-            fm.beginTransaction().add(dataFragment, "pointData").commit();
-
-            dataFragment.setPoints(getDrawingView().getPoints());
-
-        }
-        //In this case we are recreating.  Possibly due to change from landscape/portrait, etc
-        else {
-            if (!dataFragment.getPoints().isEmpty()) {
-                getDrawingView().setPoints(dataFragment.getPoints());
-                getDrawingView().drawLines();
-            }
-        }
+        dataHandler.handlePoints(getDrawingView(), getFragmentManager());
     }
 
     @Override
@@ -50,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         // store the data in the fragment
         Log.d("MainActivity.onDestroy", "Size: " + getDrawingView().getPoints().size());
 
-        dataFragment.setPoints(getDrawingView().getPoints());
+        dataHandler.getDataFragment().setPoints(getDrawingView().getPoints());
     }
 
     @Override
@@ -62,33 +42,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        Log.d("MainActivity", "... .. .");
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml..
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        DrawingView myView = getDrawingView();
-        if (id == R.id.action_clear) {
-            Log.d("MainActivity", "action_clear");
-            myView.clear();
-            return true;
-        }
-        if (id == R.id.action_connect) {
-            Log.d("MainActivity", "action_connect");
-
-            if (!myView.getPoints().isEmpty()) {
-                myView.drawLines();
+        switch (item.getItemId()) {
+            case (R.id.action_settings) :
+                return true;
+            case(R.id.action_clear) : {
+                Log.d("MainActivity", "action_clear");
+                getDrawingView().clear();
+                return true;
             }
-            else {
-                Toast.makeText(getBaseContext(), getResources().getString(R.string.pointless),
-                        Toast.LENGTH_LONG).show();
+            case (R.id.action_connect) :  {
+                Log.d("MainActivity", "action_connect");
+
+                if (!getDrawingView().getPoints().isEmpty()) {
+                    getDrawingView().drawLines();
+                } else {
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.pointless),
+                            Toast.LENGTH_LONG).show();
+                }
+                return true;
             }
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
