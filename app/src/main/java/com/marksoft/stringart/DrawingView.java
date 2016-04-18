@@ -38,6 +38,8 @@ public class DrawingView extends View {
     public void createPoint(float x, float y) {
         points.add(new Point(round(x), round(y)));
         this.invalidate(); //Force onDraw to be called.
+
+        drawLines = false;
     }
 
     @Override
@@ -72,7 +74,6 @@ public class DrawingView extends View {
                 }
             }
         }
-        drawLines = false;
     }
 
     public void drawLines() {
@@ -95,5 +96,9 @@ public class DrawingView extends View {
 
     public Set<Point> getPoints() {
         return points;
+    }
+
+    public void setPoints(Set<Point> points) {
+        this.points = points;
     }
 }

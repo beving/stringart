@@ -1,5 +1,6 @@
 package com.marksoft.stringart;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,6 +10,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    private RetainedFragment dataFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,34 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
+
+        // find the retained fragment on activity restarts
+        FragmentManager fm = getFragmentManager();
+        dataFragment = (RetainedFragment) fm.findFragmentByTag("pointData");
+
+        // create the fragment and data the first time
+        if (dataFragment == null) {
+            // add the fragment
+            dataFragment = new RetainedFragment();
+            fm.beginTransaction().add(dataFragment, "pointData").commit();
+
+            dataFragment.setPoints(getDrawingView().getPoints());
+            // load the data from the web
+        } else { //In this case we are recreating.  Possibly due to change from landscape/portrait, etc
+            if (!dataFragment.getPoints().isEmpty()) {
+                getDrawingView().setPoints(dataFragment.getPoints());
+                getDrawingView().drawLines();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // store the data in the fragment
+        Log.d("MainActivity.onDestroy", "Size: " + getDrawingView().getPoints().size());
+
+        dataFragment.setPoints(getDrawingView().getPoints());
     }
 
     @Override
@@ -39,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        DrawingView myView = new DrawingView(this);
-
         Log.d("MainActivity", "... .. .");
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -50,18 +80,14 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        DrawingView myView = getDrawingView();
         if (id == R.id.action_clear) {
             Log.d("MainActivity", "action_clear");
-
-            myView = (DrawingView)findViewById(R.id.drawingView);
             myView.clear();
-
             return true;
         }
         if (id == R.id.action_connect) {
             Log.d("MainActivity", "action_connect");
-
-            myView = (DrawingView)findViewById(R.id.drawingView);
 
             if (!myView.getPoints().isEmpty()) {
                 myView.drawLines();
@@ -74,4 +100,9 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private DrawingView getDrawingView() {
+        return (DrawingView)findViewById(R.id.drawingView);
+    }
+
 }
