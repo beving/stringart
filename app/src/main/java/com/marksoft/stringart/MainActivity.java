@@ -13,7 +13,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RetainedFragment dataFragment;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,28 +22,21 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
         // find the retained fragment on activity restarts
         FragmentManager fm = getFragmentManager();
         dataFragment = (RetainedFragment) fm.findFragmentByTag("pointData");
 
-        // create the fragment and data the first time
+        // For first time create the fragment and data
         if (dataFragment == null) {
             // add the fragment
             dataFragment = new RetainedFragment();
             fm.beginTransaction().add(dataFragment, "pointData").commit();
 
             dataFragment.setPoints(getDrawingView().getPoints());
-            // load the data from the web
-        } else { //In this case we are recreating.  Possibly due to change from landscape/portrait, etc
+
+        }
+        //In this case we are recreating.  Possibly due to change from landscape/portrait, etc
+        else {
             if (!dataFragment.getPoints().isEmpty()) {
                 getDrawingView().setPoints(dataFragment.getPoints());
                 getDrawingView().drawLines();
