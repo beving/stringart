@@ -25,6 +25,7 @@ public class DrawingView extends View {
     private boolean drawLines = false;
     private GestureDetector gestureDetector;
     private final Paint paint = new Paint();
+    private int color = Color.RED;
 
     public DrawingView(Context context) {
         super(context);
@@ -56,7 +57,7 @@ public class DrawingView extends View {
         paint.setColor(Color.WHITE);
         canvas.drawPaint(paint);
 
-        paint.setColor(Color.RED);
+        paint.setColor(color);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
 
@@ -100,5 +101,9 @@ public class DrawingView extends View {
 
     public void setPoints(Set<Point> points) {
         this.points = points;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

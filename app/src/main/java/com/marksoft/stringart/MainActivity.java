@@ -46,14 +46,15 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml..
         switch (item.getItemId()) {
-            case (R.id.action_settings) :
-                return true;
-            case(R.id.action_clear) : {
+
+            //case (R.id.action_settings):
+               // return true;
+            case (R.id.action_clear): {
                 Log.d("MainActivity", "action_clear");
                 getDrawingView().clear();
                 return true;
             }
-            case (R.id.action_connect) :  {
+            case (R.id.action_connect): {
                 Log.d("MainActivity", "action_connect");
 
                 if (!getDrawingView().getPoints().isEmpty()) {
@@ -64,12 +65,16 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             }
+            case (R.id.action_change_color): {
+                new ColorDialog().colorDialog(getBaseContext(), getDrawingView(),
+                        getSupportFragmentManager());
+            }
         }
         return super.onOptionsItemSelected(item);
     }
 
     private DrawingView getDrawingView() {
-        return (DrawingView)findViewById(R.id.drawingView);
+        return (DrawingView) findViewById(R.id.drawingView);
     }
 
 }
