@@ -38,6 +38,7 @@ public class ColorDialog {
                                     Integer.toHexString(color).toUpperCase(),
                                     Toast.LENGTH_SHORT).show();
                             drawingView.setColor(color);
+                            drawingView.drawLines();
                         }
                     }
                 }).build().show(fragmentManager, "get Colors");

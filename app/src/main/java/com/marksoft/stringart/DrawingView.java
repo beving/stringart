@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,15 +14,15 @@ import android.view.View;
 import org.apache.commons.math3.util.Precision;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Draw points on screen then draw lines to connect them.
  * Created by e62032 on 4/13/2016.
  */
 public class DrawingView extends View {
-    private Set<Point> points = new HashSet<>();
+    private List<Point> points = new ArrayList<>();
     private boolean drawLines = false;
     private GestureDetector gestureDetector;
     private final Paint paint = new Paint();
@@ -37,7 +38,12 @@ public class DrawingView extends View {
     }
 
     public void createPoint(float x, float y) {
-        points.add(new Point(round(x), round(y)));
+        Point newPoint = new Point(round(x), round(y));
+        if (!points.contains(newPoint)) {
+            points.add(newPoint);
+        } else {
+            Log.d("DrawingView", "Point already added previously-->" + newPoint.toString());
+        }
         this.invalidate(); //Force onDraw to be called.
 
         drawLines = false;
@@ -77,15 +83,19 @@ public class DrawingView extends View {
         }
     }
 
-    public void drawLines() {
+    public boolean drawLines() {
+        Log.d("DrawingView", " drawLines");
         drawLines = true;
-
-        this.invalidate(); //Force onDraw to be called.
+        if (!getPoints().isEmpty()) {
+            this.invalidate(); //Force onDraw to be called.
+            return true;
+        }
+        return false;
     }
 
     public void clear() {
         //Clear out the points and lines by emptying the points out.
-        points = new HashSet<>();
+        points = new ArrayList<>();
         this.invalidate(); //Force onDraw to be called.
     }
 
@@ -95,11 +105,18 @@ public class DrawingView extends View {
         return Math.round(Precision.round(number, -2, BigDecimal.ROUND_HALF_DOWN));
     }
 
-    public Set<Point> getPoints() {
+    public void undoAdditionOfLastPoint() {
+        if (!points.isEmpty()) {
+            points.remove(points.size() - 1);
+        }
+        this.invalidate();
+    }
+
+    public List<Point> getPoints() {
         return points;
     }
 
-    public void setPoints(Set<Point> points) {
+    public void setPoints(List<Point> points) {
         this.points = points;
     }
 

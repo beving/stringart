@@ -45,10 +45,18 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml..
+
+        Log.d("MainActivity", "Item ID: " + item.getItemId());
         switch (item.getItemId()) {
 
-            //case (R.id.action_settings):
-               // return true;
+            case (R.id.action_settings):
+                return true;
+            case (R.id.action_undo): {
+                Log.d("MainActivity", "action_undo");
+                getDrawingView().undoAdditionOfLastPoint();
+                getDrawingView().drawLines();
+                return true;
+            }
             case (R.id.action_clear): {
                 Log.d("MainActivity", "action_clear");
                 getDrawingView().clear();
@@ -57,17 +65,17 @@ public class MainActivity extends AppCompatActivity {
             case (R.id.action_connect): {
                 Log.d("MainActivity", "action_connect");
 
-                if (!getDrawingView().getPoints().isEmpty()) {
-                    getDrawingView().drawLines();
-                } else {
+                if (!getDrawingView().drawLines()) {
                     Toast.makeText(getBaseContext(), getResources().getString(R.string.pointless),
                             Toast.LENGTH_LONG).show();
                 }
                 return true;
             }
             case (R.id.action_change_color): {
+                Log.d("MainActivity", "action_change_color");
                 new ColorDialog().colorDialog(getBaseContext(), getDrawingView(),
                         getSupportFragmentManager());
+                return true;
             }
         }
         return super.onOptionsItemSelected(item);
