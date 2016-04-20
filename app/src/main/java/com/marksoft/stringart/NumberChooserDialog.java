@@ -13,7 +13,10 @@ import android.widget.Toast;
    see http://stackoverflow.com/questions/15762905/how-can-i-display-a-list-view-in-an-android-alert-dialog
 */
 class NumberChooserDialog {
-    public void open(final Context context, final DrawingView drawingView) {
+
+    public void open(final Context context, final DrawingView drawingView,
+        int starting, int ending, int iterateBy) {
+
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         //alertDialog.setIcon(R.drawable.ic_launcher);
         alertDialog.setTitle("Line Thickness");
@@ -21,11 +24,9 @@ class NumberChooserDialog {
         final ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(context,
                 android.R.layout.select_dialog_singlechoice);
 
-        arrayAdapter.add(1);
-        arrayAdapter.add(2);
-        arrayAdapter.add(3);
-        arrayAdapter.add(4);
-        arrayAdapter.add(5);
+        for (int i = starting; i < ending +1 ;i+=iterateBy) {
+            arrayAdapter.add(i);
+        }
 
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {              //TODO don't hard code text.
             @Override
@@ -42,6 +43,7 @@ class NumberChooserDialog {
                         Log.d("Line thickness: ", selectedInteger + "");
 
                         drawingView.setStrokeWidth(selectedInteger);
+                        drawingView.drawLines();
                         Toast.makeText(context, "Line thickness set to: " + selectedInteger,  //TODO don't hard code text.
                                 Toast.LENGTH_LONG).show();
                     }

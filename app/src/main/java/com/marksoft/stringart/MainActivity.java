@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             case (R.id.action_line_thickness): {
                 Log.d("MainActivity", "action_line_thickness");
 
-                new NumberChooserDialog().open(MainActivity.this, getDrawingView());
+                new NumberChooserDialog().open(MainActivity.this, getDrawingView(),1, 9, 1);
 
                 return true;
             }

@@ -1,0 +1,252 @@
+Index: app/src/main/java/com/marksoft/stringart/StorageModule.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/marksoft/stringart/StorageModule.java	(revision )
++++ app/src/main/java/com/marksoft/stringart/StorageModule.java	(revision )
+@@ -0,0 +1,27 @@
++package com.marksoft.stringart;
++
++import android.content.SharedPreferences;
++import android.preference.PreferenceManager;
++
++import javax.inject.Singleton;
++
++import dagger.Module;
++import dagger.Provides;
++
++/**
++ * Created by e62032 on 4/20/2016.
++ */
++
++@Module
++public class StorageModule {
++    private final MyApplication application;
++
++    public StorageModule(MyApplication application) { this.application = application;}
++
++    @Singleton
++    @Provides
++    SharedPreferences provideSharedPreferences() {
++        return PreferenceManager.getDefaultSharedPreferences(application);
++    }
++
++}
+Index: app/src/main/java/com/marksoft/stringart/MyApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/marksoft/stringart/MyApplication.java	(revision )
++++ app/src/main/java/com/marksoft/stringart/MyApplication.java	(revision )
+@@ -0,0 +1,24 @@
++package com.marksoft.stringart;
++
++import android.app.Application;
++
++/**
++ * Created by e62032 on 4/20/2016.
++ */
++public class MyApplication extends Application {
++
++
++    StorageComponent component;
++
++    @Override
++    public void onCreate() {
++        super.onCreate();
++        component = DaggerStorageComponent.builder().storageModule(new StorageModule(this)).build();
++    }
++
++    public StorageComponent getComponent() {return component;}
++
++
++
++
++}
+Index: app/src/main/java/com/marksoft/stringart/FragmentA.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/marksoft/stringart/FragmentA.java	(revision )
++++ app/src/main/java/com/marksoft/stringart/FragmentA.java	(revision )
+@@ -0,0 +1,42 @@
++package com.marksoft.stringart;
++
++import android.app.Fragment;
++import android.content.SharedPreferences;
++import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
++import android.widget.EditText;
++
++import javax.inject.Inject;
++
++/**
++ * Created by e62032 on 4/20/2016.
++ */
++public class FragmentA extends Fragment implements View.OnClickListener {
++
++    @Inject
++    SharedPreferences mPreferences;
++    private EditText mInputText;
++    private Button mBtnStore;
++
++
++    public FragmentA() {}
++
++//    public void onClick(Bundle savedInstanceState) {
++//        super.onCreate(savedInstanceState);
++//
++//        ((MyApplication)getActivity().getApplication()).getComponent().inject(this);
++//    }
++//
++//    @Override
++//    public void onClick(Bundle v) {
++//        super.onCreate(v);
++//
++//        ((MyApplication)getActivity().getApplication()).getComponent().inject(this);
++//    }
++
++    @Override
++    public void onClick(View v) {
++
++    }
++}
+Index: app/src/main/java/com/marksoft/stringart/StorageComponent.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/marksoft/stringart/StorageComponent.java	(revision )
++++ app/src/main/java/com/marksoft/stringart/StorageComponent.java	(revision )
+@@ -0,0 +1,22 @@
++package com.marksoft.stringart;
++
++import android.app.Fragment;
++
++import javax.inject.Singleton;
++
++import dagger.Component;
++import dagger.Module;
++
++/**
++ * Created by e62032 on 4/20/2016.
++ */
++@Singleton
++@Component(modules = StorageModule.class)
++public interface StorageComponent {
++    //void test123();
++    void inject(FragmentA fragmentA);
++//    void inject()
++
++
++    //void inject(FragmentB fragmentB);
++}
+Index: app/src/main/java/com/marksoft/stringart/ApplicationModule.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/marksoft/stringart/ApplicationModule.java	(revision )
++++ app/src/main/java/com/marksoft/stringart/ApplicationModule.java	(revision )
+@@ -0,0 +1,12 @@
++package com.marksoft.stringart;
++
++import dagger.Module;
++
++/**
++ * Created by e62032 on 4/20/2016.
++ */
++@Module
++public class ApplicationModule {
++
++
++}
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(date 1461168466000)
++++ app/build.gradle	(revision )
+@@ -1,4 +1,5 @@
+ apply plugin: 'com.android.application'
++apply plugin: 'com.neenbedankt.android-apt'
+ 
+ android {
+     compileSdkVersion 23
+@@ -31,4 +32,15 @@
+     compile 'com.google.guava:guava:19.0'
+     compile 'org.apache.commons:commons-math3:3.1.1'
+     compile 'com.thebluealliance:spectrum:0.2.1'  //color picker
++
++    //Dagger
++    //compile 'com.google.dagger:dagger:2.0.1' //TODO update all versions of dagger and etc.
++   // apt "com.google.dagger:dagger-compiler:2.0.1"
++
++    apt 'com.google.dagger:dagger-compiler:2.2'
++    compile 'com.google.dagger:dagger:2.2'
++    provided 'javax.annotation:jsr250-api:1.0'
++
++    //May need glassfish ?
++    //compile 'org.glassfish:javax.annotation:10.0-b28'
+ }
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(date 1461168466000)
++++ build.gradle	(revision )
+@@ -7,6 +7,11 @@
+     dependencies {
+         classpath 'com.android.tools.build:gradle:1.5.0'
+ 
++        //Dagger
++        //classpath 'com.android.tools.build:gradel:1.3.0'
++//        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
++        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
++
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files
+     }
+Index: app/src/main/java/com/marksoft/stringart/NumberChooserDialog.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/marksoft/stringart/NumberChooserDialog.java	(date 1461168466000)
++++ app/src/main/java/com/marksoft/stringart/NumberChooserDialog.java	(revision )
+@@ -3,17 +3,29 @@
+ import android.app.AlertDialog;
+ import android.content.Context;
+ import android.content.DialogInterface;
++import android.content.SharedPreferences;
+ import android.util.Log;
+ import android.widget.ArrayAdapter;
+ import android.widget.Toast;
+ 
++import javax.inject.Inject;
++
+ /**
+  * Allows selection of a number via a dialog.
+  * Created by e62032 on 4/20/2016.
+    see http://stackoverflow.com/questions/15762905/how-can-i-display-a-list-view-in-an-android-alert-dialog
+ */
+ class NumberChooserDialog {
++
++    //@Inject
++   // SharedPreferences sharedPreferences;
++
+     public void open(final Context context, final DrawingView drawingView) {
++
++
++
++
++
+         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+         //alertDialog.setIcon(R.drawable.ic_launcher);
+         alertDialog.setTitle("Line Thickness");
