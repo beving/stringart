@@ -6,4 +6,6 @@
     <string name="color">Change Color</string>
     <string name="clear">Clear</string>
     <string name="undo">Undo</string>
+    <string name="action_line_thickness">Line Size</string>
+
 </resources>
