@@ -1,14 +1,11 @@
 package com.marksoft.stringart;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -83,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             case (R.id.action_line_thickness): {
                 Log.d("MainActivity", "action_line_thickness");
 
-                myDialog();
+                new NumberChooserDialog().open(MainActivity.this, getDrawingView());
 
                 return true;
             }
@@ -95,40 +92,4 @@ public class MainActivity extends AppCompatActivity {
         return (DrawingView) findViewById(R.id.drawingView);
     }
 
-    //see http://stackoverflow.com/questions/15762905/how-can-i-display-a-list-view-in-an-android-alert-dialog
-    public void myDialog() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        //alertDialog.setIcon(R.drawable.ic_launcher);
-        alertDialog.setTitle("Line Thickness");
-
-        final ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(
-                MainActivity.this,
-                android.R.layout.select_dialog_singlechoice);
-        arrayAdapter.add(1);
-        arrayAdapter.add(2);
-        arrayAdapter.add(3);
-        arrayAdapter.add(4);
-        arrayAdapter.add(5);
-
-        alertDialog.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {              //TODO don't hard code text.
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        alertDialog.setAdapter(
-                arrayAdapter,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Integer selectedInteger = arrayAdapter.getItem(which);
-                        Log.d("Line thickness: ", selectedInteger + "");
-                        getDrawingView().setStrokeWidth(selectedInteger);
-                        Toast.makeText(getBaseContext(), "Line thickness set to: " + selectedInteger,  //TODO don't hard code text.
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-        alertDialog.show();
-    }
 }
