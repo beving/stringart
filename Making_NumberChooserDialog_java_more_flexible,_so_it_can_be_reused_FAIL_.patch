@@ -1,0 +1,206 @@
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(date 1461184355000)
++++ app/src/main/res/values/strings.xml	(revision )
+@@ -7,5 +7,5 @@
+     <string name="clear">Clear</string>
+     <string name="undo">Undo</string>
+     <string name="action_line_thickness">Line Size</string>
+-
++    <string name="action_grid_size">Grid Spacing</string>
+ </resources>
+Index: app/src/main/java/com/marksoft/stringart/NumberChooserDialog.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/marksoft/stringart/NumberChooserDialog.java	(date 1461184355000)
++++ app/src/main/java/com/marksoft/stringart/NumberChooserDialog.java	(revision )
+@@ -14,7 +14,11 @@
+ */
+ class NumberChooserDialog {
+ 
+-    public void open(final Context context, final DrawingView drawingView,
++    Integer selectedNumber = -1;
++
++    public NumberChooserDialog() {}
++
++    public void open(final Context context,
+         int starting, int ending, int iterateBy) {
+ 
+         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+@@ -24,7 +28,7 @@
+         final ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(context,
+                 android.R.layout.select_dialog_singlechoice);
+ 
+-        for (int i = starting; i < ending +1 ;i+=iterateBy) {
++        for (int i = starting; i < ending + 1; i += iterateBy) {
+             arrayAdapter.add(i);
+         }
+ 
+@@ -39,15 +43,19 @@
+                 new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialog, int which) {
+-                        Integer selectedInteger = arrayAdapter.getItem(which);
+-                        Log.d("Line thickness: ", selectedInteger + "");
++                        selectedNumber = arrayAdapter.getItem(which);
++                        Log.d("NumberChooserDialog", "SelectedNumber set to: " + selectedNumber + "");
+ 
+-                        drawingView.setStrokeWidth(selectedInteger);
+-                        drawingView.drawLines();
+-                        Toast.makeText(context, "Line thickness set to: " + selectedInteger,  //TODO don't hard code text.
+-                                Toast.LENGTH_LONG).show();
++//                        drawingView.setStrokeWidth(selectedInteger);
++//                        drawingView.drawLines();
++                        //Toast.makeText(context, "Line thickness set to: " + selectedNumber,  //TODO don't hard code text.
++                                //Toast.LENGTH_LONG).show();
+                     }
+                 });
+         alertDialog.show();
++    }
++
++    public Integer getSelectedNumber() {
++        return selectedNumber;
+     }
+ }
+Index: app/src/main/java/com/marksoft/stringart/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/marksoft/stringart/MainActivity.java	(date 1461184355000)
++++ app/src/main/java/com/marksoft/stringart/MainActivity.java	(revision )
+@@ -80,7 +80,27 @@
+             case (R.id.action_line_thickness): {
+                 Log.d("MainActivity", "action_line_thickness");
+ 
+-                new NumberChooserDialog().open(MainActivity.this, getDrawingView(),1, 9, 1);
++                NumberChooserDialog numberChooserDialog= new NumberChooserDialog();
++
++                numberChooserDialog.open(MainActivity.this, 1, 9, 1);
++
++                getDrawingView().setStrokeWidth(numberChooserDialog.getSelectedNumber());
++                getDrawingView().drawLines();
++
++                Log.d("MainActivity", "action_line_thickness");
++
++                return true;
++            }
++            case (R.id.action_grid_size): {
++                Log.d("MainActivity", "action_grid_size");
++
++                NumberChooserDialog numberChooserDialog= new NumberChooserDialog();
++
++                numberChooserDialog.open(MainActivity.this, 50, 400, 50);
++
++                getDrawingView().setRoundToTheNearest(numberChooserDialog.getSelectedNumber());
++                Log.d("MainActivity", "Rounding to nearest1: " + numberChooserDialog.getSelectedNumber());
++                Log.d("MainActivity", "Rounding to nearest2: " + getDrawingView().getRoundToTheNearest());
+ 
+                 return true;
+             }
+Index: app/src/main/java/com/marksoft/stringart/DrawingView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/marksoft/stringart/DrawingView.java	(date 1461184355000)
++++ app/src/main/java/com/marksoft/stringart/DrawingView.java	(revision )
+@@ -28,6 +28,7 @@
+     private final Paint paint = new Paint();
+     private int color = Color.RED; //Default
+     private int strokeWidth = 5;
++    private int roundToTheNearest = 50;
+ 
+     public DrawingView(Context context) {
+         super(context);
+@@ -39,7 +40,9 @@
+     }
+ 
+     public void createPoint(float x, float y) {
+-        Point newPoint = new Point(round(x), round(y));
++        Point newPoint = new Point(
++                round(x, roundToTheNearest),  //round(x),
++                round(y, roundToTheNearest)); //round(y));
+         if (!points.contains(newPoint)) {
+             points.add(newPoint);
+         } else {
+@@ -102,8 +105,35 @@
+ 
+     //Round to the nearest 50th so that it is easier to draw.
+     //ie Points are easy to draw in a straight line.
+-    private int round(float number) {
+-        return Math.round(Precision.round(number, -2, BigDecimal.ROUND_HALF_DOWN));
++//    private int round(float number) {
++//        return Math.round(Precision.round(number, -2, BigDecimal.ROUND_HALF_DOWN));
++//    }
++
++    private int round(float numberF, int roundedToNearest) {
++
++        Log.d("DrawingView","Number to round: " + numberF + " rounded to nearest "
++                + roundedToNearest);
++
++
++        int number = Math.round(numberF);
++        int roundedNumber = (number + (roundedToNearest-1)) / roundedToNearest * roundedToNearest;
++
++//        if (Math.abs(roundedNumber-roundedToNearest) < Math.abs(roundedNumber)) {
++//            roundedNumber = roundedNumber-roundedToNearest;
++//        }
++//        Log.d("DrawingView","Number to round: " + numberF + " rounded to nearest "
++//                + roundedToNearest + " Result " + roundedNumber);
++//        round(237.0f, 5);
++//        round(16.0f, 5);
++//        round(1967.1f, 10);
++//        round(62.0f, 5);
++//        round(2010.0f, 10);
++//        round(1682f, 3);
++//        round(113.0f, 2);
++//        round(210.0f, 100);
++//        round(67.0f, 10);
++//        round(280.0f, 100);
++        return roundedNumber;
+     }
+ 
+     public void undoAdditionOfLastPoint() {
+@@ -127,5 +157,15 @@
+ 
+     public void setStrokeWidth(int strokeWidth) {
+         this.strokeWidth = strokeWidth;
++    }
++
++    public void setRoundToTheNearest(int roundToTheNearest) {
++        Log.d("DrawingView","setRoundToTheNearest: " + roundToTheNearest);
++        this.roundToTheNearest = roundToTheNearest;
++    }
++
++    public int getRoundToTheNearest() {
++        Log.d("DrawingView","getRoundToTheNearest: " + roundToTheNearest);
++        return roundToTheNearest;
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/res/menu/menu_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/menu/menu_main.xml	(date 1461184355000)
++++ app/src/main/res/menu/menu_main.xml	(revision )
+@@ -38,6 +38,12 @@
+         app:showAsAction="never" />
+ 
+     <item
++        android:id="@+id/action_grid_size"
++        android:orderInCategory="70"
++        android:title="@string/action_grid_size"
++        app:showAsAction="never" />
++
++    <item
+         android:id="@+id/action_settings"
+         android:orderInCategory="100"
+         android:title="@string/action_settings"

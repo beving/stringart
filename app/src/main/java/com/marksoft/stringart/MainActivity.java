@@ -1,11 +1,13 @@
 package com.marksoft.stringart;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -80,7 +82,25 @@ public class MainActivity extends AppCompatActivity {
             case (R.id.action_line_thickness): {
                 Log.d("MainActivity", "action_line_thickness");
 
-                new NumberChooserDialog().open(MainActivity.this, getDrawingView(),1, 9, 1);
+                NumberChooserDialog numberChooserDialog= new NumberChooserDialog();
+
+                NumberPicker np;
+
+                //numberChooserDialog.open(MainActivity.this, 1, 9, 1);
+
+                //getDrawingView().setStrokeWidth(numberChooserDialog.getSelectedNumber());
+                getDrawingView().drawLines();
+
+                Log.d("MainActivity", "action_line_thickness");
+
+                return true;
+            }
+            case (R.id.action_grid_size): {
+                Log.d("MainActivity", "action_grid_size");
+
+                NumberChooserDialog numberChooserDialog= new NumberChooserDialog();
+
+                numberChooserDialog.open(MainActivity.this, getDrawingView());
 
                 return true;
             }

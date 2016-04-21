@@ -27,7 +27,8 @@ public class DrawingView extends View {
     private GestureDetector gestureDetector;
     private final Paint paint = new Paint();
     private int color = Color.RED; //Default
-    private int strokeWidth = 5;
+    private int strokeWidth = 2;
+    private int roundToTheNearest = 50;
 
     public DrawingView(Context context) {
         super(context);
@@ -39,7 +40,9 @@ public class DrawingView extends View {
     }
 
     public void createPoint(float x, float y) {
-        Point newPoint = new Point(round(x), round(y));
+        Point newPoint = new Point(
+                round(x, roundToTheNearest),  //round(x),
+                round(y, roundToTheNearest)); //round(y));
         if (!points.contains(newPoint)) {
             points.add(newPoint);
         } else {
@@ -102,8 +105,20 @@ public class DrawingView extends View {
 
     //Round to the nearest 50th so that it is easier to draw.
     //ie Points are easy to draw in a straight line.
-    private int round(float number) {
-        return Math.round(Precision.round(number, -2, BigDecimal.ROUND_HALF_DOWN));
+//    private int round(float number) {
+//        return Math.round(Precision.round(number, -2, BigDecimal.ROUND_HALF_DOWN));
+//    }
+
+    private int round(float numberF, int roundedToNearest) {
+
+        Log.d("DrawingView","Number to round: " + numberF + " rounded to nearest "
+                + roundedToNearest);
+
+
+        int number = Math.round(numberF);
+        int roundedNumber = (number + (roundedToNearest-1)) / roundedToNearest * roundedToNearest;
+
+        return roundedNumber;
     }
 
     public void undoAdditionOfLastPoint() {
@@ -127,5 +142,15 @@ public class DrawingView extends View {
 
     public void setStrokeWidth(int strokeWidth) {
         this.strokeWidth = strokeWidth;
+    }
+
+    public void setRoundToTheNearest(int roundToTheNearest) {
+        Log.d("DrawingView","setRoundToTheNearest: " + roundToTheNearest);
+        this.roundToTheNearest = roundToTheNearest;
+    }
+
+    public int getRoundToTheNearest() {
+        Log.d("DrawingView","getRoundToTheNearest: " + roundToTheNearest);
+        return roundToTheNearest;
     }
 }

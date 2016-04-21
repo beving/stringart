@@ -14,8 +14,7 @@ import android.widget.Toast;
 */
 class NumberChooserDialog {
 
-    public void open(final Context context, final DrawingView drawingView,
-        int starting, int ending, int iterateBy) {
+    public void open(final Context context, final DrawingView drawingView) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         //alertDialog.setIcon(R.drawable.ic_launcher);
@@ -24,7 +23,7 @@ class NumberChooserDialog {
         final ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(context,
                 android.R.layout.select_dialog_singlechoice);
 
-        for (int i = starting; i < ending +1 ;i+=iterateBy) {
+        for (int i = 10; i < 50 +1 ;i+=10) {
             arrayAdapter.add(i);
         }
 
@@ -42,7 +41,8 @@ class NumberChooserDialog {
                         Integer selectedInteger = arrayAdapter.getItem(which);
                         Log.d("Line thickness: ", selectedInteger + "");
 
-                        drawingView.setStrokeWidth(selectedInteger);
+
+                        drawingView.setRoundToTheNearest(selectedInteger);
                         drawingView.drawLines();
                         Toast.makeText(context, "Line thickness set to: " + selectedInteger,  //TODO don't hard code text.
                                 Toast.LENGTH_LONG).show();

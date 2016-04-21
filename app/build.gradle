@@ -31,4 +31,7 @@ dependencies {
     compile 'com.google.guava:guava:19.0'
     compile 'org.apache.commons:commons-math3:3.1.1'
     compile 'com.thebluealliance:spectrum:0.2.1'  //color picker
+
+    //compile 'org.ajoberstar:gradle-git:1.4.2'
+
 }
