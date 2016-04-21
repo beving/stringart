@@ -27,7 +27,7 @@ public class DrawingView extends View {
     private GestureDetector gestureDetector;
     private final Paint paint = new Paint();
     private int color = Color.RED; //Default
-    private int strokeWidth = 2;
+    private int strokeWidth = 4;
     private int roundToTheNearest = 50;
 
     public DrawingView(Context context) {
@@ -110,11 +110,8 @@ public class DrawingView extends View {
 //    }
 
     private int round(float numberF, int roundedToNearest) {
-
         Log.d("DrawingView","Number to round: " + numberF + " rounded to nearest "
                 + roundedToNearest);
-
-
         int number = Math.round(numberF);
         int roundedNumber = (number + (roundedToNearest-1)) / roundedToNearest * roundedToNearest;
 

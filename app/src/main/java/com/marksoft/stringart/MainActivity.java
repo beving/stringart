@@ -1,13 +1,12 @@
 package com.marksoft.stringart;
 
-import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.NumberPicker;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,12 +50,15 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "Item ID: " + item.getItemId());
         switch (item.getItemId()) {
 
-            case (R.id.action_settings):
+            case (R.id.action_settings): {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                MainActivity.this.startActivity(intent);
+
                 return true;
+            }
             case (R.id.action_undo): {
                 Log.d("MainActivity", "action_undo");
                 getDrawingView().undoAdditionOfLastPoint();
-                getDrawingView().drawLines();
                 return true;
             }
             case (R.id.action_clear): {
@@ -82,13 +84,8 @@ public class MainActivity extends AppCompatActivity {
             case (R.id.action_line_thickness): {
                 Log.d("MainActivity", "action_line_thickness");
 
-                NumberChooserDialog numberChooserDialog= new NumberChooserDialog();
+                new NumberChooserDialog().open(MainActivity.this, getDrawingView(), false);
 
-                NumberPicker np;
-
-                //numberChooserDialog.open(MainActivity.this, 1, 9, 1);
-
-                //getDrawingView().setStrokeWidth(numberChooserDialog.getSelectedNumber());
                 getDrawingView().drawLines();
 
                 Log.d("MainActivity", "action_line_thickness");
@@ -98,9 +95,7 @@ public class MainActivity extends AppCompatActivity {
             case (R.id.action_grid_size): {
                 Log.d("MainActivity", "action_grid_size");
 
-                NumberChooserDialog numberChooserDialog= new NumberChooserDialog();
-
-                numberChooserDialog.open(MainActivity.this, getDrawingView());
+                new NumberChooserDialog().open(MainActivity.this, getDrawingView(), true);
 
                 return true;
             }

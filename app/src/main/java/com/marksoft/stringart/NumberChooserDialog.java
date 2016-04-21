@@ -14,18 +14,12 @@ import android.widget.Toast;
 */
 class NumberChooserDialog {
 
-    public void open(final Context context, final DrawingView drawingView) {
+    public void open(final Context context, final DrawingView drawingView, boolean gridSpacing) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        //alertDialog.setIcon(R.drawable.ic_launcher);
-        alertDialog.setTitle("Line Thickness");
 
         final ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(context,
-                android.R.layout.select_dialog_singlechoice);
-
-        for (int i = 10; i < 50 +1 ;i+=10) {
-            arrayAdapter.add(i);
-        }
+                android.R.layout.simple_selectable_list_item);
 
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {              //TODO don't hard code text.
             @Override
@@ -34,20 +28,47 @@ class NumberChooserDialog {
             }
         });
 
-        alertDialog.setAdapter(arrayAdapter,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Integer selectedInteger = arrayAdapter.getItem(which);
-                        Log.d("Line thickness: ", selectedInteger + "");
+        if (gridSpacing) {
+
+            for (int i = 25; i < 150 ;i+=25) {
+                arrayAdapter.add(i);
+            }
+
+            alertDialog.setTitle("Grid Spacing");
+            alertDialog.setAdapter(arrayAdapter,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Integer selectedInteger = arrayAdapter.getItem(which);
+                            Log.d("Grid Spacing: ", selectedInteger + "");
 
 
-                        drawingView.setRoundToTheNearest(selectedInteger);
-                        drawingView.drawLines();
-                        Toast.makeText(context, "Line thickness set to: " + selectedInteger,  //TODO don't hard code text.
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
+                            drawingView.setRoundToTheNearest(selectedInteger);
+                            drawingView.drawLines();
+                            Toast.makeText(context, "Grid Spacing set to: " + selectedInteger,  //TODO don't hard code text.
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+        } else {
+            alertDialog.setTitle("Line Size");
+            for (int i = 1; i < 10 +1 ;i+=2) {
+                arrayAdapter.add(i);
+            }
+            alertDialog.setAdapter(arrayAdapter,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Integer selectedInteger = arrayAdapter.getItem(which);
+                            Log.d("Line Size: ", selectedInteger + "");
+
+
+                            drawingView.setStrokeWidth(selectedInteger);
+                            drawingView.drawLines();
+                            Toast.makeText(context, "Line Size to: " + selectedInteger,  //TODO don't hard code text.
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
         alertDialog.show();
     }
 }
