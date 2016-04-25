@@ -50,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "Item ID: " + item.getItemId());
         switch (item.getItemId()) {
 
-            case (R.id.action_settings): {
+            /*case (R.id.action_settings): {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 MainActivity.this.startActivity(intent);
 
                 return true;
-            }
+            }*/
             case (R.id.action_undo): {
                 Log.d("MainActivity", "action_undo");
                 getDrawingView().undoAdditionOfLastPoint();
