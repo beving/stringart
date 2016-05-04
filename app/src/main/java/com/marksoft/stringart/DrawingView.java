@@ -145,9 +145,6 @@ public class DrawingView extends View {
     }
 
     private DataHandler getDataHandler() {
-        if (dataHandler ==null) {
-
-        }
         return dataHandler;
     }
 
