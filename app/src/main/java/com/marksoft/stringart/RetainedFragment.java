@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.graphics.Point;
 import android.os.Bundle;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -16,7 +17,7 @@ import java.util.Set;
 public class RetainedFragment extends Fragment {
 
     // data object we want to retain
-    private List<Point> points;
+    private List<Point> points = new ArrayList<>();
 
     // this method is only called once for this fragment
     @Override

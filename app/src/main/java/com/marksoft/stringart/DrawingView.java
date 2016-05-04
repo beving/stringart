@@ -11,10 +11,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import org.apache.commons.math3.util.Precision;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +18,8 @@ import java.util.List;
  * Created by e62032 on 4/13/2016.
  */
 public class DrawingView extends View {
-    private List<Point> points = new ArrayList<>();
+
+    private DataHandler dataHandler;
     private boolean drawLines = false;
     private GestureDetector gestureDetector;
     private final Paint paint = new Paint();
@@ -43,8 +40,8 @@ public class DrawingView extends View {
         Point newPoint = new Point(
                 round(x, roundToTheNearest),  //round(x),
                 round(y, roundToTheNearest)); //round(y));
-        if (!points.contains(newPoint)) {
-            points.add(newPoint);
+        if (!getPoints().contains(newPoint)) {
+            getPoints().add(newPoint);
         } else {
             Log.d("DrawingView", "Point already added previously-->" + newPoint.toString());
         }
@@ -71,11 +68,11 @@ public class DrawingView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(strokeWidth);
 
-        canvas.drawPoints(PointUtility.toArray(points), paint);
+        canvas.drawPoints(PointUtility.toArray(getPoints()), paint);
 
         if (drawLines) {
-            for (Point outerPoint: points) {
-                for (Point innerPoint : points) {
+            for (Point outerPoint: getPoints()) {
+                for (Point innerPoint : getPoints()) {
 
                     canvas.drawLine(
                             Math.round(outerPoint.x),  //starting coordinates
@@ -99,7 +96,7 @@ public class DrawingView extends View {
 
     public void clear() {
         //Clear out the points and lines by emptying the points out.
-        points = new ArrayList<>();
+        //TODO fix I just broke it ;) getPoints() = new ArrayList<>();
         this.invalidate(); //Force onDraw to be called.
     }
 
@@ -119,18 +116,10 @@ public class DrawingView extends View {
     }
 
     public void undoAdditionOfLastPoint() {
-        if (!points.isEmpty()) {
-            points.remove(points.size() - 1);
+        if (!getPoints().isEmpty()) {
+            getPoints().remove(getPoints().size() - 1);
         }
         this.invalidate();
-    }
-
-    public List<Point> getPoints() {
-        return points;
-    }
-
-    public void setPoints(List<Point> points) {
-        this.points = points;
     }
 
     public void setColor(int color) {
@@ -149,5 +138,20 @@ public class DrawingView extends View {
     public int getRoundToTheNearest() {
         Log.d("DrawingView","getRoundToTheNearest: " + roundToTheNearest);
         return roundToTheNearest;
+    }
+
+    public List<Point> getPoints() {  //TODO make private
+        return dataHandler.getDataFragment().getPoints();
+    }
+
+    private DataHandler getDataHandler() {
+        if (dataHandler ==null) {
+
+        }
+        return dataHandler;
+    }
+
+    public void setDataHandler(DataHandler dataHandler) {
+        this.dataHandler = dataHandler;
     }
 }

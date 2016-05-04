@@ -22,7 +22,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dataHandler.handlePoints(getDrawingView(), getFragmentManager());
+        DrawingView drawingView = getDrawingView();
+        drawingView.setDataHandler(dataHandler);
+
+        dataHandler.handlePoints(drawingView, getFragmentManager());
     }
 
     @Override
