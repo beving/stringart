@@ -1,6 +1,5 @@
 package com.marksoft.stringart;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,9 +31,10 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         // store the data in the fragment
-        Log.d("MainActivity.onDestroy", "Size: " + getDrawingView().getPoints().size());
+        Log.d("MainActivity.onDestroy", "Size: " + dataHandler.getDataFragment().getPoints().size());
 
-        dataHandler.getDataFragment().setPoints(getDrawingView().getPoints());
+        //TODO test turning.  It should hold onto lines and points.
+        //dataHandler.getDataFragment().setPoints(getDrawingView().getPoints());
     }
 
     @Override
@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
             case (R.id.action_clear): {
                 Log.d("MainActivity", "action_clear");
                 getDrawingView().clear();
+                Toast.makeText(getBaseContext(), getResources().getString(R.string.cleared),
+                        Toast.LENGTH_LONG).show();
                 return true;
             }
             case (R.id.action_connect): {

@@ -4,6 +4,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 
 /**A Line contains two points.  It contains a unique object to paint with.
+ *    Therefore giving a line unique attributes like: a different color, size, solid/dotted, etc.
  * Created by e62032 on 4/27/2016.
  */
 public class Line {
@@ -11,6 +12,12 @@ public class Line {
     private Point startPoint;
     private Point endPoint;
     private Paint paint;
+
+    public Line(Point startPoint, Point endPoint, Paint paint) {
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
+        this.paint = paint;
+    }
 
     public Point getStartPoint() {
         return startPoint;

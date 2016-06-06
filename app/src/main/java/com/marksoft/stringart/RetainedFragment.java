@@ -16,8 +16,9 @@ import java.util.Set;
  */
 public class RetainedFragment extends Fragment {
 
-    // data object we want to retain
+    // data objects we want to retain
     private List<Point> points = new ArrayList<>();
+    private List<Line> lines = new ArrayList<>();
 
     // this method is only called once for this fragment
     @Override
@@ -27,11 +28,24 @@ public class RetainedFragment extends Fragment {
         setRetainInstance(true);
     }
 
+    public void clear() {
+        points = new ArrayList<>();
+        lines = new ArrayList<>();
+    }
+
     public List<Point> getPoints() {
         return points;
     }
 
+    public List<Line> getLines() {
+        return lines;
+    }
+
     public void setPoints(List<Point> points) {
         this.points = points;
+    }
+
+    public void setLines(List<Line> points) {
+        this.lines = lines;
     }
 }

@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,18 +38,31 @@ public class DrawingView extends View {
         gestureDetector = new GestureDetector(this.getContext(), new Gesture(this));
     }
 
-    public void createPoint(float x, float y) {
+    public Point createPoint(float x, float y) {
         Point newPoint = new Point(
                 round(x, roundToTheNearest),  //round(x),
                 round(y, roundToTheNearest)); //round(y));
+
         if (!getPoints().contains(newPoint)) {
             getPoints().add(newPoint);
         } else {
             Log.d("DrawingView", "Point already added previously-->" + newPoint.toString());
         }
-        this.invalidate(); //Force onDraw to be called.
-
         drawLines = false;
+
+        return newPoint;
+    }
+
+    public void createLine(Point newPoint) {
+
+        //For now make all lines connect to our new point
+        for (Point otherPoint : getPoints()) {
+
+            Line newLine = new Line(newPoint, otherPoint, paint);
+            if (!getLines().contains(newLine)) {
+                getLines().add(newLine);
+            }
+        }
     }
 
     @Override
@@ -68,18 +83,16 @@ public class DrawingView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(strokeWidth);
 
-        canvas.drawPoints(PointUtility.toArray(getPoints()), paint);
+        canvas.drawPoints(PointUtility.toArray(getPoints()), paint);  //TODO dont do if drawing lines
 
         if (drawLines) {
-            for (Point outerPoint: getPoints()) {
-                for (Point innerPoint : getPoints()) {
-
-                    canvas.drawLine(
-                            Math.round(outerPoint.x),  //starting coordinates
-                            Math.round(outerPoint.y),
-                            Math.round(innerPoint.x),  //ending coordinates
-                            Math.round(innerPoint.y), paint);
-                }
+            for (Line line : dataHandler.getDataFragment().getLines()) {
+                canvas.drawLine(
+                        Math.round(line.getStartPoint().x),  //starting coordinates
+                        Math.round(line.getStartPoint().y),
+                        Math.round(line.getEndPoint().x),    //ending coordinates
+                        Math.round(line.getEndPoint().y),
+                        paint);
             }
         }
     }
@@ -87,17 +100,18 @@ public class DrawingView extends View {
     public boolean drawLines() {
         Log.d("DrawingView", " drawLines");
         drawLines = true;
-        if (!getPoints().isEmpty()) {
-            this.invalidate(); //Force onDraw to be called.
+
+        if (!getLines().isEmpty()) {
+        // if (!getPoints().isEmpty()) {
+            reDraw();
             return true;
         }
         return false;
     }
 
     public void clear() {
-        //Clear out the points and lines by emptying the points out.
-        //TODO fix I just broke it ;) getPoints() = new ArrayList<>();
-        this.invalidate(); //Force onDraw to be called.
+        dataHandler.getDataFragment().clear();
+        reDraw();
     }
 
     //Round to the nearest 50th so that it is easier to draw.
@@ -117,8 +131,26 @@ public class DrawingView extends View {
 
     public void undoAdditionOfLastPoint() {
         if (!getPoints().isEmpty()) {
-            getPoints().remove(getPoints().size() - 1);
+            Point pointToRemove = getPoints().get(getPoints().size() - 1);
+
+            List<Line> linesToRemove = new ArrayList<>();
+
+            for (Line line : dataHandler.getDataFragment().getLines()) {
+
+                if (line.getEndPoint().equals(pointToRemove) ||
+                        line.getStartPoint().equals(pointToRemove)) {
+                    linesToRemove.add(line);
+                }
+            }
+            dataHandler.getDataFragment().getLines().removeAll(linesToRemove);
+            getPoints().remove(pointToRemove);
+
+            reDraw();
         }
+    }
+
+    //Force onDraw to be called.
+    public void reDraw(){
         this.invalidate();
     }
 
@@ -140,12 +172,12 @@ public class DrawingView extends View {
         return roundToTheNearest;
     }
 
-    public List<Point> getPoints() {  //TODO make private
+    private List<Point> getPoints() {
         return dataHandler.getDataFragment().getPoints();
     }
 
-    private DataHandler getDataHandler() {
-        return dataHandler;
+    private List<Line> getLines() {
+        return dataHandler.getDataFragment().getLines();
     }
 
     public void setDataHandler(DataHandler dataHandler) {

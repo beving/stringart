@@ -16,10 +16,12 @@ class Gesture extends GestureDetector.SimpleOnGestureListener {
     }
 
     public void onLongPress(MotionEvent motionEvent) {
-        Log.d("Gesture.onLongPress", "X: " + motionEvent.getX());
-        Log.d("Gesture.onLongPress", "Y: " + motionEvent.getY());
+        Log.d("Gesture.onLongPress", "X Y: " + motionEvent.getX()+ " " + motionEvent.getY());
 
-        myView.createPoint(motionEvent.getX(), motionEvent.getY());
+        myView.createLine(
+                myView.createPoint(
+                        motionEvent.getX(), motionEvent.getY()));
+        myView.reDraw();
     }
 
     public boolean onDoubleTap(MotionEvent e) {
