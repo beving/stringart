@@ -13,7 +13,6 @@ public class DataHandler {
     public void handlePoints(DrawingView drawingView, FragmentManager fragmentManager) {
 
         // find the retained fragment on activity restarts
-        //FragmentManager fm = getFragmentManager();
         dataFragment = (RetainedFragment) fragmentManager.findFragmentByTag("pointData");
 
         // For first time create the fragment and data

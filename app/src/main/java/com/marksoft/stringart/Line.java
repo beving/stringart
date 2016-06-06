@@ -1,5 +1,6 @@
 package com.marksoft.stringart;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 
@@ -12,11 +13,13 @@ public class Line {
     private Point startPoint;
     private Point endPoint;
     private Paint paint;
+    private int color = Color.RED; //Default
 
-    public Line(Point startPoint, Point endPoint, Paint paint) {
+    public Line(Point startPoint, Point endPoint, Paint paint, int color) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.paint = paint;
+        this.color = color;
     }
 
     public Point getStartPoint() {
@@ -41,5 +44,13 @@ public class Line {
 
     public void setPaint(Paint paint) {
         this.paint = paint;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

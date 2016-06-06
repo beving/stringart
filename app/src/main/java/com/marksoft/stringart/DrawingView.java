@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,8 @@ public class DrawingView extends View {
     private boolean drawLines = false;
     private GestureDetector gestureDetector;
     private final Paint paint = new Paint();
-    private int color = Color.RED; //Default
+
+    //TODO rm these two, use the datahandler for all data.
     private int strokeWidth = 4;
     private int roundToTheNearest = 50;
 
@@ -58,7 +58,9 @@ public class DrawingView extends View {
         //For now make all lines connect to our new point
         for (Point otherPoint : getPoints()) {
 
-            Line newLine = new Line(newPoint, otherPoint, paint);
+            Line newLine = new Line(newPoint, otherPoint, paint,
+                    dataHandler.getDataFragment().getLastSelectedColor());
+
             if (!getLines().contains(newLine)) {
                 getLines().add(newLine);
             }
@@ -76,10 +78,11 @@ public class DrawingView extends View {
         super.onDraw(canvas);
 
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.WHITE);
+        paint.setColor(Color.WHITE);  //Set the color for the canvas background
         canvas.drawPaint(paint);
 
-        paint.setColor(color);
+        int lastSelectedColor = dataHandler.getDataFragment().getLastSelectedColor();
+        paint.setColor(lastSelectedColor); //Set the color for the points
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(strokeWidth);
 
@@ -87,6 +90,7 @@ public class DrawingView extends View {
 
         if (drawLines) {
             for (Line line : dataHandler.getDataFragment().getLines()) {
+                paint.setColor(line.getColor());  //Set the color for the line
                 canvas.drawLine(
                         Math.round(line.getStartPoint().x),  //starting coordinates
                         Math.round(line.getStartPoint().y),
@@ -102,7 +106,6 @@ public class DrawingView extends View {
         drawLines = true;
 
         if (!getLines().isEmpty()) {
-        // if (!getPoints().isEmpty()) {
             reDraw();
             return true;
         }
@@ -121,7 +124,7 @@ public class DrawingView extends View {
 //    }
 
     private int round(float numberF, int roundedToNearest) {
-        Log.d("DrawingView","Number to round: " + numberF + " rounded to nearest "
+        Log.d("DrawingView", "Number to round: " + numberF + " rounded to nearest "
                 + roundedToNearest);
         int number = Math.round(numberF);
         int roundedNumber = (number + (roundedToNearest-1)) / roundedToNearest * roundedToNearest;
@@ -133,20 +136,25 @@ public class DrawingView extends View {
         if (!getPoints().isEmpty()) {
             Point pointToRemove = getPoints().get(getPoints().size() - 1);
 
-            List<Line> linesToRemove = new ArrayList<>();
-
-            for (Line line : dataHandler.getDataFragment().getLines()) {
-
-                if (line.getEndPoint().equals(pointToRemove) ||
-                        line.getStartPoint().equals(pointToRemove)) {
-                    linesToRemove.add(line);
-                }
-            }
-            dataHandler.getDataFragment().getLines().removeAll(linesToRemove);
+            dataHandler.getDataFragment().getLines().removeAll(getLastLinesCreated());
             getPoints().remove(pointToRemove);
 
             reDraw();
         }
+    }
+
+    private List<Line> getLastLinesCreated() {
+        List<Line> lastLines = new ArrayList<>();
+        Point pointToRemove = getPoints().get(getPoints().size() - 1);
+
+        for (Line line : dataHandler.getDataFragment().getLines()) {
+
+            if (line.getEndPoint().equals(pointToRemove) ||
+                    line.getStartPoint().equals(pointToRemove)) {
+                lastLines.add(line);
+            }
+        }
+        return lastLines;
     }
 
     //Force onDraw to be called.
@@ -155,7 +163,7 @@ public class DrawingView extends View {
     }
 
     public void setColor(int color) {
-        this.color = color;
+        dataHandler.getDataFragment().setLastSelectedColor(color);
     }
 
     public void setStrokeWidth(int strokeWidth) {

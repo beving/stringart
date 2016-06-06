@@ -1,6 +1,7 @@
 package com.marksoft.stringart;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ public class RetainedFragment extends Fragment {
     // data objects we want to retain
     private List<Point> points = new ArrayList<>();
     private List<Line> lines = new ArrayList<>();
+    private int lastSelectedColor = Color.RED;
 
     // this method is only called once for this fragment
     @Override
@@ -48,4 +50,8 @@ public class RetainedFragment extends Fragment {
     public void setLines(List<Line> points) {
         this.lines = lines;
     }
+
+    public int getLastSelectedColor() { return lastSelectedColor; }
+
+    public void setLastSelectedColor(int lastSelectedColor) {this.lastSelectedColor = lastSelectedColor; }
 }
