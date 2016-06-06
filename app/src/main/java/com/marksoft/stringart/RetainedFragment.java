@@ -21,6 +21,8 @@ public class RetainedFragment extends Fragment {
     private List<Point> points = new ArrayList<>();
     private List<Line> lines = new ArrayList<>();
     private int lastSelectedColor = Color.RED;
+    private int strokeWidth = 4;
+    private int roundToTheNearest = 50;
 
     // this method is only called once for this fragment
     @Override
@@ -54,4 +56,20 @@ public class RetainedFragment extends Fragment {
     public int getLastSelectedColor() { return lastSelectedColor; }
 
     public void setLastSelectedColor(int lastSelectedColor) {this.lastSelectedColor = lastSelectedColor; }
+
+    public int getStrokeWidth() {
+        return strokeWidth;
+    }
+
+    public void setStrokeWidth(int strokeWidth) {
+        this.strokeWidth = strokeWidth;
+    }
+
+    public int getRoundToTheNearest() {
+        return roundToTheNearest;
+    }
+
+    public void setRoundToTheNearest(int roundToTheNearest) {
+        this.roundToTheNearest = roundToTheNearest;
+    }
 }

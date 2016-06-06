@@ -25,10 +25,6 @@ public class DrawingView extends View {
     private GestureDetector gestureDetector;
     private final Paint paint = new Paint();
 
-    //TODO rm these two, use the datahandler for all data.
-    private int strokeWidth = 4;
-    private int roundToTheNearest = 50;
-
     public DrawingView(Context context) {
         super(context);
     }
@@ -40,8 +36,8 @@ public class DrawingView extends View {
 
     public Point createPoint(float x, float y) {
         Point newPoint = new Point(
-                round(x, roundToTheNearest),  //round(x),
-                round(y, roundToTheNearest)); //round(y));
+                round(x, dataHandler.getDataFragment().getRoundToTheNearest()),  //round(x),
+                round(y, dataHandler.getDataFragment().getRoundToTheNearest())); //round(y));
 
         if (!getPoints().contains(newPoint)) {
             getPoints().add(newPoint);
@@ -84,7 +80,7 @@ public class DrawingView extends View {
         int lastSelectedColor = dataHandler.getDataFragment().getLastSelectedColor();
         paint.setColor(lastSelectedColor); //Set the color for the points
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(strokeWidth);
+        paint.setStrokeWidth(dataHandler.getDataFragment().getStrokeWidth());
 
         canvas.drawPoints(PointUtility.toArray(getPoints()), paint);  //TODO dont do if drawing lines
 
@@ -167,17 +163,17 @@ public class DrawingView extends View {
     }
 
     public void setStrokeWidth(int strokeWidth) {
-        this.strokeWidth = strokeWidth;
+        dataHandler.getDataFragment().setStrokeWidth(strokeWidth);
     }
 
     public void setRoundToTheNearest(int roundToTheNearest) {
         Log.d("DrawingView","setRoundToTheNearest: " + roundToTheNearest);
-        this.roundToTheNearest = roundToTheNearest;
+        //this.roundToTheNearest = roundToTheNearest;
+        dataHandler.getDataFragment().setRoundToTheNearest(roundToTheNearest);
     }
 
     public int getRoundToTheNearest() {
-        Log.d("DrawingView","getRoundToTheNearest: " + roundToTheNearest);
-        return roundToTheNearest;
+        return dataHandler.getDataFragment().getRoundToTheNearest();
     }
 
     private List<Point> getPoints() {
