@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("MainActivity", "action_toggle_grid");
 
                 //Set to the opposite of what it is currently
-                getDrawingView().setDrawDottedLines(!getDrawingView().isDrawDottedLines());
+                getDataFragment().setDrawDottedLines(!getDataFragment().isDrawDottedLines());
                 getDrawingView().reDraw();
                 return true;
             }
@@ -109,5 +109,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawingView getDrawingView() {
         return (DrawingView) findViewById(R.id.drawingView);
     }
+
+    private RetainedFragment getDataFragment() { return getDrawingView().getDataHandler().getDataFragment(); }
 
 }

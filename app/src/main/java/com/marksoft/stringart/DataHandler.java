@@ -27,11 +27,8 @@ public class DataHandler {
         }
     }
 
-    public RetainedFragment getDataFragment() {
-        return dataFragment;
-    }
+    public RetainedFragment getDataFragment() { return dataFragment; }
 
-    public void setDataFragment(RetainedFragment dataFragment) {
-        this.dataFragment = dataFragment;
-    }
+    public void setDataFragment(RetainedFragment dataFragment) {this.dataFragment = dataFragment; }
+
 }

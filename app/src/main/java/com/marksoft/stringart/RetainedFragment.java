@@ -23,6 +23,7 @@ public class RetainedFragment extends Fragment {
     private int lastSelectedColor = Color.RED;
     private int strokeWidth = 4;
     private int roundToTheNearest = 50;
+    private boolean drawDottedLines = true;
 
     // this method is only called once for this fragment
     @Override
@@ -54,14 +55,14 @@ public class RetainedFragment extends Fragment {
     }
 
     public int getLastSelectedColor() { return lastSelectedColor; }
-
     public void setLastSelectedColor(int lastSelectedColor) {this.lastSelectedColor = lastSelectedColor; }
 
     public int getStrokeWidth() {return strokeWidth;  }
-
     public void setStrokeWidth(int strokeWidth) {     this.strokeWidth = strokeWidth;    }
 
     public int getRoundToTheNearest() { return roundToTheNearest;  }
-
     public void setRoundToTheNearest(int roundToTheNearest) {  this.roundToTheNearest = roundToTheNearest; }
+
+    public void setDrawDottedLines(boolean drawDottedLines) { this.drawDottedLines = drawDottedLines; }
+    public boolean isDrawDottedLines() {return drawDottedLines; }
 }

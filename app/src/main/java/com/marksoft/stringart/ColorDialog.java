@@ -45,9 +45,9 @@ public class ColorDialog {
                     public void onColorSelected(boolean positiveResult, @ColorInt int color) {
                         if (positiveResult) {
                             Toast.makeText(context, "Color selected: #" +
-                                    Integer.toHexString(color).toUpperCase(),
+                                            Integer.toHexString(color).toUpperCase(),
                                     Toast.LENGTH_SHORT).show();
-                            drawingView.setColor(color);
+                            drawingView.getDataHandler().getDataFragment().setLastSelectedColor(color);
                             drawingView.drawLines();
 
                             Log.d("ColorDialog", "Color set to: " + color);

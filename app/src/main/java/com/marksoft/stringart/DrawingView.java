@@ -21,9 +21,9 @@ import java.util.List;
  */
 public class DrawingView extends View {
 
+    //NOTE: Do not store data here, or else it will be lost when the orientation of the screen changes.
     private DataHandler dataHandler;
     private boolean drawLines = false;
-    private boolean drawDottedLines = true;
     private GestureDetector gestureDetector;
     private final Paint paint = new Paint();
 
@@ -81,7 +81,7 @@ public class DrawingView extends View {
         canvas.drawPaint(paint);
 
         //Draw Dotted Lines
-        if (drawDottedLines) {
+        if (dataHandler.getDataFragment().isDrawDottedLines()) {
 
             int spacing = dataHandler.getDataFragment().getRoundToTheNearest();
 
@@ -102,12 +102,12 @@ public class DrawingView extends View {
 
                 //Draw Dotted Lines along the Y axis (vertically)
                 for (int x = 0; x < canvas.getWidth(); x+=spacing) {
-                    paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-                    paint.setAntiAlias(true);
-                    paint.setFilterBitmap(true);
-                    paint.setColor(0xffcccccc);
-                    paint.setStrokeWidth(1);
-                    paint.setStyle(Paint.Style.STROKE);
+//                    paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+//                    paint.setAntiAlias(true);
+//                    paint.setFilterBitmap(true);
+//                    paint.setColor(0xffcccccc);
+//                    paint.setStrokeWidth(1);
+//                    paint.setStyle(Paint.Style.STROKE);
                     paint.setPathEffect(new DashPathEffect(new float[]{10, 5}, 0));
                     Log.d("DrawingView ", "x: " + x + " canvus.height: " + canvas.getHeight());
 
@@ -196,23 +196,19 @@ public class DrawingView extends View {
         this.invalidate();
     }
 
-    public void setColor(int color) {
-        dataHandler.getDataFragment().setLastSelectedColor(color);
-    }
-
-    public void setStrokeWidth(int strokeWidth) {
-        dataHandler.getDataFragment().setStrokeWidth(strokeWidth);
-    }
-
-    public void setRoundToTheNearest(int roundToTheNearest) {
-        Log.d("DrawingView","setRoundToTheNearest: " + roundToTheNearest);
-        //this.roundToTheNearest = roundToTheNearest;
-        dataHandler.getDataFragment().setRoundToTheNearest(roundToTheNearest);
-    }
-
-    public int getRoundToTheNearest() {
-        return dataHandler.getDataFragment().getRoundToTheNearest();
-    }
+//    public void setColor(int color) {
+//        dataHandler.getDataFragment().setLastSelectedColor(color);
+//    }
+//
+//    public void setStrokeWidth(int strokeWidth) {
+//        dataHandler.getDataFragment().setStrokeWidth(strokeWidth);
+//    }
+//
+//    public void setRoundToTheNearest(int roundToTheNearest) {
+//        Log.d("DrawingView","setRoundToTheNearest: " + roundToTheNearest);
+//        //this.roundToTheNearest = roundToTheNearest;
+//        dataHandler.getDataFragment().setRoundToTheNearest(roundToTheNearest);
+//    }
 
     private List<Point> getPoints() {
         return dataHandler.getDataFragment().getPoints();
@@ -222,11 +218,13 @@ public class DrawingView extends View {
         return dataHandler.getDataFragment().getLines();
     }
 
+    public DataHandler getDataHandler() {
+        return dataHandler;
+    }
     public void setDataHandler(DataHandler dataHandler) {
         this.dataHandler = dataHandler;
     }
 
-    public void setDrawDottedLines(boolean drawDottedLines) { this.drawDottedLines = drawDottedLines; }
 
-    public boolean isDrawDottedLines() {return drawDottedLines; }
+
 }
