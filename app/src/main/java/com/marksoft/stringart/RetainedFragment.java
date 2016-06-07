@@ -57,19 +57,11 @@ public class RetainedFragment extends Fragment {
 
     public void setLastSelectedColor(int lastSelectedColor) {this.lastSelectedColor = lastSelectedColor; }
 
-    public int getStrokeWidth() {
-        return strokeWidth;
-    }
+    public int getStrokeWidth() {return strokeWidth;  }
 
-    public void setStrokeWidth(int strokeWidth) {
-        this.strokeWidth = strokeWidth;
-    }
+    public void setStrokeWidth(int strokeWidth) {     this.strokeWidth = strokeWidth;    }
 
-    public int getRoundToTheNearest() {
-        return roundToTheNearest;
-    }
+    public int getRoundToTheNearest() { return roundToTheNearest;  }
 
-    public void setRoundToTheNearest(int roundToTheNearest) {
-        this.roundToTheNearest = roundToTheNearest;
-    }
+    public void setRoundToTheNearest(int roundToTheNearest) {  this.roundToTheNearest = roundToTheNearest; }
 }

@@ -42,7 +42,6 @@ class NumberChooserDialog {
                             Integer selectedInteger = arrayAdapter.getItem(which);
                             Log.d("Grid Spacing: ", selectedInteger + "");
 
-
                             drawingView.setRoundToTheNearest(selectedInteger);
                             drawingView.drawLines();
                             Toast.makeText(context, "Grid Spacing set to: " + selectedInteger,  //TODO don't hard code text.

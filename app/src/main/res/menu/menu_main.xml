@@ -25,6 +25,12 @@
         app:showAsAction="ifRoom"/>
 
     <item
+        android:id="@+id/action_toggle_grid"
+        android:title="@string/toggle_grid"
+        android:orderInCategory="5"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/action_clear"
         android:icon="@drawable/ic_clear_all"
         android:title="@string/clear"

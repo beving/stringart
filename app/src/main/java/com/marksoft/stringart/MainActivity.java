@@ -30,11 +30,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // store the data in the fragment
-        Log.d("MainActivity.onDestroy", "Size: " + dataHandler.getDataFragment().getPoints().size());
-
-        //TODO test turning.  It should hold onto lines and points.
-        //dataHandler.getDataFragment().setPoints(getDrawingView().getPoints());
     }
 
     @Override
@@ -88,13 +83,16 @@ public class MainActivity extends AppCompatActivity {
             }
             case (R.id.action_line_thickness): {
                 Log.d("MainActivity", "action_line_thickness");
-
                 new NumberChooserDialog().open(MainActivity.this, getDrawingView(), false);
-
                 getDrawingView().drawLines();
+                return true;
+            }
+            case (R.id.action_toggle_grid): {
+                Log.d("MainActivity", "action_toggle_grid");
 
-                Log.d("MainActivity", "action_line_thickness");
-
+                //Set to the opposite of what it is currently
+                getDrawingView().setDrawDottedLines(!getDrawingView().isDrawDottedLines());
+                getDrawingView().reDraw();
                 return true;
             }
             case (R.id.action_grid_size): {

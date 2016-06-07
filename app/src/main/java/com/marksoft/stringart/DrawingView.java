@@ -3,6 +3,7 @@ package com.marksoft.stringart;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
@@ -22,6 +23,7 @@ public class DrawingView extends View {
 
     private DataHandler dataHandler;
     private boolean drawLines = false;
+    private boolean drawDottedLines = true;
     private GestureDetector gestureDetector;
     private final Paint paint = new Paint();
 
@@ -73,17 +75,58 @@ public class DrawingView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        //Setup Canvas
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);  //Set the color for the canvas background
         canvas.drawPaint(paint);
 
-        int lastSelectedColor = dataHandler.getDataFragment().getLastSelectedColor();
-        paint.setColor(lastSelectedColor); //Set the color for the points
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(dataHandler.getDataFragment().getStrokeWidth());
+        //Draw Dotted Lines
+        if (drawDottedLines) {
 
+            int spacing = dataHandler.getDataFragment().getRoundToTheNearest();
+
+            //Draw Dotted Lines along the X axis (horizontally)
+            for (int y = 0; y < canvas.getHeight(); y+=spacing) {
+                paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+                paint.setAntiAlias(true);
+                paint.setFilterBitmap(true);
+                paint.setColor(0xffcccccc);
+                paint.setStrokeWidth(1);
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setPathEffect(new DashPathEffect(new float[] {10,5}, 0));
+                Log.d("DrawingView ", "y: " + y + " canvas.width: " + canvas.getWidth());
+
+                canvas.drawLine(0, y,
+                        canvas.getWidth(), y,
+                        paint);
+
+                //Draw Dotted Lines along the Y axis (vertically)
+                for (int x = 0; x < canvas.getWidth(); x+=spacing) {
+                    paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+                    paint.setAntiAlias(true);
+                    paint.setFilterBitmap(true);
+                    paint.setColor(0xffcccccc);
+                    paint.setStrokeWidth(1);
+                    paint.setStyle(Paint.Style.STROKE);
+                    paint.setPathEffect(new DashPathEffect(new float[]{10, 5}, 0));
+                    Log.d("DrawingView ", "x: " + x + " canvus.height: " + canvas.getHeight());
+
+                    canvas.drawLine(x, 0,
+                            x, canvas.getHeight(),
+                            paint);
+                }
+            }
+        }
+
+        //Draw Points
+        int lastSelectedColor = dataHandler.getDataFragment().getLastSelectedColor();
+        paint.setColor(Color.BLACK); //Set the color for the points
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(10);
+        paint.setStrokeWidth(dataHandler.getDataFragment().getStrokeWidth());
         canvas.drawPoints(PointUtility.toArray(getPoints()), paint);  //TODO dont do if drawing lines
 
+        //Draw Lines
         if (drawLines) {
             for (Line line : dataHandler.getDataFragment().getLines()) {
                 paint.setColor(line.getColor());  //Set the color for the line
@@ -113,12 +156,7 @@ public class DrawingView extends View {
         reDraw();
     }
 
-    //Round to the nearest 50th so that it is easier to draw.
-    //ie Points are easy to draw in a straight line.
-//    private int round(float number) {
-//        return Math.round(Precision.round(number, -2, BigDecimal.ROUND_HALF_DOWN));
-//    }
-
+    //Round so that it is easier to draw.
     private int round(float numberF, int roundedToNearest) {
         Log.d("DrawingView", "Number to round: " + numberF + " rounded to nearest "
                 + roundedToNearest);
@@ -187,4 +225,8 @@ public class DrawingView extends View {
     public void setDataHandler(DataHandler dataHandler) {
         this.dataHandler = dataHandler;
     }
+
+    public void setDrawDottedLines(boolean drawDottedLines) { this.drawDottedLines = drawDottedLines; }
+
+    public boolean isDrawDottedLines() {return drawDottedLines; }
 }
