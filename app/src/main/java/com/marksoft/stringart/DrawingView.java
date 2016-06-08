@@ -23,7 +23,7 @@ public class DrawingView extends View {
 
     //NOTE: Do not store data here, or else it will be lost when the orientation of the screen changes.
     private DataHandler dataHandler;
-    private boolean drawLines = false;
+    private boolean drawLines = false;  //TODO mv to datahandler
     private GestureDetector gestureDetector;
     private final Paint paint = new Paint();
 
@@ -38,8 +38,8 @@ public class DrawingView extends View {
 
     public Point createPoint(float x, float y) {
         Point newPoint = new Point(
-                round(x, dataHandler.getDataFragment().getRoundToTheNearest()),  //round(x),
-                round(y, dataHandler.getDataFragment().getRoundToTheNearest())); //round(y));
+                round(x, dataHandler.getDataFragment().getRoundToTheNearest()),
+                round(y, dataHandler.getDataFragment().getRoundToTheNearest()));
 
         if (!getPoints().contains(newPoint)) {
             getPoints().add(newPoint);
@@ -102,14 +102,7 @@ public class DrawingView extends View {
 
                 //Draw Dotted Lines along the Y axis (vertically)
                 for (int x = 0; x < canvas.getWidth(); x+=spacing) {
-//                    paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-//                    paint.setAntiAlias(true);
-//                    paint.setFilterBitmap(true);
-//                    paint.setColor(0xffcccccc);
-//                    paint.setStrokeWidth(1);
-//                    paint.setStyle(Paint.Style.STROKE);
                     paint.setPathEffect(new DashPathEffect(new float[]{10, 5}, 0));
-                    Log.d("DrawingView ", "x: " + x + " canvus.height: " + canvas.getHeight());
 
                     canvas.drawLine(x, 0,
                             x, canvas.getHeight(),
@@ -158,12 +151,7 @@ public class DrawingView extends View {
 
     //Round so that it is easier to draw.
     private int round(float numberF, int roundedToNearest) {
-        Log.d("DrawingView", "Number to round: " + numberF + " rounded to nearest "
-                + roundedToNearest);
-        int number = Math.round(numberF);
-        int roundedNumber = (number + (roundedToNearest-1)) / roundedToNearest * roundedToNearest;
-
-        return roundedNumber;
+        return roundedToNearest*(Math.round(numberF/roundedToNearest));
     }
 
     public void undoAdditionOfLastPoint() {
@@ -196,20 +184,6 @@ public class DrawingView extends View {
         this.invalidate();
     }
 
-//    public void setColor(int color) {
-//        dataHandler.getDataFragment().setLastSelectedColor(color);
-//    }
-//
-//    public void setStrokeWidth(int strokeWidth) {
-//        dataHandler.getDataFragment().setStrokeWidth(strokeWidth);
-//    }
-//
-//    public void setRoundToTheNearest(int roundToTheNearest) {
-//        Log.d("DrawingView","setRoundToTheNearest: " + roundToTheNearest);
-//        //this.roundToTheNearest = roundToTheNearest;
-//        dataHandler.getDataFragment().setRoundToTheNearest(roundToTheNearest);
-//    }
-
     private List<Point> getPoints() {
         return dataHandler.getDataFragment().getPoints();
     }
@@ -224,7 +198,4 @@ public class DrawingView extends View {
     public void setDataHandler(DataHandler dataHandler) {
         this.dataHandler = dataHandler;
     }
-
-
-
 }

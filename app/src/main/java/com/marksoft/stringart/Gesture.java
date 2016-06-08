@@ -21,6 +21,7 @@ class Gesture extends GestureDetector.SimpleOnGestureListener {
         myView.createLine(
                 myView.createPoint(
                         motionEvent.getX(), motionEvent.getY()));
+
         myView.reDraw();
     }
 

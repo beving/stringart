@@ -1,5 +1,7 @@
 package com.marksoft.stringart;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -61,9 +63,24 @@ public class MainActivity extends AppCompatActivity {
             }
             case (R.id.action_clear): {
                 Log.d("MainActivity", "action_clear");
-                getDrawingView().clear();
-                Toast.makeText(getBaseContext(), getResources().getString(R.string.cleared),
-                        Toast.LENGTH_LONG).show();
+
+                new AlertDialog.Builder(this)
+                        .setTitle("Clear")
+                        .setMessage("Do you really want to clear all the lines and points?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                getDrawingView().clear();
+                                Toast.makeText(MainActivity.this, R.string.cleared, Toast.LENGTH_SHORT).show();
+                            }})
+                        /*.setNegativeButton(android.R.string.no, null).show()*/;
+
+
+
+                //getDrawingView().clear();
+                //Toast.makeText(getBaseContext(), getResources().getString(R.string.cleared),
+                        //Toast.LENGTH_LONG).show();
                 return true;
             }
             case (R.id.action_connect): {
