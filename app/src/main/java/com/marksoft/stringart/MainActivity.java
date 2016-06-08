@@ -53,20 +53,15 @@ public class MainActivity extends AppCompatActivity {
             /*case (R.id.action_settings): {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 MainActivity.this.startActivity(intent);
-
-                return true;
             }*/
             case (R.id.action_undo): {
-                Log.d("MainActivity", "action_undo");
                 getDrawingView().undoAdditionOfLastPoint();
                 break;
             }
             case (R.id.action_clear): {
-                Log.d("MainActivity", "action_clear");
-
                 new AlertDialog.Builder(this)
-                        .setTitle("Clear")
-                        .setMessage("Do you really want to clear all the lines and points?")
+                        .setTitle(R.string.clear)
+                        .setMessage(R.string.cleared)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
@@ -77,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             case (R.id.action_connect): {
-                Log.d("MainActivity", "action_connect");
-
                 if (!getDrawingView().drawLines()) {
                     Toast.makeText(getBaseContext(), getResources().getString(R.string.pointless),
                             Toast.LENGTH_LONG).show();
@@ -86,27 +79,21 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             case (R.id.action_change_color): {
-                Log.d("MainActivity", "action_change_color");
                 new ColorDialog().colorDialog(getBaseContext(), getDrawingView(),
                         getSupportFragmentManager());
                 break;
             }
             case (R.id.action_line_thickness): {
-                Log.d("MainActivity", "action_line_thickness");
                 new NumberChooserDialog().open(MainActivity.this, getDrawingView(), item.getItemId());
                 getDrawingView().drawLines();
                 break;
             }
             case (R.id.action_toggle_grid): {
-                Log.d("MainActivity", "action_toggle_grid");
-
                 //Set to the opposite of what it is currently
                 getDataFragment().setDrawDottedLines(!getDataFragment().isDrawDottedLines());
                 break;
             }
             case (R.id.action_grid_size): {
-                Log.d("MainActivity", "action_grid_size");
-
                 new NumberChooserDialog().open(MainActivity.this, getDrawingView(), item.getItemId());
                 break;
             }
