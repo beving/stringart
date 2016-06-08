@@ -14,7 +14,7 @@ import android.widget.Toast;
 */
 class NumberChooserDialog {
 
-    public void open(final Context context, final DrawingView drawingView, boolean gridSpacing) {
+    public void open(final Context context, final DrawingView drawingView, int gridSpacing) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
@@ -28,7 +28,7 @@ class NumberChooserDialog {
             }
         });
 
-        if (gridSpacing) {
+        if (gridSpacing == R.id.action_grid_size) {
 
             for (int i = 25; i < 150 ;i+=25) {
                 arrayAdapter.add(i);
@@ -44,11 +44,14 @@ class NumberChooserDialog {
 
                             drawingView.getDataHandler().getDataFragment().setRoundToTheNearest(selectedInteger);
                             drawingView.drawLines();
+                            drawingView.reDraw();
                             Toast.makeText(context, "Grid Spacing set to: " + selectedInteger,  //TODO don't hard code text.
                                     Toast.LENGTH_LONG).show();
                         }
                     });
-        } else {
+        } else if (gridSpacing == R.id.action_line_thickness) {
+
+
             alertDialog.setTitle("Line Size");
             for (int i = 1; i < 10 +1 ;i+=2) {
                 arrayAdapter.add(i);
@@ -62,6 +65,7 @@ class NumberChooserDialog {
 
                             drawingView.getDataHandler().getDataFragment().setStrokeWidth(selectedInteger);
                             drawingView.drawLines();
+                            drawingView.reDraw();
                             Toast.makeText(context, "Line Size to: " + selectedInteger,  //TODO don't hard code text.
                                     Toast.LENGTH_LONG).show();
                         }

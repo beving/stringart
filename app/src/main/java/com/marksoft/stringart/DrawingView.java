@@ -94,7 +94,7 @@ public class DrawingView extends View {
                 paint.setStrokeWidth(1);
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setPathEffect(new DashPathEffect(new float[] {10,5}, 0));
-                Log.d("DrawingView ", "y: " + y + " canvas.width: " + canvas.getWidth());
+                //Log.d("DrawingView ", "y: " + y + " canvas.width: " + canvas.getWidth());
 
                 canvas.drawLine(0, y,
                         canvas.getWidth(), y,
@@ -138,7 +138,6 @@ public class DrawingView extends View {
         drawLines = true;
 
         if (!getLines().isEmpty()) {
-            reDraw();
             return true;
         }
         return false;
@@ -146,7 +145,6 @@ public class DrawingView extends View {
 
     public void clear() {
         dataHandler.getDataFragment().clear();
-        reDraw();
     }
 
     //Round so that it is easier to draw.
@@ -160,8 +158,6 @@ public class DrawingView extends View {
 
             dataHandler.getDataFragment().getLines().removeAll(getLastLinesCreated());
             getPoints().remove(pointToRemove);
-
-            reDraw();
         }
     }
 

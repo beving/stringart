@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             case (R.id.action_undo): {
                 Log.d("MainActivity", "action_undo");
                 getDrawingView().undoAdditionOfLastPoint();
-                return true;
+                break;
             }
             case (R.id.action_clear): {
                 Log.d("MainActivity", "action_clear");
@@ -69,19 +69,16 @@ public class MainActivity extends AppCompatActivity {
                         .setMessage("Do you really want to clear all the lines and points?")
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 getDrawingView().clear();
                                 Toast.makeText(MainActivity.this, R.string.cleared, Toast.LENGTH_SHORT).show();
                             }})
-                        /*.setNegativeButton(android.R.string.no, null).show()*/;
+                         .setNegativeButton(android.R.string.no, null).show();
 
-
-
-                //getDrawingView().clear();
-                //Toast.makeText(getBaseContext(), getResources().getString(R.string.cleared),
-                        //Toast.LENGTH_LONG).show();
-                return true;
+                getDrawingView().clear();
+                Toast.makeText(getBaseContext(), getResources().getString(R.string.cleared),
+                        Toast.LENGTH_LONG).show();
+                break;
             }
             case (R.id.action_connect): {
                 Log.d("MainActivity", "action_connect");
@@ -90,36 +87,39 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), getResources().getString(R.string.pointless),
                             Toast.LENGTH_LONG).show();
                 }
-                return true;
+                break;
             }
             case (R.id.action_change_color): {
                 Log.d("MainActivity", "action_change_color");
                 new ColorDialog().colorDialog(getBaseContext(), getDrawingView(),
                         getSupportFragmentManager());
-                return true;
+                break;
             }
             case (R.id.action_line_thickness): {
                 Log.d("MainActivity", "action_line_thickness");
-                new NumberChooserDialog().open(MainActivity.this, getDrawingView(), false);
+                new NumberChooserDialog().open(MainActivity.this, getDrawingView(), item.getItemId());
                 getDrawingView().drawLines();
-                return true;
+                break;
             }
             case (R.id.action_toggle_grid): {
                 Log.d("MainActivity", "action_toggle_grid");
 
                 //Set to the opposite of what it is currently
                 getDataFragment().setDrawDottedLines(!getDataFragment().isDrawDottedLines());
-                getDrawingView().reDraw();
-                return true;
+                break;
             }
             case (R.id.action_grid_size): {
                 Log.d("MainActivity", "action_grid_size");
 
-                new NumberChooserDialog().open(MainActivity.this, getDrawingView(), true);
-
-                return true;
+                new NumberChooserDialog().open(MainActivity.this, getDrawingView(), item.getItemId());
+                break;
+            }
+            default: {
+                return false;
             }
         }
+        getDrawingView().reDraw();
+
         return super.onOptionsItemSelected(item);
     }
 
