@@ -74,10 +74,6 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, R.string.cleared, Toast.LENGTH_SHORT).show();
                             }})
                          .setNegativeButton(android.R.string.no, null).show();
-
-                getDrawingView().clear();
-                Toast.makeText(getBaseContext(), getResources().getString(R.string.cleared),
-                        Toast.LENGTH_LONG).show();
                 break;
             }
             case (R.id.action_connect): {
