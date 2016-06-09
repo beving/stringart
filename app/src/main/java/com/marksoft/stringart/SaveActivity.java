@@ -104,24 +104,15 @@ public class SaveActivity extends AppCompatActivity {
 
     public void save(final Context context, final DrawingView drawingView) {
 
+        // Generating a random number to save as image name
+        Random generator = new Random();
+        int n = 10000;
+        n = generator.nextInt(n);
+        String timeStamp = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        String fileName = "Image_" + timeStamp + "_" + n + ".png";
 
-        context.getFilesDir();
 
         Log.d("DrawingView", "context.getFilesDir: " + context.getFilesDir());
-
-//        View content = drawingView;
-//        content.setDrawingCacheEnabled(true);
-//        content.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-//        Bitmap bitmap = content.getDrawingCache();
-//        File file = new File(Environment.getDataDirectory().getPath() + File.separator + "markWasHere" + File.separator + "image123.png");
-//        FileOutputStream ostream;
-//        try {
-//            file.createNewFile();
-//            ostream = new FileOutputStream(file);
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
-//            ostream.flush();
-//            ostream.close();
-
 
         View content = drawingView;
         content.setDrawingCacheEnabled(true);
@@ -130,9 +121,8 @@ public class SaveActivity extends AppCompatActivity {
         Bitmap bitmap = content.getDrawingCache();
         FileOutputStream outputStream;
         try {
-            outputStream = context.openFileOutput("image123.png", Context.MODE_PRIVATE);
+            outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-            //outputStream.write(string.getBytes());
             outputStream.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -141,17 +131,6 @@ public class SaveActivity extends AppCompatActivity {
         for (String fileFound: context.fileList()) {
             Log.d("SaveActivity", "File---> " +fileFound);
             Toast.makeText(context, "Saved as: " + fileFound, Toast.LENGTH_LONG).show();
-
         }
-
-
-
-//        File filed = new File(filename);
-//        if (filed.exists())
-//            Toast.makeText(context, "Saved as: " + filed.getAbsolutePath(), Toast.LENGTH_LONG).show();
-//        else
-//            Toast.makeText(context, "DID NOT Save as: " + filed.getAbsolutePath(), Toast.LENGTH_LONG).show();
-
-
     }
 }
