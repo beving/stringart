@@ -46,62 +46,73 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml..
-
-        Log.d("MainActivity", "Item ID: " + item.getItemId());
-        switch (item.getItemId()) {
+        try {
+            Log.d("MainActivity", "Item ID: " + item.getItemId());
+            switch (item.getItemId()) {
 
             /*case (R.id.action_settings): {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 MainActivity.this.startActivity(intent);
             }*/
-            case (R.id.action_undo): {
-                getDrawingView().undoAdditionOfLastPoint();
-                break;
-            }
-            case (R.id.action_clear): {
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.clear)
-                        .setMessage(R.string.cleared)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                getDrawingView().clear();
-                                Toast.makeText(MainActivity.this, R.string.cleared, Toast.LENGTH_SHORT).show();
-                            }})
-                         .setNegativeButton(android.R.string.no, null).show();
-                break;
-            }
-            case (R.id.action_connect): {
-                if (!getDrawingView().drawLines()) {
-                    Toast.makeText(getBaseContext(), getResources().getString(R.string.pointless),
-                            Toast.LENGTH_LONG).show();
+                case (R.id.action_undo): {
+                    getDrawingView().undoAdditionOfLastPoint();
+                    break;
                 }
-                break;
+                case (R.id.action_clear): {
+                    new AlertDialog.Builder(this)
+                            .setTitle(R.string.clear)
+                            .setMessage(R.string.clear_question)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    getDrawingView().clear();
+                                    Toast.makeText(MainActivity.this, R.string.cleared, Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null).show();
+                    break;
+                }
+                case (R.id.action_connect): {
+                    if (!getDrawingView().drawLines()) {
+                        Toast.makeText(getBaseContext(), getResources().getString(R.string.pointless),
+                                Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                }
+                case (R.id.action_change_color): {
+                    new ColorDialog().colorDialog(getBaseContext(), getDrawingView(),
+                            getSupportFragmentManager());
+                    break;
+                }
+                case (R.id.action_line_thickness): {
+                    new NumberChooserDialog().open(MainActivity.this, getDrawingView(), item.getItemId());
+                    getDrawingView().drawLines();
+                    break;
+                }
+                case (R.id.action_toggle_grid): {
+                    //Set to the opposite of what it is currently
+                    getDataFragment().setDrawDottedLines(!getDataFragment().isDrawDottedLines());
+                    break;
+                }
+                case (R.id.action_grid_size): {
+                    new NumberChooserDialog().open(MainActivity.this, getDrawingView(), item.getItemId());
+                    break;
+                }
+                case (R.id.action_save): {
+                    new SaveActivity().save(MainActivity.this, getDrawingView());
+                    break;
+                }
+                default: {
+                    return false;
+                }
             }
-            case (R.id.action_change_color): {
-                new ColorDialog().colorDialog(getBaseContext(), getDrawingView(),
-                        getSupportFragmentManager());
-                break;
-            }
-            case (R.id.action_line_thickness): {
-                new NumberChooserDialog().open(MainActivity.this, getDrawingView(), item.getItemId());
-                getDrawingView().drawLines();
-                break;
-            }
-            case (R.id.action_toggle_grid): {
-                //Set to the opposite of what it is currently
-                getDataFragment().setDrawDottedLines(!getDataFragment().isDrawDottedLines());
-                break;
-            }
-            case (R.id.action_grid_size): {
-                new NumberChooserDialog().open(MainActivity.this, getDrawingView(), item.getItemId());
-                break;
-            }
-            default: {
-                return false;
-            }
+            getDrawingView().reDraw();
+
+        } catch (Exception e) {
+            Log.e("MainActivity", "Caught Exception " + e.getMessage());
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "Caught Exception " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        getDrawingView().reDraw();
 
         return super.onOptionsItemSelected(item);
     }
