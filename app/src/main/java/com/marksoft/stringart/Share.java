@@ -19,7 +19,7 @@ import java.util.Random;
 /**
  * Created by e62032 on 6/8/2016.
  */
-public class SaveActivity extends AppCompatActivity {
+public class Share extends AppCompatActivity {
 
     public void share(final Context context, final DrawingView drawingView) {
         File savedFile = save(context, drawingView);
@@ -47,12 +47,13 @@ public class SaveActivity extends AppCompatActivity {
         try {
             outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);  //TODO make this use a temp file so it gets thrown away see: https://developer.android.com/training/basics/data-storage/files.html
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+            outputStream.flush();
             outputStream.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        Log.d("SaveActivity", "File-?????--> " +context.getFileStreamPath(fileName));
+        Log.d("Share", "File-?????--> " +context.getFileStreamPath(fileName));
 
         return context.getFileStreamPath(fileName);
     }
@@ -60,7 +61,7 @@ public class SaveActivity extends AppCompatActivity {
     private void scanForNewFiles(File file, Context context) {
 
         if (file.exists()) {  //TODO rm, this is for testing purposes only.
-            Toast.makeText(context, "scanForNewFiles file found: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "File created: " + file.getName(), Toast.LENGTH_LONG).show();
         }
         else Toast.makeText(context, "scanForNewFiles file was NOT found" + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
 
@@ -68,29 +69,63 @@ public class SaveActivity extends AppCompatActivity {
                 new String[]{file.toString()}, null,
                 new MediaScannerConnection.OnScanCompletedListener() {
                     public void onScanCompleted(String path, Uri uri) {
-                        System.out.println("MediaScannerConnection onScanCompleted");
+                        Log.d("DrawingView", "MediaScannerConnection onScanCompleted.. path:" + path + "URI: " + uri);
                     }
                 });
     }
 
-    private Intent shareIntent(File file, Context context){
 
-        Log.d("SaveActivity","getDefaultShareIntent starting");
+    private void shareIntent(File file, Context context) {
+        //Bitmap icon = mBitmap;
+        try {
+
+            String debugPath = Uri.fromFile(file).getPath();
+            File debugFile = new File(debugPath);
+
+            if (!debugFile.exists()) {
+                Toast.makeText(context, "NOT exists! debugPath: " + debugPath, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(context, "URI exists: " + debugPath, Toast.LENGTH_LONG).show();
+
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("image/png");
+
+                //icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                Log.d("DrawingView", "URI: " + Uri.fromFile(file));
+
+                Toast.makeText(context, "startActivity1", Toast.LENGTH_LONG).show();
+
+                share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+                Toast.makeText(context, "startActivity2", Toast.LENGTH_LONG).show();
+
+                context.startActivity(Intent.createChooser(share, "Share Image"));
+
+                Toast.makeText(context, "startActivity finished", Toast.LENGTH_LONG).show();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+    private Intent shareIntentOld(File file, Context context){
+
+        Log.i("Share","getDefaultShareIntent starting");
         Uri screenshotUri = Uri.fromFile(file);
 
         //Create an intent to send any type of image
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-        sharingIntent.setType("image/*");
+        sharingIntent.setType("image/png");
         sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
 
-        Log.d("SaveActivity", "getDefaultShareIntent starting");
+        Log.i("Share", "getDefaultShareIntent starting");
 
         if (sharingIntent == null) {
-            Log.d("SaveActivity", "sharing intent is null");
+            Log.d("Share", "sharing intent is null");
         }
 
         context.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
-        Log.d("SaveActivity", "getDefaultShareIntent startActivity worked!");
+        Log.i("Share", "getDefaultShareIntent startActivity worked!");
         return sharingIntent;
     }
 }

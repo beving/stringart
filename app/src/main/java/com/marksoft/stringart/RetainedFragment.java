@@ -20,9 +20,11 @@ public class RetainedFragment extends Fragment {
     // data objects we want to retain
     private List<Point> points = new ArrayList<>();
     private List<Line> lines = new ArrayList<>();
+
+    //Defaults
     private int lastSelectedColor = Color.RED;
     private int strokeWidth = 4;
-    private int roundToTheNearest = 50;
+    private int roundToTheNearest = 100;
     private boolean drawDottedLines = true;
 
     // this method is only called once for this fragment

@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_save): {
-                    new SaveActivity().share(MainActivity.this, getDrawingView());
+                    new Share().share(MainActivity.this, getDrawingView());
                     break;
                 }
                 default: {
