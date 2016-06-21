@@ -27,6 +27,7 @@ public class DrawingView extends View {
     private GestureDetector gestureDetector;
     private final Paint paint = new Paint();
 
+
     public DrawingView(Context context) {
         super(context);
     }
@@ -34,6 +35,90 @@ public class DrawingView extends View {
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         gestureDetector = new GestureDetector(this.getContext(), new Gesture(this));
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        drawBackGround(canvas);
+        drawGridLines(canvas);
+        drawPoints(canvas);
+        drawLines(canvas);
+    }
+
+    private void drawBackGround(Canvas canvas) {
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.WHITE);  //Set the color for the canvas background
+        canvas.drawPaint(paint);
+    }
+
+    private void drawLines(Canvas canvas) {
+        //Draw Lines
+        if (drawLines) {
+            for (Line line : dataHandler.getDataFragment().getLines()) {
+                paint.setColor(line.getColor());  //Set the color for the line
+                canvas.drawLine(
+                        Math.round(line.getStartPoint().x),  //starting coordinates
+                        Math.round(line.getStartPoint().y),
+                        Math.round(line.getEndPoint().x),    //ending coordinates
+                        Math.round(line.getEndPoint().y),
+                        paint);
+            }
+        }
+    }
+
+    private void drawPoints(Canvas canvas) {
+        //Draw Points
+        int lastSelectedColor = dataHandler.getDataFragment().getLastSelectedColor();
+        paint.setColor(Color.BLACK); //Set the color for the points
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(10);
+        paint.setStrokeWidth(dataHandler.getDataFragment().getStrokeWidth());
+        canvas.drawPoints(PointUtility.toArray(getPoints()), paint);  //TODO dont do if drawing lines
+    }
+
+    private void drawGridLines(Canvas canvas) {
+        //Draw Dotted Lines
+        if (dataHandler.getDataFragment().isDrawDottedLines()) {
+
+            int spacing = dataHandler.getDataFragment().getRoundToTheNearest();
+
+            //Draw Dotted Lines along the X axis (horizontally)
+            for (int y = 0; y < canvas.getHeight(); y+=spacing) {
+                paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+                paint.setAntiAlias(true);
+                paint.setFilterBitmap(true);
+                paint.setColor(0xffcccccc);
+                paint.setStrokeWidth(1);
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setPathEffect(new DashPathEffect(new float[] {10,5}, 0));
+                //Log.d("DrawingView ", "y: " + y + " canvas.width: " + canvas.getWidth());
+
+                canvas.drawLine(0, y,
+                        canvas.getWidth(), y,
+                        paint);
+
+                //Draw Dotted Lines along the Y axis (vertically)
+                for (int x = 0; x < canvas.getWidth(); x+=spacing) {
+                    paint.setPathEffect(new DashPathEffect(new float[]{10, 5}, 0));
+
+                    canvas.drawLine(x, 0,
+                            x, canvas.getHeight(),
+                            paint);
+                }
+            }
+        }
+    }
+
+    public boolean drawLines() {
+        Log.d("DrawingView", " drawLines");
+        drawLines = true;
+
+        if (!getLines().isEmpty()) {
+            return true;
+        }
+        return false;
     }
 
     public Point createPoint(float x, float y) {
@@ -69,78 +154,6 @@ public class DrawingView extends View {
     public boolean onTouchEvent(MotionEvent motionEvent) {
         gestureDetector.onTouchEvent(motionEvent);
         return true;
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        //Setup Canvas
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.WHITE);  //Set the color for the canvas background
-        canvas.drawPaint(paint);
-
-        //Draw Dotted Lines
-        if (dataHandler.getDataFragment().isDrawDottedLines()) {
-
-            int spacing = dataHandler.getDataFragment().getRoundToTheNearest();
-
-            //Draw Dotted Lines along the X axis (horizontally)
-            for (int y = 0; y < canvas.getHeight(); y+=spacing) {
-                paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-                paint.setAntiAlias(true);
-                paint.setFilterBitmap(true);
-                paint.setColor(0xffcccccc);
-                paint.setStrokeWidth(1);
-                paint.setStyle(Paint.Style.STROKE);
-                paint.setPathEffect(new DashPathEffect(new float[] {10,5}, 0));
-                //Log.d("DrawingView ", "y: " + y + " canvas.width: " + canvas.getWidth());
-
-                canvas.drawLine(0, y,
-                        canvas.getWidth(), y,
-                        paint);
-
-                //Draw Dotted Lines along the Y axis (vertically)
-                for (int x = 0; x < canvas.getWidth(); x+=spacing) {
-                    paint.setPathEffect(new DashPathEffect(new float[]{10, 5}, 0));
-
-                    canvas.drawLine(x, 0,
-                            x, canvas.getHeight(),
-                            paint);
-                }
-            }
-        }
-
-        //Draw Points
-        int lastSelectedColor = dataHandler.getDataFragment().getLastSelectedColor();
-        paint.setColor(Color.BLACK); //Set the color for the points
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(10);
-        paint.setStrokeWidth(dataHandler.getDataFragment().getStrokeWidth());
-        canvas.drawPoints(PointUtility.toArray(getPoints()), paint);  //TODO dont do if drawing lines
-
-        //Draw Lines
-        if (drawLines) {
-            for (Line line : dataHandler.getDataFragment().getLines()) {
-                paint.setColor(line.getColor());  //Set the color for the line
-                canvas.drawLine(
-                        Math.round(line.getStartPoint().x),  //starting coordinates
-                        Math.round(line.getStartPoint().y),
-                        Math.round(line.getEndPoint().x),    //ending coordinates
-                        Math.round(line.getEndPoint().y),
-                        paint);
-            }
-        }
-    }
-
-    public boolean drawLines() {
-        Log.d("DrawingView", " drawLines");
-        drawLines = true;
-
-        if (!getLines().isEmpty()) {
-            return true;
-        }
-        return false;
     }
 
     public void clear() {
