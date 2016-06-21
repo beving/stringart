@@ -24,17 +24,13 @@ public class Share extends AppCompatActivity {
     public void share(final Context context, final DrawingView drawingView) {
         File savedFile = save(context, drawingView);
         scanForNewFiles(savedFile, context);
-        shareIntent(savedFile, context);
+        //shareIntent(savedFile, context);
     }
 
     private File save(final Context context, final DrawingView drawingView) {
 
         // Generating a random number to save as image name
-        Random generator = new Random();
-        int n = 10000;
-        n = generator.nextInt(n);
-        String timeStamp = new SimpleDateFormat("yyyyMMdd").format(new Date());
-        String fileName = "Image_" + timeStamp + "_" + n + ".png";
+        String fileName = getRandomFileName();
 
         Log.d("DrawingView", "context.getFilesDir: " + context.getFilesDir());
 
@@ -53,12 +49,10 @@ public class Share extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        Log.d("Share", "File-?????--> " +context.getFileStreamPath(fileName));
-
         return context.getFileStreamPath(fileName);
     }
 
-    private void scanForNewFiles(File file, Context context) {
+    private void scanForNewFiles(final File file, final Context context) {
 
         if (file.exists()) {  //TODO rm, this is for testing purposes only.
             Toast.makeText(context, "File created: " + file.getName(), Toast.LENGTH_LONG).show();
@@ -66,16 +60,19 @@ public class Share extends AppCompatActivity {
         else Toast.makeText(context, "scanForNewFiles file was NOT found" + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
 
         MediaScannerConnection.scanFile(context,
-                new String[]{file.toString()}, null,
+                new String[]{file.getPath()}, null,
                 new MediaScannerConnection.OnScanCompletedListener() {
                     public void onScanCompleted(String path, Uri uri) {
                         Log.d("DrawingView", "MediaScannerConnection onScanCompleted.. path:" + path + "URI: " + uri);
+
+                        shareIntent(new File(path), context);
                     }
                 });
     }
 
 
     private void shareIntent(File file, Context context) {
+   //private void shareIntent(Uri uri, Context context) {
         //Bitmap icon = mBitmap;
         try {
 
@@ -85,22 +82,27 @@ public class Share extends AppCompatActivity {
             if (!debugFile.exists()) {
                 Toast.makeText(context, "NOT exists! debugPath: " + debugPath, Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(context, "URI exists: " + debugPath, Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "URI exists: " + debugPath, Toast.LENGTH_LONG).show();
+
+
+
+                context.grantUriPermission("com.marksoft.stringart", Uri.fromFile(file), Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
 
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType("image/png");
 
                 //icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                Log.d("DrawingView", "URI: " + Uri.fromFile(file));
+                Log.d("DrawingView", "URI: " + Uri.fromFile(debugFile));
 
-                Toast.makeText(context, "startActivity1", Toast.LENGTH_LONG).show();
+                //oast.makeText(context, "startActivity1", Toast.LENGTH_LONG).show();
 
-                share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-                Toast.makeText(context, "startActivity2", Toast.LENGTH_LONG).show();
+                share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(debugFile));
+                //Toast.makeText(context, "startActivity2", Toast.LENGTH_LONG).show();
 
                 context.startActivity(Intent.createChooser(share, "Share Image"));
 
-                Toast.makeText(context, "startActivity finished", Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "startActivity finished", Toast.LENGTH_LONG).show();
             }
         }
         catch (Exception e) {
@@ -127,5 +129,14 @@ public class Share extends AppCompatActivity {
         context.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
         Log.i("Share", "getDefaultShareIntent startActivity worked!");
         return sharingIntent;
+    }
+
+    private String getRandomFileName() {
+        // Generating a random number to save as image name
+        Random generator = new Random();
+        int n = 10000;
+        n = generator.nextInt(n);
+        String timeStamp = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        return "Image_" + timeStamp + "_" + n + ".jpeg";
     }
 }
