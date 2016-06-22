@@ -12,6 +12,7 @@
     <string name="action_line_thickness">Line Size</string>
     <string name="action_grid_size">Grid Spacing</string>
     <string name="action_save">Save</string>
+    <string name="gles_activity_name">Z gles_activity_name</string>
     <string name="title_activity_settings">Settings</string>
 
 

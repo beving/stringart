@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.marksoft.stringart">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature android:glEsVersion="0x00020000"
+        android:required="true" />
+
     <intent-filter>
         <action android:name="android.intent.action.SEND" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -31,9 +35,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
+        <!--activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings"></activity-->
+
+        <activity
+            android:name="com.marksoft.stringart.gles20.GLES20Activity"
+            android:label="@string/gles_activity_name"
+            android:parentActivityName="com.marksoft.stringart.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.marksoft.stringart.MainActivity" />
+        </activity>
+
     </application>
 
 </manifest>

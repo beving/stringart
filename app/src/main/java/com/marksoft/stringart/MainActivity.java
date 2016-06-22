@@ -1,7 +1,11 @@
 package com.marksoft.stringart;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ConfigurationInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,6 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.marksoft.stringart.gles20.GLES20Activity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -99,7 +105,11 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_save): {
-                    new Share().share(MainActivity.this, getDrawingView());
+                    if (hasGLES20()) {
+                        Intent intent = new Intent(this, GLES20Activity.class);
+                        startActivity(intent);
+                        //new Share().share(MainActivity.this, getDrawingView());
+                    }
                     break;
                 }
                 default: {
@@ -115,6 +125,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    private boolean hasGLES20() {
+        ActivityManager am = (ActivityManager)
+                getSystemService(Context.ACTIVITY_SERVICE);
+        ConfigurationInfo info = am.getDeviceConfigurationInfo();
+        return info.reqGlEsVersion >= 0x20000;
     }
 
     private DrawingView getDrawingView() {
