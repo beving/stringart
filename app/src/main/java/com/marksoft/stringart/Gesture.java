@@ -15,6 +15,7 @@ class Gesture extends GestureDetector.SimpleOnGestureListener {
         this.myView = myView;
     }
 
+    @Override
     public void onLongPress(MotionEvent motionEvent) {
         Log.d("Gesture.onLongPress", "X Y: " + motionEvent.getX()+ " " + motionEvent.getY());
 
@@ -25,10 +26,36 @@ class Gesture extends GestureDetector.SimpleOnGestureListener {
         myView.reDraw();
     }
 
+    @Override
     public boolean onDoubleTap(MotionEvent e) {
         Log.d("Gesture.onDoubleTap", "Gesture.onDoubleTap");
 
         myView.drawLines();
+        myView.reDraw();
+        return false;
+    }
+
+    @Override
+    public boolean onFling(MotionEvent motionEvent1, MotionEvent motionEvent2, float velocityX, float velocityY) {
+
+        Log.d("Gesture.onFling", "Lets have a Fling ;)");
+
+        myView.createLine(
+                myView.createPoint(
+                        motionEvent1.getX(), motionEvent1.getY()));
+
+        myView.createLine(
+                myView.createPoint(
+                        motionEvent2.getX(), motionEvent2.getY()));
+
+        myView.reDraw();
+        return false;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+
+        Log.d("Gesture", "On down, set hut hut hut");
         return false;
     }
 }

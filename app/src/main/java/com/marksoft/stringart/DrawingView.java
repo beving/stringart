@@ -131,7 +131,8 @@ public class DrawingView extends View {
         } else {
             Log.d("DrawingView", "Point already added previously-->" + newPoint.toString());
         }
-        drawLines = false;
+        //drawLines = false;
+        drawLines = true;
 
         return newPoint;
     }

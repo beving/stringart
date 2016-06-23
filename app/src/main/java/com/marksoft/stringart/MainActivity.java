@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     getDrawingView().clear();
+                                    getDrawingView().reDraw();
                                     Toast.makeText(MainActivity.this, R.string.cleared, Toast.LENGTH_LONG).show();
                                 }
                             })
