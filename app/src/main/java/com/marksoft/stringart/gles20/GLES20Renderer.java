@@ -26,7 +26,6 @@ public class GLES20Renderer extends GLRenderer {
 
         GLES20.glClearColor(1f, 0f, 0f, 1f);
 
-        GLES20.
     }
 
     @Override
