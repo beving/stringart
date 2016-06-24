@@ -25,6 +25,7 @@ public class DrawingView extends View {
     private DataHandler dataHandler;
     private boolean drawLines = false;  //TODO mv to datahandler
     private GestureDetector gestureDetector;
+    private Gesture gesture;
     private final Paint paint = new Paint();
 
 
@@ -34,7 +35,8 @@ public class DrawingView extends View {
 
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        gestureDetector = new GestureDetector(this.getContext(), new Gesture(this));
+        gesture = new Gesture(this);
+        gestureDetector = new GestureDetector(this.getContext(), gesture);
     }
 
     @Override
@@ -136,6 +138,23 @@ public class DrawingView extends View {
 
         return newPoint;
     }
+    public Point deletePoint(float x, float y) {
+        Point newPoint = new Point(
+                round(x, dataHandler.getDataFragment().getRoundToTheNearest()),
+                round(y, dataHandler.getDataFragment().getRoundToTheNearest()));
+
+        if (getPoints().contains(newPoint)) {
+            getPoints().remove(newPoint);
+            Log.d("DrawingView", "Point deleted-->" + newPoint.toString());
+        } else {
+            Log.d("DrawingView", "Point not deleted because it could not be found-->" + newPoint.toString());
+        }
+        //drawLines = false;
+        drawLines = true;
+
+        return newPoint;
+    }
+
 
     public void createLine(Point newPoint) {
 
@@ -154,6 +173,8 @@ public class DrawingView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         gestureDetector.onTouchEvent(motionEvent);
+
+        gesture.onTouch(motionEvent);
         return true;
     }
 
