@@ -71,15 +71,17 @@ public class DrawingView extends View {
     }
 
     private void drawPoints(Canvas canvas) {
-        paint.setColor(Color.BLACK); //Set the color for the points
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(10);
-        paint.setStrokeWidth(dataHandler.getDataFragment().getStrokeWidth());
-        canvas.drawPoints(PointUtility.toArray(getPoints()), paint);
+        //Only draw points for the first one
+        if (dataHandler.getDataFragment().getPoints().size()==1) {
+            paint.setColor(Color.BLACK); //Set the color for the points
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeWidth(10);
+            canvas.drawPoints(PointUtility.toArray(getPoints()), paint);
+        }
     }
 
     private void drawGridLines(Canvas canvas) {
-        //Draw Dotted Lines
+        //Draw Dotted (Grid) Lines
         if (dataHandler.getDataFragment().isDrawDottedLines()) {
 
             int spacing = dataHandler.getDataFragment().getRoundToTheNearest();
@@ -93,7 +95,6 @@ public class DrawingView extends View {
                 paint.setStrokeWidth(1);
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setPathEffect(new DashPathEffect(new float[] {10,5}, 0));
-                //Log.d("DrawingView ", "y: " + y + " canvas.width: " + canvas.getWidth());
 
                 canvas.drawLine(0, y,
                         canvas.getWidth(), y,
@@ -170,6 +171,7 @@ public class DrawingView extends View {
     }
 
     public void createLine(Point newPoint) {
+
 
         //For now make all lines connect to our new point
         for (Point otherPoint : getPoints()) {
