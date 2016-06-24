@@ -26,6 +26,7 @@ public class RetainedFragment extends Fragment {
     private int strokeWidth = 4;
     private int roundToTheNearest = 100;
     private boolean drawDottedLines = true;
+    private boolean cutPoint = false;
 
     // this method is only called once for this fragment
     @Override
@@ -56,15 +57,43 @@ public class RetainedFragment extends Fragment {
         this.lines = lines;
     }
 
-    public int getLastSelectedColor() { return lastSelectedColor; }
-    public void setLastSelectedColor(int lastSelectedColor) {this.lastSelectedColor = lastSelectedColor; }
+    public int getLastSelectedColor() {
+        return lastSelectedColor;
+    }
 
-    public int getStrokeWidth() {return strokeWidth;  }
-    public void setStrokeWidth(int strokeWidth) {     this.strokeWidth = strokeWidth;    }
+    public void setLastSelectedColor(int lastSelectedColor) {
+        this.lastSelectedColor = lastSelectedColor;
+    }
 
-    public int getRoundToTheNearest() { return roundToTheNearest;  }
-    public void setRoundToTheNearest(int roundToTheNearest) {  this.roundToTheNearest = roundToTheNearest; }
+    public int getStrokeWidth() {
+        return strokeWidth;
+    }
 
-    public void setDrawDottedLines(boolean drawDottedLines) { this.drawDottedLines = drawDottedLines; }
-    public boolean isDrawDottedLines() {return drawDottedLines; }
+    public void setStrokeWidth(int strokeWidth) {
+        this.strokeWidth = strokeWidth;
+    }
+
+    public int getRoundToTheNearest() {
+        return roundToTheNearest;
+    }
+
+    public void setRoundToTheNearest(int roundToTheNearest) {
+        this.roundToTheNearest = roundToTheNearest;
+    }
+
+    public void setDrawDottedLines(boolean drawDottedLines) {
+        this.drawDottedLines = drawDottedLines;
+    }
+
+    public boolean isDrawDottedLines() {
+        return drawDottedLines;
+    }
+
+    public boolean isCutPoint() {
+        return cutPoint;
+    }
+
+    public void setCutPoint(boolean cutPoint) {
+        this.cutPoint = cutPoint;
+    }
 }

@@ -26,7 +26,6 @@ public class DrawingView extends View {
     private DataHandler dataHandler;
     private Gesture gesture;
     private final Paint paint = new Paint();
-    private boolean cutPoint = false;
 
     public DrawingView(Context context) {
         super(context);
@@ -129,7 +128,7 @@ public class DrawingView extends View {
 
     public boolean cutPoint(float x, float y) {
 
-        if (cutPoint) {
+        if (dataHandler.getDataFragment().isCutPoint()) {
             Point pointToRemove = createRoundedPoint(x, y);
             List<Line> linesToDelete = new ArrayList<>();
 
@@ -153,7 +152,7 @@ public class DrawingView extends View {
                 Toast.makeText(getContext(), "Point not cut because it could not be found at: (" +
                         x + "," + y + ")", Toast.LENGTH_LONG).show();
             }
-            this.cutPoint = false;
+            dataHandler.getDataFragment().setCutPoint(false);
 
             return true;
         }
@@ -214,7 +213,7 @@ public class DrawingView extends View {
 
     public void cutPoint() {
         Log.d("DrawingView", "cutPoint-->");
-        this.cutPoint = true;
+        dataHandler.getDataFragment().setCutPoint(true);
     }
 
     public void reDraw(){
