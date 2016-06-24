@@ -220,6 +220,13 @@ public class DrawingView extends View {
         this.invalidate();
     }
 
+    //For any action that has to be selected first then worked on, this method will undo the action previously selected.
+    public void undoPreviousAction(int itemId) {
+        if (itemId != R.id.action_cut) {
+            dataHandler.getDataFragment().setCutPoint(false);
+        }
+    }
+
     private List<Point> getPoints() {
         return dataHandler.getDataFragment().getPoints();
     }

@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                 }
             }
+            getDrawingView().undoPreviousAction(item.getItemId());
             getDrawingView().reDraw();
 
         } catch (Exception e) {
