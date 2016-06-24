@@ -38,23 +38,6 @@ class Gesture extends GestureDetector.SimpleOnGestureListener {
 //        return false;
 //    }
 
-
-
-
-
-//    @Override
-//    public boolean onDown(MotionEvent motionEvent) {
-//        Log.d("Gesture.onDown", "X Y: " + motionEvent.getX() + " " + motionEvent.getY());
-//
-//        myView.createLine(
-//                myView.createPoint(
-//                        motionEvent.getX(), motionEvent.getY()));
-//
-//        myView.reDraw();
-//        return true;
-//    }
-
-
     public boolean onTouch(MotionEvent event) {
 
         Log.d("Gesture", "Gesture.onTouch event.getAction: " + event.getAction());
@@ -93,26 +76,5 @@ class Gesture extends GestureDetector.SimpleOnGestureListener {
 //        return false;
 //    }
 
-//    @Override
-//    public boolean onDown(MotionEvent motionEvent) {
-//
-//        myView.createLine(
-//                myView.createPoint(
-//                        motionEvent.getX(), motionEvent.getY()));
-//
-//        Log.d("Gesture", "On down, set hut hut hut");
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onMABoolean(MotionEvent motionEvent) {
-//
-//        myView.createLine(
-//                myView.createPoint(
-//                        motionEvent.getX(), motionEvent.getY()));
-//
-//        Log.d("Gesture", "On down, set hut hut hut");
-//        return true;
-//    }
 }
 

@@ -23,11 +23,9 @@ public class DrawingView extends View {
 
     //NOTE: Do not store data here, or else it will be lost when the orientation of the screen changes.
     private DataHandler dataHandler;
-    private boolean drawLines = false;  //TODO mv to datahandler
     private GestureDetector gestureDetector;
     private Gesture gesture;
     private final Paint paint = new Paint();
-
 
     public DrawingView(Context context) {
         super(context);
@@ -57,16 +55,14 @@ public class DrawingView extends View {
 
     private void drawLines(Canvas canvas) {
         //Draw Lines
-        if (drawLines) {
-            for (Line line : dataHandler.getDataFragment().getLines()) {
-                paint.setColor(line.getColor());  //Set the color for the line
-                canvas.drawLine(
-                        Math.round(line.getStartPoint().x),  //starting coordinates
-                        Math.round(line.getStartPoint().y),
-                        Math.round(line.getEndPoint().x),    //ending coordinates
-                        Math.round(line.getEndPoint().y),
-                        paint);
-            }
+        for (Line line : dataHandler.getDataFragment().getLines()) {
+            paint.setColor(line.getColor());  //Set the color for the line
+            canvas.drawLine(
+                    Math.round(line.getStartPoint().x),  //starting coordinates
+                    Math.round(line.getStartPoint().y),
+                    Math.round(line.getEndPoint().x),    //ending coordinates
+                    Math.round(line.getEndPoint().y),
+                    paint);
         }
     }
 
@@ -114,9 +110,6 @@ public class DrawingView extends View {
     }
 
     public boolean drawLines() {
-        Log.d("DrawingView", " drawLines");
-        drawLines = true;
-
         if (!getLines().isEmpty()) {
             return true;
         }
@@ -133,9 +126,6 @@ public class DrawingView extends View {
         } else {
             Log.d("DrawingView", "Point already added previously-->" + newPoint.toString());
         }
-        //drawLines = false;
-        drawLines = true;
-
         return newPoint;
     }
     public Point deletePoint(float x, float y) {
@@ -149,9 +139,6 @@ public class DrawingView extends View {
         } else {
             Log.d("DrawingView", "Point not deleted because it could not be found-->" + newPoint.toString());
         }
-        //drawLines = false;
-        drawLines = true;
-
         return newPoint;
     }
 
