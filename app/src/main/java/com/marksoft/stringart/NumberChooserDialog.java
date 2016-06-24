@@ -43,7 +43,6 @@ class NumberChooserDialog {
                             Log.d("Grid Spacing: ", selectedInteger + "");
 
                             drawingView.getDataHandler().getDataFragment().setRoundToTheNearest(selectedInteger);
-                            drawingView.drawLines();
                             drawingView.reDraw();
                             Toast.makeText(context, "Grid Spacing set to: " + selectedInteger,  //TODO don't hard code text.
                                     Toast.LENGTH_LONG).show();
@@ -64,7 +63,6 @@ class NumberChooserDialog {
                             Log.d("Line Size: ", selectedInteger + "");
 
                             drawingView.getDataHandler().getDataFragment().setStrokeWidth(selectedInteger);
-                            drawingView.drawLines();
                             drawingView.reDraw();
                             Toast.makeText(context, "Line Size to: " + selectedInteger,  //TODO don't hard code text.
                                     Toast.LENGTH_LONG).show();

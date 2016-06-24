@@ -21,10 +21,6 @@ public class DataHandler {
             dataFragment = new RetainedFragment();
             fragmentManager.beginTransaction().add(dataFragment, "pointData").commit();
         }
-        //In this case we are recreating.  Possibly due to change from landscape to portrait, etc.
-        else {
-            drawingView.drawLines();
-        }
     }
 
     public RetainedFragment getDataFragment() { return dataFragment; }

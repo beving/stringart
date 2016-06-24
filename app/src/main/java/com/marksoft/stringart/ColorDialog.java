@@ -48,7 +48,7 @@ public class ColorDialog {
                                             Integer.toHexString(color).toUpperCase(),
                                     Toast.LENGTH_LONG).show();
                             drawingView.getDataHandler().getDataFragment().setLastSelectedColor(color);
-                            drawingView.drawLines();
+                            //drawingView.drawLines();
 
                             Log.d("ColorDialog", "Color set to: " + color);
                         }

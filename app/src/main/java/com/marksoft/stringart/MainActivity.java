@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case (R.id.action_line_thickness): {
                     new NumberChooserDialog().open(MainActivity.this, getDrawingView(), item.getItemId());
-                    getDrawingView().drawLines();
                     break;
                 }
                 case (R.id.action_toggle_grid): {

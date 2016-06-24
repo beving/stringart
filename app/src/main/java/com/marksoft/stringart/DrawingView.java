@@ -9,7 +9,6 @@ import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -25,11 +24,9 @@ public class DrawingView extends View {
 
     //NOTE: Do not store data here, or else it will be lost when the orientation of the screen changes.
     private DataHandler dataHandler;
-    private GestureDetector gestureDetector;
     private Gesture gesture;
     private final Paint paint = new Paint();
     private boolean cutPoint = false;
-    private boolean cut = false;
 
     public DrawingView(Context context) {
         super(context);
@@ -112,13 +109,6 @@ public class DrawingView extends View {
         }
     }
 
-    public boolean drawLines() {
-        if (!getLines().isEmpty()) {
-            return true;
-        }
-        return false;
-    }
-
     public Point createPoint(float x, float y) {
         Point newPoint = createRoundedPoint(x, y);
 
@@ -171,8 +161,6 @@ public class DrawingView extends View {
     }
 
     public void createLine(Point newPoint) {
-
-
         //For now make all lines connect to our new point
         for (Point otherPoint : getPoints()) {
 
@@ -188,7 +176,6 @@ public class DrawingView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         //gestureDetector.onTouchEvent(motionEvent);
-
         gesture.onTouch(motionEvent);
         return true;
     }
