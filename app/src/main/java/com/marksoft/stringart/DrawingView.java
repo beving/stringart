@@ -6,11 +6,13 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,8 @@ public class DrawingView extends View {
     private GestureDetector gestureDetector;
     private Gesture gesture;
     private final Paint paint = new Paint();
+    private boolean cutPoint = false;
+    private boolean cut = false;
 
     public DrawingView(Context context) {
         super(context);
@@ -34,7 +38,7 @@ public class DrawingView extends View {
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         gesture = new Gesture(this);
-        gestureDetector = new GestureDetector(this.getContext(), gesture);
+        //gestureDetector = new GestureDetector(this.getContext(), gesture);
     }
 
     @Override
@@ -67,13 +71,11 @@ public class DrawingView extends View {
     }
 
     private void drawPoints(Canvas canvas) {
-        //Draw Points
-        int lastSelectedColor = dataHandler.getDataFragment().getLastSelectedColor();
         paint.setColor(Color.BLACK); //Set the color for the points
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(10);
         paint.setStrokeWidth(dataHandler.getDataFragment().getStrokeWidth());
-        canvas.drawPoints(PointUtility.toArray(getPoints()), paint);  //TODO dont do if drawing lines
+        canvas.drawPoints(PointUtility.toArray(getPoints()), paint);
     }
 
     private void drawGridLines(Canvas canvas) {
@@ -117,9 +119,7 @@ public class DrawingView extends View {
     }
 
     public Point createPoint(float x, float y) {
-        Point newPoint = new Point(
-                round(x, dataHandler.getDataFragment().getRoundToTheNearest()),
-                round(y, dataHandler.getDataFragment().getRoundToTheNearest()));
+        Point newPoint = createRoundedPoint(x, y);
 
         if (!getPoints().contains(newPoint)) {
             getPoints().add(newPoint);
@@ -128,20 +128,46 @@ public class DrawingView extends View {
         }
         return newPoint;
     }
-    public Point deletePoint(float x, float y) {
-        Point newPoint = new Point(
+
+    @NonNull
+    private Point createRoundedPoint(float x, float y) {
+        return new Point(
                 round(x, dataHandler.getDataFragment().getRoundToTheNearest()),
                 round(y, dataHandler.getDataFragment().getRoundToTheNearest()));
-
-        if (getPoints().contains(newPoint)) {
-            getPoints().remove(newPoint);
-            Log.d("DrawingView", "Point deleted-->" + newPoint.toString());
-        } else {
-            Log.d("DrawingView", "Point not deleted because it could not be found-->" + newPoint.toString());
-        }
-        return newPoint;
     }
 
+    public boolean cutPoint(float x, float y) {
+
+        if (cutPoint) {
+            Point pointToRemove = createRoundedPoint(x, y);
+            List<Line> linesToDelete = new ArrayList<>();
+
+            for (Line line : dataHandler.getDataFragment().getLines()) {
+                if (line.getEndPoint().equals(pointToRemove) ||
+                        line.getStartPoint().equals(pointToRemove)) {
+                    linesToDelete.add(line);
+                }
+            }
+            dataHandler.getDataFragment().getLines().removeAll(linesToDelete);
+
+            List<Point> pointsToRemove = new ArrayList<>();
+            for (Point point: dataHandler.getDataFragment().getPoints()) {
+                if (point.equals(pointToRemove)) {
+                    pointsToRemove.add(point);
+                }
+            }
+            dataHandler.getDataFragment().getPoints().removeAll(pointsToRemove);
+
+            if (pointsToRemove.isEmpty()) {
+                Toast.makeText(getContext(), "Point not cut because it could not be found at: (" +
+                        x + "," + y + ")", Toast.LENGTH_LONG).show();
+            }
+            this.cutPoint = false;
+
+            return true;
+        }
+        return false;
+    }
 
     public void createLine(Point newPoint) {
 
@@ -159,7 +185,7 @@ public class DrawingView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
-        gestureDetector.onTouchEvent(motionEvent);
+        //gestureDetector.onTouchEvent(motionEvent);
 
         gesture.onTouch(motionEvent);
         return true;
@@ -197,7 +223,11 @@ public class DrawingView extends View {
         return lastLines;
     }
 
-    //Force onDraw to be called.
+    public void cutPoint() {
+        Log.d("DrawingView", "cutPoint-->");
+        this.cutPoint = true;
+    }
+
     public void reDraw(){
         this.invalidate();
     }
@@ -216,4 +246,5 @@ public class DrawingView extends View {
     public void setDataHandler(DataHandler dataHandler) {
         this.dataHandler = dataHandler;
     }
+
 }

@@ -11,9 +11,9 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/action_connect"
-        android:icon="@drawable/ic_star_border"
-        android:title="@string/star"
+        android:id="@+id/action_cut"
+        android:icon="@drawable/ic_content_cut"
+        android:title="@string/cut"
         android:orderInCategory="4"
         app:showAsAction="ifRoom"/>
 
@@ -21,7 +21,7 @@
         android:id="@+id/action_undo"
         android:icon="@drawable/ic_action_undo"
         android:title="@string/undo"
-        android:orderInCategory="4"
+        android:orderInCategory="2"
         app:showAsAction="ifRoom"/>
 
     <item

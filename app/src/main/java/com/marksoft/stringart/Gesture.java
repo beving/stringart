@@ -1,16 +1,13 @@
 package com.marksoft.stringart;
 
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
-
-import java.util.Calendar;
 
 /**
  * Borrowed by e62032 on 4/7/2016.
  * Originally from:  http://www.theappguruz.com/blog/android-gestures-tutorial-in-android
  */
-class Gesture extends GestureDetector.SimpleOnGestureListener {
+class Gesture /*extends GestureDetector.SimpleOnGestureListener */ {
     private final DrawingView myView;
 
     public Gesture(DrawingView myView) {
@@ -30,51 +27,35 @@ class Gesture extends GestureDetector.SimpleOnGestureListener {
 //
 //    @Override
 //    public boolean onDoubleTap(MotionEvent event) {
-//        Log.d("Gesture.onDoubleTap", "Gesture.onDoubleTap");
-//
-//        myView.deletePoint(event.getX(), event.getY());
-//        myView.reDraw();
-//
-//        return false;
-//    }
+
 
     public boolean onTouch(MotionEvent event) {
+        try {
+            Log.d("Gesture", "Gesture.onTouch event.getAction: " + event.getAction());
+            switch (event.getAction()) {
 
-        Log.d("Gesture", "Gesture.onTouch event.getAction: " + event.getAction());
-        switch (event.getAction()) {
-
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_MOVE:
-            case MotionEvent.ACTION_UP:
-                myView.createLine(
-                        myView.createPoint(
-                                event.getX(), event.getY()));
-                myView.reDraw();
-                Log.d("Gesture", "Gesture.getAction x: " + event.getX() +
-                        "    y: " + event.getY());
-
-                return true;
-            default:
-                return false;
+                case MotionEvent.ACTION_UP:
+                    if (myView.cutPoint(event.getX(), event.getY())) {
+                        myView.reDraw();
+                        return true;
+                    }
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_MOVE:
+                    myView.createLine(myView.createPoint(event.getX(), event.getY()));
+                    Log.d("Gesture", "Gesture.getAction x: " + event.getX() +
+                            "    y: " + event.getY());
+                    myView.reDraw();
+                    return true;
+                default:
+                    return false;
+            }
+        }catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-//    @Override
 //    public boolean onFling(MotionEvent motionEvent1, MotionEvent motionEvent2, float velocityX, float velocityY) {
-//
-//        Log.d("Gesture.onFling", "Lets have a Fling ;)");
-//
-//        myView.createLine(
-//                myView.createPoint(
-//                        motionEvent1.getX(), motionEvent1.getY()));
-//
-//        myView.createLine(
-//                myView.createPoint(
-//                        motionEvent2.getX(), motionEvent2.getY()));
-//
-//        myView.reDraw();
-//        return false;
-//    }
+
 
 }
 

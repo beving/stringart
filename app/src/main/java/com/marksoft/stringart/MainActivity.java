@@ -1,11 +1,8 @@
 package com.marksoft.stringart;
 
-import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ConfigurationInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -79,11 +76,9 @@ public class MainActivity extends AppCompatActivity {
                             .setNegativeButton(android.R.string.no, null).show();
                     break;
                 }
-                case (R.id.action_connect): {
-                    if (!getDrawingView().drawLines()) {
-                        Toast.makeText(getBaseContext(), getResources().getString(R.string.pointless),
-                                Toast.LENGTH_LONG).show();
-                    }
+                case (R.id.action_cut): {
+                    Log.d("MainActivity", "action_cut: " + item.getItemId());
+                   getDrawingView().cutPoint();
                     break;
                 }
                 case (R.id.action_change_color): {
@@ -106,11 +101,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_save): {
-                    if (hasGLES20()) {
-                        Intent intent = new Intent(this, GLES20Activity.class);
-                        startActivity(intent);
-                        //new Share().share(MainActivity.this, getDrawingView());
-                    }
+                    Intent intent = new Intent(this, GLES20Activity.class);
+                    startActivity(intent);
+                    //new Share().share(MainActivity.this, getDrawingView());
                     break;
                 }
                 default: {
@@ -126,15 +119,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-
-    private boolean hasGLES20() {
-        ActivityManager am = (ActivityManager)
-                getSystemService(Context.ACTIVITY_SERVICE);
-        ConfigurationInfo info = am.getDeviceConfigurationInfo();
-        return info.reqGlEsVersion >= 0x20000;
     }
 
     private DrawingView getDrawingView() {
