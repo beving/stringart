@@ -56,6 +56,10 @@ public class DrawingView extends View {
     private void drawLines(Canvas canvas) {
         //Draw Lines
         for (Line line : dataHandler.getDataFragment().getLines()) {
+
+            paint.setStrokeWidth(dataHandler.getDataFragment().getStrokeWidth());
+            paint.setStyle(Paint.Style.STROKE);
+
             paint.setColor(line.getColor());  //Set the color for the line
             canvas.drawLine(
                     Math.round(line.getStartPoint().x),  //starting coordinates
@@ -67,7 +71,7 @@ public class DrawingView extends View {
     }
 
     private void drawPoints(Canvas canvas) {
-        //Only draw points for the first one
+        //Only draw a point for the first one
         if (dataHandler.getDataFragment().getPoints().size()==1) {
             paint.setColor(Color.BLACK); //Set the color for the points
             paint.setStyle(Paint.Style.STROKE);
