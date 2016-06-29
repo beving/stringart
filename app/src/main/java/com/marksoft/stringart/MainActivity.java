@@ -1,6 +1,8 @@
 package com.marksoft.stringart;
 
 import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,10 +28,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawingView drawingView = getDrawingView();
-        drawingView.setDataHandler(dataHandler);
+        getDrawingView().setDataHandler(dataHandler);
 
-        dataHandler.handlePoints(drawingView, getFragmentManager());
+        onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
@@ -129,10 +130,21 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle bundle) {
+        getDataFragment().onSaveInstanceState(bundle);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle bundle) {
+        getDataFragment().onRestoreInstanceState(bundle);
+    }
+
     private DrawingView getDrawingView() {
         return (DrawingView) findViewById(R.id.drawingView);
     }
 
-    private RetainedFragment getDataFragment() { return getDrawingView().getDataHandler().getDataFragment(); }
+    private RetainedFragment getDataFragment() {
+        return getDrawingView().getDataHandler().getDataFragment(); }
 
 }

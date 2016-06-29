@@ -91,7 +91,7 @@ public class DrawingView extends View {
                 paint.setFlags(Paint.ANTI_ALIAS_FLAG);
                 paint.setAntiAlias(true);
                 paint.setFilterBitmap(true);
-                paint.setColor(0xffcccccc);
+                paint.setColor(Color.LTGRAY);
                 paint.setStrokeWidth(1);
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setPathEffect(new DashPathEffect(new float[] {10,5}, 0));
@@ -167,7 +167,7 @@ public class DrawingView extends View {
         //For now make all lines connect to our new point
         for (Point otherPoint : getPoints()) {
 
-            Line newLine = new Line(newPoint, otherPoint, paint,
+            Line newLine = new Line(newPoint, otherPoint,
                     dataHandler.getDataFragment().getLastSelectedColor());
 
             if (!getLines().contains(newLine)) {

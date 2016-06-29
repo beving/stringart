@@ -17,6 +17,8 @@ import java.util.Set;
  */
 public class RetainedFragment extends Fragment {
 
+    public static String TAG = "RetainedFragment";
+
     // data objects we want to retain
     private List<Point> points = new ArrayList<>();
     private List<Line> lines = new ArrayList<>();
@@ -47,14 +49,6 @@ public class RetainedFragment extends Fragment {
 
     public List<Line> getLines() {
         return lines;
-    }
-
-    public void setPoints(List<Point> points) {
-        this.points = points;
-    }
-
-    public void setLines(List<Line> points) {
-        this.lines = lines;
     }
 
     public int getLastSelectedColor() {
@@ -95,5 +89,34 @@ public class RetainedFragment extends Fragment {
 
     public void setCutPoint(boolean cutPoint) {
         this.cutPoint = cutPoint;
+    }
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelableArrayList("points", (ArrayList<Point>)points); //TODO make constants for all of these
+        outState.putParcelableArrayList("lines", (ArrayList<Line>)lines);
+
+        outState.putInt("lastSelectedColor", lastSelectedColor);
+        outState.putInt("strokeWidth", strokeWidth);
+        outState.putInt("roundToTheNearest", roundToTheNearest);
+        outState.putBoolean("drawDottedLines", drawDottedLines);
+        outState.putBoolean("cutPoint", cutPoint);
+    }
+
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            points = savedInstanceState.getParcelableArrayList("points");
+            lines = savedInstanceState.getParcelableArrayList("lines");
+
+            lastSelectedColor = savedInstanceState.getInt("lastSelectedColor");
+            strokeWidth = savedInstanceState.getInt("strokeWidth");
+            roundToTheNearest = savedInstanceState.getInt("roundToTheNearest");
+            drawDottedLines = savedInstanceState.getBoolean("drawDottedLines");
+            cutPoint = savedInstanceState.getBoolean("cutPoint");
+        }
     }
 }
