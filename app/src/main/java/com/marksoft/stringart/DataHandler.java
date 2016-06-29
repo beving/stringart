@@ -11,7 +11,7 @@ public class DataHandler {
 
     private RetainedFragment dataFragment;
 
-    public void handlePoints(FragmentManager fragmentManager, Bundle bundle) {
+    public void initDataFragment(FragmentManager fragmentManager, Bundle bundle) {
 
         // find the retained fragment on activity restarts
         if (bundle != null) {
@@ -29,10 +29,6 @@ public class DataHandler {
     }
 
     public RetainedFragment getDataFragment() {
-        if (dataFragment == null) {  //TODO hack for now
-            // add the fragment
-            dataFragment = new RetainedFragment();
-        }
         return dataFragment;
     }
 

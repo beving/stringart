@@ -6,9 +6,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Retains the point data during a onCreate.
@@ -17,11 +15,20 @@ import java.util.Set;
  */
 public class RetainedFragment extends Fragment {
 
-    public static String TAG = "RetainedFragment";
 
     // data objects we want to retain
     private List<Point> points = new ArrayList<>();
     private List<Line> lines = new ArrayList<>();
+
+    //Keys for Saving State in the Bundle
+    private static final String POINTS = "points";
+    private static final String LINES = "lines";
+    private static final String LAST_SELECTED_COLOR = "lastSelectedColor";
+    private static final String STROKE_WIDTH = "strokeWidth";
+    private static final String ROUND_TO_THE_NEAREST = "roundToTheNearest";
+    private static final String DRAW_DOTTED_LINES = "drawDottedLines";
+    private static final String CUT_POINT = "cutPoint";
+    public static String TAG = "RetainedFragment";
 
     //Defaults
     private int lastSelectedColor = Color.RED;
@@ -95,28 +102,28 @@ public class RetainedFragment extends Fragment {
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putParcelableArrayList("points", (ArrayList<Point>)points); //TODO make constants for all of these
-        outState.putParcelableArrayList("lines", (ArrayList<Line>)lines);
+        outState.putParcelableArrayList(POINTS, (ArrayList<Point>)points); //TODO make constants for all of these
+        outState.putParcelableArrayList(LINES, (ArrayList<Line>)lines);
 
-        outState.putInt("lastSelectedColor", lastSelectedColor);
-        outState.putInt("strokeWidth", strokeWidth);
-        outState.putInt("roundToTheNearest", roundToTheNearest);
-        outState.putBoolean("drawDottedLines", drawDottedLines);
-        outState.putBoolean("cutPoint", cutPoint);
+        outState.putInt(LAST_SELECTED_COLOR, lastSelectedColor);
+        outState.putInt(STROKE_WIDTH, strokeWidth);
+        outState.putInt(ROUND_TO_THE_NEAREST, roundToTheNearest);
+        outState.putBoolean(DRAW_DOTTED_LINES, drawDottedLines);
+        outState.putBoolean(CUT_POINT, cutPoint);
     }
 
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState != null) {
-            points = savedInstanceState.getParcelableArrayList("points");
-            lines = savedInstanceState.getParcelableArrayList("lines");
+            points = savedInstanceState.getParcelableArrayList(POINTS);
+            lines = savedInstanceState.getParcelableArrayList(LINES);
 
-            lastSelectedColor = savedInstanceState.getInt("lastSelectedColor");
-            strokeWidth = savedInstanceState.getInt("strokeWidth");
-            roundToTheNearest = savedInstanceState.getInt("roundToTheNearest");
-            drawDottedLines = savedInstanceState.getBoolean("drawDottedLines");
-            cutPoint = savedInstanceState.getBoolean("cutPoint");
+            lastSelectedColor = savedInstanceState.getInt(LAST_SELECTED_COLOR);
+            strokeWidth = savedInstanceState.getInt(STROKE_WIDTH);
+            roundToTheNearest = savedInstanceState.getInt(ROUND_TO_THE_NEAREST);
+            drawDottedLines = savedInstanceState.getBoolean(DRAW_DOTTED_LINES);
+            cutPoint = savedInstanceState.getBoolean(CUT_POINT);
         }
     }
 }

@@ -1,8 +1,6 @@
 package com.marksoft.stringart;
 
 import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,10 +23,11 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        getDrawingView().setDataHandler(dataHandler);
+        getDrawingView().getDataHandler().initDataFragment(getFragmentManager(), savedInstanceState);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        getDrawingView().setDataHandler(dataHandler);
 
         onRestoreInstanceState(savedInstanceState);
     }
