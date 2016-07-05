@@ -11,10 +11,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.marksoft.stringart.gles20.GLES20Activity;
 
 public class MainActivity extends AppCompatActivity {
 
+    private long lastBackPressTime = 0;
     private DataHandler dataHandler = new DataHandler();
 
     @Override
@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_save): {
-                    Intent intent = new Intent(this, GLES20Activity.class);
-                    startActivity(intent);
+//                    ent intent = new Intent(this, GLES20Activity.class);
+//                    startActivity(intent);
                     //new Share().share(MainActivity.this, getDrawingView());
                     break;
                 }
@@ -137,6 +137,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle bundle) {
         getDataFragment().onRestoreInstanceState(bundle);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (this.lastBackPressTime < System.currentTimeMillis() - 4000) {
+            Toast.makeText(MainActivity.this, R.string.close, Toast.LENGTH_LONG).show();
+            this.lastBackPressTime = System.currentTimeMillis();
+        } else {
+            super.onBackPressed();
+            //onSaveInstanceState(this.ge)
+        }
     }
 
     private DrawingView getDrawingView() {
