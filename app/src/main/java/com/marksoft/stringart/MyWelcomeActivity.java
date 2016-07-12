@@ -16,6 +16,8 @@ import com.stephentuso.welcome.util.WelcomeScreenConfiguration;
  */
 public class MyWelcomeActivity extends WelcomeActivity {
 
+    private boolean welcomeScreenComplete = false;
+
     @Override
     protected WelcomeScreenConfiguration configuration() {
         return new WelcomeScreenBuilder(this)
@@ -41,16 +43,10 @@ public class MyWelcomeActivity extends WelcomeActivity {
 
             if (resultCode == RESULT_OK) {
                 Toast.makeText(getApplicationContext(), welcomeKey + " completedddddd", Toast.LENGTH_SHORT).show();
+                welcomeScreenComplete = true;
             } else {
                 Toast.makeText(getApplicationContext(), welcomeKey + " canceled", Toast.LENGTH_SHORT).show();
             }
-
         }
-
     }
-
-    public static String welcomeKey() {
-        return "WelcomeScreen";
-    }
-
 }

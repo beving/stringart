@@ -35,23 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DrawingActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
         <activity android:name=".MyWelcomeActivity" />
-        <!--activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity
-
-        <activity
-            android:name="com.marksoft.stringart.gles20.GLES20Activity"
-            android:label="@string/gles_activity_name"
-            android:parentActivityName=".DrawingActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DrawingActivity" />
-        </activity> -->
 
     </application>
 
