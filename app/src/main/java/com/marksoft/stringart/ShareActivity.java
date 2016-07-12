@@ -19,7 +19,7 @@ import java.util.Random;
 /**
  * Created by e62032 on 6/8/2016.
  */
-public class Share extends AppCompatActivity {
+public class ShareActivity extends AppCompatActivity {
 
     public void share(final Context context, final DrawingView drawingView) {
         File savedFile = save(context, drawingView);
@@ -100,7 +100,7 @@ public class Share extends AppCompatActivity {
                 share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(debugFile));
                 //Toast.makeText(context, "startActivity2", Toast.LENGTH_LONG).show();
 
-                context.startActivity(Intent.createChooser(share, "Share Image"));
+                context.startActivity(Intent.createChooser(share, "ShareActivity Image"));
 
                 //Toast.makeText(context, "startActivity finished", Toast.LENGTH_LONG).show();
             }
@@ -112,7 +112,7 @@ public class Share extends AppCompatActivity {
     }
     private Intent shareIntentOld(File file, Context context){
 
-        Log.i("Share","getDefaultShareIntent starting");
+        Log.i("ShareActivity","getDefaultShareIntent starting");
         Uri screenshotUri = Uri.fromFile(file);
 
         //Create an intent to send any type of image
@@ -120,14 +120,14 @@ public class Share extends AppCompatActivity {
         sharingIntent.setType("image/png");
         sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
 
-        Log.i("Share", "getDefaultShareIntent starting");
+        Log.i("ShareActivity", "getDefaultShareIntent starting");
 
         if (sharingIntent == null) {
-            Log.d("Share", "sharing intent is null");
+            Log.d("ShareActivity", "sharing intent is null");
         }
 
-        context.startActivity(Intent.createChooser(sharingIntent, "Share image using"));
-        Log.i("Share", "getDefaultShareIntent startActivity worked!");
+        context.startActivity(Intent.createChooser(sharingIntent, "ShareActivity image using"));
+        Log.i("ShareActivity", "getDefaultShareIntent startActivity worked!");
         return sharingIntent;
     }
 

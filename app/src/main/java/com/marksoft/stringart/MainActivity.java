@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 case (R.id.action_save): {
 //                    ent intent = new Intent(this, GLES20Activity.class);
 //                    startActivity(intent);
-                    //new Share().share(MainActivity.this, getDrawingView());
+                    //new ShareActivity().share(MainActivity.this, getDrawingView());
                     break;
                 }
                 default: {
