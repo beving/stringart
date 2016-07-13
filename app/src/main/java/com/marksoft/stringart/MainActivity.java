@@ -1,31 +1,16 @@
 package com.marksoft.stringart;
 
-import android.Manifest;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
-import com.stephentuso.welcome.WelcomeScreenHelper;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
+import com.stephentuso.welcome.WelcomeScreenHelper;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private long lastBackPressTime = 0;
     private DataHandler dataHandler = new DataHandler();
     private WelcomeScreenHelper welcomeScreen;
+    private boolean hasPermissionToShare = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case (R.id.action_cut): {
                     Log.d("MainActivity", "action_cut: " + item.getItemId());
-                   getDrawingView().cutPoint();
+                    getDrawingView().cutPoint();
                     break;
                 }
                 case (R.id.action_change_color): {
@@ -119,7 +105,12 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_save): {
-                    ShareIntent.requestPermissions(this);
+                    if (hasPermissionToShare) { //ShareIntent.hasPermission(this)) {
+                        ShareIntent.share(this, getDrawingView());
+                    } else {
+                        ShareIntent.requestPermissions(this);
+                    }
+
                     break;
                 }
                 default: {
@@ -137,6 +128,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == ShareIntent.PERMISSION_TO_SHARE) {
+            ShareIntent.share(this, getDrawingView());
+            hasPermissionToShare = true;
+        }
+
+        //ShareIntent.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -207,15 +208,6 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //
 //    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if (requestCode == 8) {  //TODO do not hard code
-            ShareIntent.share(this, getDrawingView());
-        }
-
-        //ShareIntent.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
 
 }
