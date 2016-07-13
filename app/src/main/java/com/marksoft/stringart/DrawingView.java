@@ -231,7 +231,7 @@ public class DrawingView extends View {
         }
     }
 
-    private List<Point> getPoints() {
+    public List<Point> getPoints() {  //TODO change back to private
         return dataHandler.getDataFragment().getPoints();
     }
 

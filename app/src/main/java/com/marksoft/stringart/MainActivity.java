@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private WelcomeScreenHelper welcomeScreen;
     private boolean hasPermissionToShare = false;
 
+    public static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml..
         try {
-            Log.d("MainActivity", "Item ID: " + item.getItemId());
+            Log.d(TAG, "Item ID: " + item.getItemId());
             switch (item.getItemId()) {
 
             /*case (R.id.action_settings): {
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_cut): {
-                    Log.d("MainActivity", "action_cut: " + item.getItemId());
+                    Log.d(TAG, "action_cut: " + item.getItemId());
                     getDrawingView().cutPoint();
                     break;
                 }
@@ -105,12 +107,11 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_save): {
-                    if (hasPermissionToShare) { //ShareIntent.hasPermission(this)) {
+                    if (hasPermissionToShare) {
                         ShareIntent.share(this, getDrawingView());
                     } else {
                         ShareIntent.requestPermissions(this);
                     }
-
                     break;
                 }
                 default: {
@@ -121,9 +122,7 @@ public class MainActivity extends AppCompatActivity {
             getDrawingView().reDraw();
 
         } catch (Exception e) {
-            Log.e("", e.getStackTrace().toString());
-            e.printStackTrace();
-
+            Log.e(TAG, e.getStackTrace().toString());
             Toast.makeText(MainActivity.this, "Caught Exception " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
@@ -136,8 +135,6 @@ public class MainActivity extends AppCompatActivity {
             ShareIntent.share(this, getDrawingView());
             hasPermissionToShare = true;
         }
-
-        //ShareIntent.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -176,38 +173,5 @@ public class MainActivity extends AppCompatActivity {
         welcomeScreen.onSaveInstanceState(outState);
         getDataFragment().onSaveInstanceState(outState);
     }
-
-//    private void requestPermissions() {
-//        // Here, thisActivity is the current activity
-//        if (ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.READ_CONTACTS)
-//                != PackageManager.PERMISSION_GRANTED) {
-//
-//            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-//                    Manifest.permission.READ_CONTACTS)) {
-//
-//                // Show an expanation to the user *asynchronously* -- don't block
-//                // this thread waiting for the user's response! After the user
-//                // sees the explanation, try again to request the permission.
-//
-//            } else {
-//
-//                // No explanation needed, we can request the permission.
-//
-//                ActivityCompat.requestPermissions(this,
-//                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-//                        8);
-////                        new String[]{Manifest.permission.READ_CONTACTS},
-////                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-//
-//                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-//                // app-defined int constant. The callback method gets the
-//                // result of the request.
-//            }
-//        }
-//
-//    }
-
 
 }
