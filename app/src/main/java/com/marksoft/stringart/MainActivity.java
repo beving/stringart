@@ -2,6 +2,7 @@ package com.marksoft.stringart;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -132,8 +133,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (requestCode == ShareIntent.PERMISSION_TO_SHARE) {
-            ShareIntent.share(this, getDrawingView());
-            hasPermissionToShare = true;
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                ShareIntent.share(this, getDrawingView());
+                hasPermissionToShare = true;
+            }
         }
     }
 

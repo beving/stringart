@@ -18,9 +18,7 @@ public class ShareIntent {
     private static final String TAG = "ShareIntent";
     public static final int PERMISSION_TO_SHARE = 8;
 
-    public static void share(Activity context, final DrawingView drawingView) {
-
-//        getDrawingViewInfo(context);
+    public static void share(Activity activity, final DrawingView drawingView) {
 
         drawingView.setDrawingCacheEnabled(true);
         drawingView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
@@ -28,13 +26,13 @@ public class ShareIntent {
 
         Bitmap bitmap = drawingView.getDrawingCache();
 
-        String url = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap,
+        String url = MediaStore.Images.Media.insertImage(activity.getContentResolver(), bitmap,
                 "StringArt_Image", "The image captured by MediaStore from the canvas of StringArt.");  //TODO getRandomFileName may not be needed.
 
         Log.d("ShareIntent", "share url: " + url);
 
         Intent intent = ShareIntent.getImageIntent(Uri.parse(url));
-        context.startActivity(intent);
+        activity.startActivity(intent);
     }
 
     public static Intent getImageIntent(Uri imageUri) {
@@ -48,18 +46,6 @@ public class ShareIntent {
         }
         return Intent.createChooser(intent, null);
     }
-
-//    private static DrawingView getDrawingViewInfo(Activity activity) {
-//        DrawingView dv = (DrawingView) activity.findViewById(R.id.drawingView);
-//
-//        if (dv != null) {
-//            Log.e("MainActivity", "DrawingView: " + dv.toString());  //TODO rm for testing only.
-//
-//            if (dv.getPoints() != null && !dv.getPoints().isEmpty())
-//                Log.e("MainActivity", "getDrawingView-->Drawing view points: " + dv.getPoints().size());  //TODO rm for testing only.
-//        }
-//        return dv; //TODO rm
-//    }
 
     /**
      * Request Permissions from user.
@@ -82,20 +68,9 @@ public class ShareIntent {
                 // sees the explanation, try again to request the permission.
 
             } else {
-
-                // No explanation needed, we can request the permission.
-
                 ActivityCompat.requestPermissions(activity,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        8);
-
-
-//                        new String[]{Manifest.permission.READ_CONTACTS},
-//                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
+                        PERMISSION_TO_SHARE);
             }
         }
     }
