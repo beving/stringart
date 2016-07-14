@@ -177,4 +177,8 @@ public class MainActivity extends AppCompatActivity {
         getDataFragment().onSaveInstanceState(outState);
     }
 
+    public DataHandler getDataHandler() {
+        return dataHandler;
+    }
+
 }

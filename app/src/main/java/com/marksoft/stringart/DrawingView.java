@@ -47,13 +47,13 @@ public class DrawingView extends View {
         drawLines(canvas);
     }
 
-    private void drawBackGround(Canvas canvas) {
+    public void drawBackGround(Canvas canvas) {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);  //Set the color for the canvas background
         canvas.drawPaint(paint);
     }
 
-    private void drawLines(Canvas canvas) {
+    public void drawLines(Canvas canvas) {
         //Draw Lines
         for (Line line : dataHandler.getDataFragment().getLines()) {
 
@@ -70,7 +70,7 @@ public class DrawingView extends View {
         }
     }
 
-    private void drawPoints(Canvas canvas) {
+    public void drawPoints(Canvas canvas) {
         //Only draw a point for the first one
         if (dataHandler.getDataFragment().getPoints().size()==1) {
             paint.setColor(Color.BLACK); //Set the color for the points

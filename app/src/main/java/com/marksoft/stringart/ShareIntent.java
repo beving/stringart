@@ -5,12 +5,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Point;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
+
+import java.util.List;
 
 
 public class ShareIntent {
@@ -18,16 +21,44 @@ public class ShareIntent {
     private static final String TAG = "ShareIntent";
     public static final int PERMISSION_TO_SHARE = 8;
 
+
+    public static Point calculateCanvasSize(List<Point> points) {
+        Point maxPoint = new Point(0, 0);
+
+        for (Point point : points) {
+            if (point.x > maxPoint.x) {
+                maxPoint.x = point.x;
+            }
+            if (point.y > maxPoint.y) {
+                maxPoint.y = point.y;
+            }
+        }
+
+        //Add a little bit extra for a border
+        maxPoint.x +=20;
+        maxPoint.y +=20;
+
+        return maxPoint;
+    }
+
     public static void share(Activity activity, final DrawingView drawingView) {
 
-        drawingView.setDrawingCacheEnabled(true);
-        drawingView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        drawingView.reDraw();
+        Point maxPoint = calculateCanvasSize(drawingView.getDataHandler().getDataFragment().getPoints());
 
-        Bitmap bitmap = drawingView.getDrawingCache();
+        //Create a canvas instance using this bitmap using Canvas(Bitmap) constructor
+        Bitmap bitmap = Bitmap.createBitmap(maxPoint.x, maxPoint.y, Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+
+        DrawingView drawingView1 = new DrawingView(drawingView.getContext());
+        drawingView1.setDataHandler(drawingView.getDataHandler());
+        drawingView1.getDataHandler().getDataFragment().setDrawDottedLines(false);
+
+        drawingView1.drawBackGround(canvas);
+        drawingView1.drawPoints(canvas);
+        drawingView1.drawLines(canvas);
 
         String url = MediaStore.Images.Media.insertImage(activity.getContentResolver(), bitmap,
-                "StringArt_Image", "The image captured by MediaStore from the canvas of StringArt.");  //TODO getRandomFileName may not be needed.
+                "StringArt_Image", "The image captured by MediaStore from the canvas of StringArt.");
 
         Log.d("ShareIntent", "share url: " + url);
 
