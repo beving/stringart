@@ -13,37 +13,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-import java.util.List;
-
 
 public class ShareIntent {
 
     private static final String TAG = "ShareIntent";
     public static final int PERMISSION_TO_SHARE = 8;
 
-
-    public static Point calculateCanvasSize(List<Point> points) {
-        Point maxPoint = new Point(0, 0);
-
-        for (Point point : points) {
-            if (point.x > maxPoint.x) {
-                maxPoint.x = point.x;
-            }
-            if (point.y > maxPoint.y) {
-                maxPoint.y = point.y;
-            }
-        }
-
-        //Add a little bit extra for a border
-        maxPoint.x +=20;
-        maxPoint.y +=20;
-
-        return maxPoint;
-    }
-
     public static void share(Activity activity, final DrawingView drawingView) {
 
-        Point maxPoint = calculateCanvasSize(drawingView.getDataHandler().getDataFragment().getPoints());
+        Point maxPoint = PointUtility.calculateMaxSize(drawingView.getDataHandler().getDataFragment().getPoints());
 
         //Create a canvas instance using this bitmap using Canvas(Bitmap) constructor
         Bitmap bitmap = Bitmap.createBitmap(maxPoint.x, maxPoint.y, Bitmap.Config.RGB_565);
