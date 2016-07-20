@@ -11,14 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.stephentuso.welcome.WelcomeScreenHelper;
-
 
 public class MainActivity extends AppCompatActivity {
 
     private long lastBackPressTime = 0;
     private DataHandler dataHandler = new DataHandler();
-    private WelcomeScreenHelper welcomeScreen;
+    private MyWelcomeScreenHelper welcomeScreen;
     private boolean hasPermissionToShare = false;
 
     public static final String TAG = "MainActivity";
@@ -26,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_drawing);
 
         getDrawingView().setDataHandler(dataHandler);
@@ -37,11 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         onRestoreInstanceState(savedInstanceState);
 
-        if (welcomeScreen == null) {
-            welcomeScreen = new WelcomeScreenHelper(this, MyWelcomeActivity.class);
-            welcomeScreen.show(savedInstanceState);
-            welcomeScreen.forceShow();
-        }
+        welcomeScreen = new MyWelcomeScreenHelper(this, MyWelcomeActivity.class);
+        welcomeScreen.show(savedInstanceState);
     }
 
     @Override
