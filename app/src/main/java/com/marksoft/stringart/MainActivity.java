@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private long lastBackPressTime = 0;
     private DataHandler dataHandler = new DataHandler();
     private MyWelcomeScreenHelper welcomeScreen;
-    private boolean hasPermissionToShare = false;
+
 
     public static final String TAG = "MainActivity";
 
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_save): {
-                    if (hasPermissionToShare) {
+                    if (getDataFragment().isPermissibleToShare()) {
                         ShareIntent.share(this, getDrawingView());
                     } else {
                         ShareIntent.requestPermissions(this);
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ShareIntent.PERMISSION_TO_SHARE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 ShareIntent.share(this, getDrawingView());
-                hasPermissionToShare = true;
+                getDataFragment().setPermissableToShare(true);
             }
         }
     }

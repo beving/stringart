@@ -36,6 +36,7 @@ public class RetainedFragment extends Fragment {
     private int roundToTheNearest = 100;
     private boolean drawDottedLines = true;
     private boolean cutPoint = false;
+    private boolean permissibleToShare = false;
 
     // this method is only called once for this fragment
     @Override
@@ -96,6 +97,14 @@ public class RetainedFragment extends Fragment {
 
     public void setCutPoint(boolean cutPoint) {
         this.cutPoint = cutPoint;
+    }
+
+    public boolean isPermissibleToShare() {
+        return permissibleToShare;
+    }
+
+    public void setPermissableToShare(boolean permissableToShare) {
+        this.permissibleToShare = permissableToShare;
     }
 
     @Override
