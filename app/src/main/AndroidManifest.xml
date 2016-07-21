@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MyWelcomeActivity"
-            android:theme="@style/WelcomeScreenTheme"/>
+            android:theme="@style/CustomWelcomeScreenTheme"/>
 
     </application>
 </manifest>
