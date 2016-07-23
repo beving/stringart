@@ -21,8 +21,7 @@ public class MyWelcomeActivity extends WelcomeActivity {
     @Override
     protected WelcomeScreenConfiguration configuration() {
         return new WelcomeScreenBuilder(this)
-                .theme(R.style.CustomWelcomeScreenTheme)
-                //.theme(R.style.AppTheme)
+                //.theme(R.style.CustomWelcomeScreenTheme)
                 .defaultTitleTypefacePath("Montserrat-Bold.ttf")
                 .defaultHeaderTypefacePath("Montserrat-Bold.ttf")
                 .titlePage(R.drawable.logo, "Welcome to String Art", R.color.text_theme_light)

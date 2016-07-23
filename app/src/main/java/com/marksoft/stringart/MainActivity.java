@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private long lastBackPressTime = 0;
     private DataHandler dataHandler = new DataHandler();
-    private MyWelcomeScreenHelper welcomeScreen;
+    //private MyWelcomeScreenHelper welcomeScreen;
 
 
     public static final String TAG = "MainActivity";
@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         onRestoreInstanceState(savedInstanceState);
 
-        welcomeScreen = new MyWelcomeScreenHelper(this, MyWelcomeActivity.class);
-        welcomeScreen.show(savedInstanceState);
+        //welcomeScreen = new MyWelcomeScreenHelper(this, MyWelcomeActivity.class);
+        //welcomeScreen.show(savedInstanceState);
     }
 
     @Override
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        welcomeScreen.onSaveInstanceState(outState);
+        //welcomeScreen.onSaveInstanceState(outState);
         getDataFragment().onSaveInstanceState(outState);
     }
 
