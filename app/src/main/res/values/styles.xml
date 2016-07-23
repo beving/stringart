@@ -17,7 +17,15 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <!-- Welcome Screen Theme -->
+        <!-- Base application theme.
+        <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+            <- Customize your theme here.
+        </style> -->
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+    <!-- Welcome Screen Theme
     <style name="CustomWelcomeScreenTheme" parent="WelcomeScreenTheme">
         <item name="welcomeIndicatorStyle">@style/WelcomeScreenPageIndicator.Custom</item>
         <item name="welcomeTitleTextStyle">@style/WelcomeScreenText.Title.Centered</item>
@@ -31,6 +39,6 @@
 
     <style name="WelcomeScreenText.Title.Centered.Custom">
         <item name="android:textSize">30sp</item>
-    </style>
+    </style> -->
 
 </resources>
