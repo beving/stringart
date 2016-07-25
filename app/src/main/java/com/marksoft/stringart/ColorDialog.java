@@ -18,7 +18,9 @@ import com.thebluealliance.spectrum.SpectrumDialog;
  */
 public class ColorDialog {
 
-    public void colorDialog(final Context context,
+    private ColorDialog() {}
+
+    public static void show(final Context context,
                              final DrawingView drawingView,
                              FragmentManager fragmentManager) {
 

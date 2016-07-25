@@ -77,12 +77,12 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_change_color): {
-                    new ColorDialog().colorDialog(getBaseContext(), getDrawingView(),
+                    ColorDialog.show(getBaseContext(), getDrawingView(),
                             getSupportFragmentManager());
                     break;
                 }
                 case (R.id.action_line_thickness): {
-                    new NumberChooserDialog().open(MainActivity.this, getDrawingView(), item.getItemId());
+                    NumberChooserDialog.lineSize(MainActivity.this, getDrawingView(), item.getItemId());
                     break;
                 }
                 case (R.id.action_toggle_grid): {
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_grid_size): {
-                    new NumberChooserDialog().open(MainActivity.this, getDrawingView(), item.getItemId());
+                    NumberChooserDialog.gridSize(MainActivity.this, getDrawingView(), item.getItemId());
                     break;
                 }
                 case (R.id.action_share): {
