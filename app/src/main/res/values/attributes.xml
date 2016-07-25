@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="line_sizes">
+        <item value="1">1</item>
+        <item value="2">2</item>
+        <item value="3">3</item>
+        <item value="4">5</item>
+        <item value="5">7</item>
+        <item value="6">9</item>
+    </string-array>
+    <string-array name="grid_sizes">
+        <item value="1">25</item>
+        <item value="2">50</item>
+        <item value="3">75</item>
+        <item value="4">100</item>
+        <item value="5">125</item>
+        <item value="6">150</item>
+    </string-array>
+</resources>

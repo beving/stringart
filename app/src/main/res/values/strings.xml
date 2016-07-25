@@ -17,21 +17,8 @@
     <string name="title_activity_settings">Settings</string>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <string name="grid_spacing_set">Grid Spacing set to </string>
+    <string name="line_size_set">Line Size set to </string>
 
 
 

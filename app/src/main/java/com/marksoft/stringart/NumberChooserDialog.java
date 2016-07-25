@@ -14,12 +14,11 @@ import android.widget.Toast;
 */
 class NumberChooserDialog {
 
+    public static final String TAG = "NumberChooserDialog";
+
     public void open(final Context context, final DrawingView drawingView, int gridSpacing) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-
-        final ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(context,
-                android.R.layout.simple_selectable_list_item);
 
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {              //TODO don't hard code text.
             @Override
@@ -29,42 +28,44 @@ class NumberChooserDialog {
         });
 
         if (gridSpacing == R.id.action_grid_size) {
-
-            for (int i = 25; i < 150 ;i+=25) {
-                arrayAdapter.add(i);
-            }
+            final ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(context,
+                    R.array.grid_sizes, android.R.layout.simple_selectable_list_item);
 
             alertDialog.setTitle("Grid Spacing");
             alertDialog.setAdapter(arrayAdapter,
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Integer selectedInteger = arrayAdapter.getItem(which);
+                            Integer selectedInteger = Integer.parseInt(
+                                    arrayAdapter.getItem(which).toString());
                             Log.d("Grid Spacing: ", selectedInteger + "");
+                            Log.d(TAG, R.string.grid_spacing_set + ": " + selectedInteger);
 
                             drawingView.getDataHandler().getDataFragment().setRoundToTheNearest(selectedInteger);
                             drawingView.reDraw();
-                            Toast.makeText(context, "Grid Spacing set to: " + selectedInteger,  //TODO don't hard code text.
+                            Toast.makeText(context, R.string.grid_spacing_set
+                                    + selectedInteger,  //TODO don't hard code text.
                                     Toast.LENGTH_LONG).show();
                         }
                     });
         } else if (gridSpacing == R.id.action_line_thickness) {
 
+            final ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(context,
+                    R.array.line_sizes, android.R.layout.simple_selectable_list_item);
 
             alertDialog.setTitle("Line Size");
-            for (int i = 1; i < 10 +1 ;i+=2) {
-                arrayAdapter.add(i);
-            }
             alertDialog.setAdapter(arrayAdapter,
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Integer selectedInteger = arrayAdapter.getItem(which);
-                            Log.d("Line Size: ", selectedInteger + "");
+                            Integer selectedInteger = Integer.parseInt(
+                                    arrayAdapter.getItem(which).toString());
+                            Log.d(TAG, R.string.line_size_set + ": " + selectedInteger);
 
                             drawingView.getDataHandler().getDataFragment().setStrokeWidth(selectedInteger);
                             drawingView.reDraw();
-                            Toast.makeText(context, "Line Size to: " + selectedInteger,  //TODO don't hard code text.
+                            Toast.makeText(context, R.string.line_size_set +
+                                            selectedInteger,
                                     Toast.LENGTH_LONG).show();
                         }
                     });
