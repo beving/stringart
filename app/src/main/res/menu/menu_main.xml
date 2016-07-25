@@ -52,7 +52,7 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_save"
+        android:id="@+id/action_share"
         android:orderInCategory="80"
         android:title="@string/action_save"
         app:showAsAction="never" />

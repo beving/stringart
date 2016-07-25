@@ -16,4 +16,6 @@
         <item value="5">125</item>
         <item value="6">150</item>
     </string-array>
+    <integer name="time_out_exit_application">4000</integer>
+
 </resources>

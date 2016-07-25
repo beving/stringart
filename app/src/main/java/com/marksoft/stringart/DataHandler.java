@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 /**
  * Handles the storing and retrieving of the data for this application.
+ * //TODO consider removing this class
  * Created by e62032 on 4/18/2016.
  */
 public class DataHandler {
@@ -31,7 +32,5 @@ public class DataHandler {
     public RetainedFragment getDataFragment() {
         return dataFragment;
     }
-
-    public void setDataFragment(RetainedFragment dataFragment) {this.dataFragment = dataFragment; }
 
 }

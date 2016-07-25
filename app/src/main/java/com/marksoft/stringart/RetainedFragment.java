@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class RetainedFragment extends Fragment {
 
+    public static String TAG = "RetainedFragment";
 
     // data objects we want to retain
     private List<Point> points = new ArrayList<>();
@@ -28,7 +29,6 @@ public class RetainedFragment extends Fragment {
     private static final String ROUND_TO_THE_NEAREST = "roundToTheNearest";
     private static final String DRAW_DOTTED_LINES = "drawDottedLines";
     private static final String CUT_POINT = "cutPoint";
-    public static String TAG = "RetainedFragment";
 
     //Defaults
     private int lastSelectedColor = Color.RED;

@@ -22,7 +22,8 @@ import java.util.List;
  */
 public class DrawingView extends View {
 
-    //NOTE: Do not store data here, or else it will be lost when the orientation of the screen changes.
+    //NOTE: Do not store static data here, or else it will be lost when the orientation of the screen changes.
+    public static final String TAG = "DrawingView";
     private DataHandler dataHandler;
     private Gesture gesture;
     private final Paint paint = new Paint();
@@ -118,7 +119,7 @@ public class DrawingView extends View {
         if (!getPoints().contains(newPoint)) {
             getPoints().add(newPoint);
         } else {
-            Log.d("DrawingView", "Point already added previously-->" + newPoint.toString());
+            Log.d(TAG, "Point already added previously: " + newPoint.toString());
         }
         return newPoint;
     }
@@ -151,11 +152,6 @@ public class DrawingView extends View {
                 }
             }
             dataHandler.getDataFragment().getPoints().removeAll(pointsToRemove);
-
-            if (pointsToRemove.isEmpty()) {
-                Toast.makeText(getContext(), "Point not cut because it could not be found at: (" +
-                        x + "," + y + ")", Toast.LENGTH_LONG).show();
-            }
             dataHandler.getDataFragment().setCutPoint(false);
 
             return true;
@@ -216,7 +212,6 @@ public class DrawingView extends View {
     }
 
     public void cutPoint() {
-        Log.d("DrawingView", "cutPoint-->");
         dataHandler.getDataFragment().setCutPoint(true);
     }
 

@@ -14,12 +14,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TAG = "MainActivity";
     private long lastBackPressTime = 0;
     private DataHandler dataHandler = new DataHandler();
-    //private MyWelcomeScreenHelper welcomeScreen;
 
-
-    public static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         onRestoreInstanceState(savedInstanceState);
-
-        //welcomeScreen = new MyWelcomeScreenHelper(this, MyWelcomeActivity.class);
-        //welcomeScreen.show(savedInstanceState);
     }
 
     @Override
@@ -78,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_cut): {
-                    Log.d(TAG, "action_cut: " + item.getItemId());
                     getDrawingView().cutPoint();
                     break;
                 }
@@ -101,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     new NumberChooserDialog().open(MainActivity.this, getDrawingView(), item.getItemId());
                     break;
                 }
-                case (R.id.action_save): {
+                case (R.id.action_share): {
                     if (getDataFragment().isPermissibleToShare()) {
                         ShareIntent.share(this, getDrawingView());
                     } else {
@@ -118,7 +112,9 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (Exception e) {
             Log.e(TAG, e.getStackTrace().toString());
-            Toast.makeText(MainActivity.this, "Caught Exception " + e.getMessage(), Toast.LENGTH_LONG).show();
+            if (BuildConfig.DEBUG) {
+                Toast.makeText(MainActivity.this, "Caught Exception " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -148,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (this.lastBackPressTime < System.currentTimeMillis() - 4000) {
+        if (this.lastBackPressTime < System.currentTimeMillis() - R.integer.time_out_exit_application) {
             Toast.makeText(MainActivity.this, R.string.close, Toast.LENGTH_LONG).show();
             this.lastBackPressTime = System.currentTimeMillis();
         } else {
@@ -169,10 +165,6 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         //welcomeScreen.onSaveInstanceState(outState);
         getDataFragment().onSaveInstanceState(outState);
-    }
-
-    public DataHandler getDataHandler() {
-        return dataHandler;
     }
 
 }

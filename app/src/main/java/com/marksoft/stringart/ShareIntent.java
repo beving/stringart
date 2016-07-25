@@ -27,18 +27,19 @@ public class ShareIntent {
         Bitmap bitmap = Bitmap.createBitmap(maxPoint.x, maxPoint.y, Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);
 
-        DrawingView drawingView1 = new DrawingView(drawingView.getContext());
-        drawingView1.setDataHandler(drawingView.getDataHandler());
-        drawingView1.getDataHandler().getDataFragment().setDrawDottedLines(false);
+        DrawingView sharedDrawingView = new DrawingView(drawingView.getContext());
+        sharedDrawingView.setDataHandler(drawingView.getDataHandler());
+        sharedDrawingView.getDataHandler().getDataFragment().setDrawDottedLines(false);
 
-        drawingView1.drawBackGround(canvas);
-        drawingView1.drawPoints(canvas);
-        drawingView1.drawLines(canvas);
+        sharedDrawingView.drawBackGround(canvas);
+        sharedDrawingView.drawPoints(canvas);
+        sharedDrawingView.drawLines(canvas);
 
         String url = MediaStore.Images.Media.insertImage(activity.getContentResolver(), bitmap,
-                "StringArt_Image", "The image captured by MediaStore from the canvas of StringArt.");
+                activity.getResources().getString(R.string.share_name_prefix),
+                activity.getResources().getString(R.string.share_description));
 
-        Log.d("ShareIntent", "share url: " + url);
+        Log.d(TAG, "Shared url: " + url);
 
         Intent intent = ShareIntent.getImageIntent(Uri.parse(url));
         activity.startActivity(intent);
@@ -49,7 +50,7 @@ public class ShareIntent {
         intent.setType("image/*");
 
         if (imageUri == null) {
-            Log.wtf(TAG, "Trying to share a null image");
+            Log.d(TAG, "Trying to share a null image");
         } else {
             intent.putExtra(Intent.EXTRA_STREAM, imageUri);
         }
