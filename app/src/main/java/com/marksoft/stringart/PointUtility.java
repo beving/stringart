@@ -10,7 +10,8 @@ import java.util.List;
  * so that Canvas can draw the points.
  * Created by e62032 on 4/13/2016.
  */
-class PointUtility {
+
+public class PointUtility {
     /**
      * Convert Collection<Point> to float[]
      * @param points A collection of points
