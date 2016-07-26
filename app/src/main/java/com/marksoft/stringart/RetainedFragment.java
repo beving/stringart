@@ -32,7 +32,7 @@ public class RetainedFragment extends Fragment {
 
     //Defaults
     private int lastSelectedColor = Color.RED;
-    private int strokeWidth = 4;
+    private int strokeWidth = 2;
     private int roundToTheNearest = 100;
     private boolean drawDottedLines = true;
     private boolean cutPoint = false;
