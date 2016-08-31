@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private DrawingView getDrawingView() {
+    protected DrawingView getDrawingView() {
         return (DrawingView) findViewById(R.id.drawingView);
     }
 
