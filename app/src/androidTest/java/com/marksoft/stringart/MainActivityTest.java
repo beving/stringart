@@ -33,25 +33,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.*;
  * @See: http://blog.sqisland.com/2015/04/espresso-21-activitytestrule.html
  */
 public class MainActivityTest { //} extends ActivityInstrumentationTestCase2<MainActivity> {
-    /*@Rule public final ActivityTestRule<MainActivity> main = null;
 
-    private MainActivity activity;
-
-    public MainActivityTest() {
-        super(MainActivity.class); //activityClass);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        activity = getActivity();
-    }
-
-    @SmallTest
-    public void toolBarExistsAnIsNotNull() {
-        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-        assertNotNull(toolbar);
-    }*/
 
     protected Intent intent;
 
