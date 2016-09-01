@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case (R.id.action_toggle_grid): {
                     //Set to the opposite of what it is currently
-                    getDataFragment().setDrawDottedLines(!getDataFragment().isDrawDottedLines());
-                    item.setChecked(getDataFragment().isDrawDottedLines());
+                    getDataFragment().setDrawGridLines(!getDataFragment().isDrawGridLines());
+                    item.setChecked(getDataFragment().isDrawGridLines());
                     break;
                 }
                 case (R.id.action_grid_size): {
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem checkable = menu.findItem(R.id.action_toggle_grid);
-        checkable.setChecked(getDataFragment().isDrawDottedLines());
+        checkable.setChecked(getDataFragment().isDrawGridLines());
         return true;
     }
 

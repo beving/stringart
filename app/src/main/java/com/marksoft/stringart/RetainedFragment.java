@@ -27,14 +27,14 @@ public class RetainedFragment extends Fragment {
     private static final String LAST_SELECTED_COLOR = "lastSelectedColor";
     private static final String STROKE_WIDTH = "strokeWidth";
     private static final String ROUND_TO_THE_NEAREST = "roundToTheNearest";
-    private static final String DRAW_DOTTED_LINES = "drawDottedLines";
+    private static final String DRAW_DOTTED_LINES = "drawGridLines";
     private static final String CUT_POINT = "cutPoint";
 
     //Defaults
     private int lastSelectedColor = Color.RED;
     private int strokeWidth = 2;
     private int roundToTheNearest = 100;
-    private boolean drawDottedLines = true;
+    private boolean drawGridLines = true;
     private boolean cutPoint = false;
     private boolean permissibleToShare = false;
 
@@ -83,12 +83,12 @@ public class RetainedFragment extends Fragment {
         this.roundToTheNearest = roundToTheNearest;
     }
 
-    public void setDrawDottedLines(boolean drawDottedLines) {
-        this.drawDottedLines = drawDottedLines;
+    public void setDrawGridLines(boolean drawGridLines) {
+        this.drawGridLines = drawGridLines;
     }
 
-    public boolean isDrawDottedLines() {
-        return drawDottedLines;
+    public boolean isDrawGridLines() {
+        return drawGridLines;
     }
 
     public boolean isCutPoint() {
@@ -117,7 +117,7 @@ public class RetainedFragment extends Fragment {
         outState.putInt(LAST_SELECTED_COLOR, lastSelectedColor);
         outState.putInt(STROKE_WIDTH, strokeWidth);
         outState.putInt(ROUND_TO_THE_NEAREST, roundToTheNearest);
-        outState.putBoolean(DRAW_DOTTED_LINES, drawDottedLines);
+        outState.putBoolean(DRAW_DOTTED_LINES, drawGridLines);
         outState.putBoolean(CUT_POINT, cutPoint);
     }
 
@@ -131,7 +131,7 @@ public class RetainedFragment extends Fragment {
             lastSelectedColor = savedInstanceState.getInt(LAST_SELECTED_COLOR);
             strokeWidth = savedInstanceState.getInt(STROKE_WIDTH);
             roundToTheNearest = savedInstanceState.getInt(ROUND_TO_THE_NEAREST);
-            drawDottedLines = savedInstanceState.getBoolean(DRAW_DOTTED_LINES);
+            drawGridLines = savedInstanceState.getBoolean(DRAW_DOTTED_LINES);
             cutPoint = savedInstanceState.getBoolean(CUT_POINT);
         }
     }

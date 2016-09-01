@@ -29,7 +29,7 @@ public class ShareIntent {
 
         DrawingView sharedDrawingView = new DrawingView(drawingView.getContext());
         sharedDrawingView.setDataHandler(drawingView.getDataHandler());
-        sharedDrawingView.getDataHandler().getDataFragment().setDrawDottedLines(false);
+        sharedDrawingView.getDataHandler().getDataFragment().setDrawGridLines(false);
 
         sharedDrawingView.drawBackGround(canvas);
         sharedDrawingView.drawPoints(canvas);

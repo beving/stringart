@@ -19,9 +19,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-
-
-
 /**
  * Created by e62032 on 7/26/2016.
  *
@@ -171,6 +168,19 @@ public class DrawingViewTest {
         //Touch existing point that we are cutting.
         onView(withId(R.id.drawingView)).perform(click());
         assertEquals(0, mainActivity.getDrawingView().getDataHandler().getDataFragment().getPoints().size());
+    }
+
+    @Test
+    public void shouldTurnGridLinesOff() {
+
+        //Grid lines should start off being turned on.
+        assertEquals(true, drawingView.getDataHandler().getDataFragment().isDrawGridLines());
+
+        //Turn Off Grid Lines.
+        openActionBarOverflowOrOptionsMenu(mainActivity.getDrawingView().getContext());
+        onView(withText(R.string.toggle_grid)).perform(click());
+
+        assertEquals(false, drawingView.getDataHandler().getDataFragment().isDrawGridLines());
     }
 
 }

@@ -82,7 +82,7 @@ public class DrawingView extends View {
 
     private void drawGridLines(Canvas canvas) {
         //Draw Dotted (Grid) Lines
-        if (dataHandler.getDataFragment().isDrawDottedLines()) {
+        if (dataHandler.getDataFragment().isDrawGridLines()) {
 
             int spacing = dataHandler.getDataFragment().getRoundToTheNearest();
 
