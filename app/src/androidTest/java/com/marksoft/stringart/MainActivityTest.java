@@ -2,6 +2,7 @@ package com.marksoft.stringart;
 
 import android.content.Intent;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import junit.framework.TestCase;
 import junit.framework.Assert.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,14 +33,15 @@ import static android.support.test.espresso.matcher.ViewMatchers.*;
 /**
  * Created by e62032 on 7/26/2016.
  * @See: http://blog.sqisland.com/2015/04/espresso-21-activitytestrule.html
+ * @See: https://www.youtube.com/watch?v=kL3MCQV2M2s
  */
-public class MainActivityTest { //} extends ActivityInstrumentationTestCase2<MainActivity> {
+public class MainActivityTest {
 
 
     protected Intent intent;
 
     @Rule
-    public ActivityTestRule activityRule = new ActivityTestRule<>(
+    public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<MainActivity>(
             MainActivity.class,
             true,    // initialTouchMode
             false);  // launchActivity. False to set intent per method
@@ -71,48 +74,5 @@ public class MainActivityTest { //} extends ActivityInstrumentationTestCase2<Mai
         onView(withId(R.id.action_cut)).check(ViewAssertions.matches(isDisplayed()));
     }
 
-    /*
-    @Test
-    public void clearShouldAskFirst() {
 
-        onView(withId(R.id.action_clear)).perform(click());
-    }
-
-    @Test
-    public void shouldCreatePoint() {
-
-        MainActivity mainActivity = (MainActivity) activityRule.getActivity();
-
-        assertEquals(1, mainActivity.getDrawingView().getDataHandler().getDataFragment().getPoints().size());
-
-        onView(withText("String Art")).perform(click());
-
-
-
-
-
-
-        //onView(withText("String Art")).check(matches(;))
-
-        // Check that the number is displayed in the UI.
-//        onView(withId(R.id.edit_text_caller_number))
-//                .check(matches(withText(VALID_PHONE_NUMBER)));
-
-
-    }
-
-
-//        ...perform(click());
-
-//        R.layout.activity_drawing
-//
-//        onView(withId(R.id.toolbar))
-//                .perform(click());
-
-
-
-//        onView(withId(R.id.date))
-//                .check(matches(withText("2014-10-15")));
-
-*/
 }

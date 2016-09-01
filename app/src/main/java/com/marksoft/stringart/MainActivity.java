@@ -54,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(intent);
             }*/
                 case (R.id.action_undo): {
-                    getDrawingView().undoAdditionOfLastPoint();
+                    if (!getDrawingView().undoAdditionOfLastPoint()) {
+                        Toast.makeText(MainActivity.this, R.string.no_points_left_to_undo, Toast.LENGTH_LONG).show();
+                    }
                     break;
                 }
                 case (R.id.action_clear): {

@@ -18,6 +18,9 @@
     <string name="gles_activity_name">Z gles_activity_name</string>
     <string name="title_activity_settings">Settings</string>
 
+    <!-- Toast Dialog Strings -->
+    <string name="no_points_left_to_undo">No point left to undo.</string>
+
     <string name="line_size">Line Size</string>
 
     <string name="grid_spacing">Grid Spacing</string>

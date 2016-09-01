@@ -11,7 +11,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -188,13 +187,16 @@ public class DrawingView extends View {
         return roundedToNearest*(Math.round(numberF/roundedToNearest));
     }
 
-    public void undoAdditionOfLastPoint() {
+    public boolean undoAdditionOfLastPoint() {
         if (!getPoints().isEmpty()) {
             Point pointToRemove = getPoints().get(getPoints().size() - 1);
 
             dataHandler.getDataFragment().getLines().removeAll(getLastLinesCreated());
             getPoints().remove(pointToRemove);
+        } else {
+            return false;
         }
+        return true;
     }
 
     private List<Line> getLastLinesCreated() {
@@ -237,8 +239,13 @@ public class DrawingView extends View {
     public DataHandler getDataHandler() {
         return dataHandler;
     }
+
+
     public void setDataHandler(DataHandler dataHandler) {
         this.dataHandler = dataHandler;
     }
+
+
+
 
 }
