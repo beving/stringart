@@ -84,7 +84,7 @@ public class DrawingView extends View {
         //Draw Dotted (Grid) Lines
         if (dataHandler.getDataFragment().isDrawGridLines()) {
 
-            int spacing = dataHandler.getDataFragment().getRoundToTheNearest();
+            int spacing = dataHandler.getDataFragment().getGridSpacing();
 
             //Draw Dotted Lines along the X axis (horizontally)
             for (int y = 0; y < canvas.getHeight(); y+=spacing) {
@@ -126,8 +126,8 @@ public class DrawingView extends View {
     @NonNull
     private Point createRoundedPoint(float x, float y) {
         return new Point(
-                round(x, dataHandler.getDataFragment().getRoundToTheNearest()),
-                round(y, dataHandler.getDataFragment().getRoundToTheNearest()));
+                round(x, dataHandler.getDataFragment().getGridSpacing()),
+                round(y, dataHandler.getDataFragment().getGridSpacing()));
     }
 
     public boolean cutPoint(float x, float y) {

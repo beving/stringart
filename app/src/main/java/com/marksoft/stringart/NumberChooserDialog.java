@@ -66,7 +66,7 @@ public class NumberChooserDialog {
                             Integer selectedInteger = Integer.parseInt(
                                     arrayAdapter.getItem(which).toString());
 
-                            drawingView.getDataHandler().getDataFragment().setRoundToTheNearest(selectedInteger);
+                            drawingView.getDataHandler().getDataFragment().setGridSpacing(selectedInteger);
                             drawingView.reDraw();
                             Toast.makeText(context,
                                     context.getResources().getString(R.string.grid_spacing_set) + " "

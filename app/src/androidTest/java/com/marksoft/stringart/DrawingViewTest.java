@@ -2,7 +2,10 @@ package com.marksoft.stringart;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.test.espresso.assertion.ViewAssertions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
+import android.widget.ArrayAdapter;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -16,6 +19,8 @@ import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -149,11 +154,13 @@ public class DrawingViewTest {
         onView(withId(R.id.drawingView)).perform(swipeRight());
 
         int numberOfPointsBefore = retainedFragment.getPoints().size();
+        int numberOfLinesBefore = retainedFragment.getLines().size();
 
         TestUtility.rotateScreen(activityRule);
-        onView(withId(R.id.drawingView)).perform(click());//Have to do this for some reason or it will not rotate.
+        onView(withId(R.id.drawingView)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
-        assertEquals(numberOfPointsBefore + 1, retainedFragment.getPoints().size());
+        assertEquals(numberOfPointsBefore, retainedFragment.getPoints().size());
+        assertEquals(numberOfLinesBefore, retainedFragment.getLines().size());
     }
 
     @Test
@@ -182,6 +189,45 @@ public class DrawingViewTest {
 
         assertEquals(false, drawingView.getDataHandler().getDataFragment().isDrawGridLines());
     }
+
+    @Test
+    public void shouldChangeLineSize() {
+        assertEquals(2, drawingView.getDataHandler().getDataFragment().getStrokeWidth());
+
+        //Get the Biggest line size from our simple selectable list.
+        final ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
+                mainActivity.getDrawingView().getContext(),
+                R.array.line_sizes, android.R.layout.simple_selectable_list_item);
+        String biggestLineSize = (arrayAdapter.getItem(arrayAdapter.getCount() - 1)).toString();
+
+
+        openActionBarOverflowOrOptionsMenu(mainActivity.getDrawingView().getContext());
+        onView(withText(R.string.line_size)).perform(click());
+        onView(withText(biggestLineSize)).perform(click());
+
+        assertEquals(biggestLineSize, drawingView.getDataHandler().getDataFragment().getStrokeWidth()+"");
+    }
+
+//    @Test
+//    public void shouldChangeGridSpacing() {
+//        assertEquals(100, drawingView.getDataHandler().getDataFragment().getGridSpacing());
+//
+//        //Get the Biggest line size from our simple selectable list.
+//        final ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
+//                mainActivity.getDrawingView().getContext(),
+//                R.array.grid_sizes, android.R.layout.simple_selectable_list_item);
+//
+//        String biggestGridSize = (arrayAdapter.getItem(arrayAdapter.getCount() - 1)).toString();
+//
+//        long itemId = arrayAdapter.getItemId(arrayAdapter.getCount());
+//
+//
+//        openActionBarOverflowOrOptionsMenu(mainActivity.getDrawingView().getContext());
+//        onView(withText(R.string.grid_spacing)).perform(click());
+//        onView(withText(itemId+"")).perform(click());
+//
+//        assertEquals(biggestGridSize, drawingView.getDataHandler().getDataFragment().getGridSpacing()+"");
+//    }
 
 }
 //Check for Toast
