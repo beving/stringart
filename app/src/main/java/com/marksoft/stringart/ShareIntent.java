@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -35,6 +36,9 @@ public class ShareIntent {
         sharedDrawingView.drawPoints(canvas);
         sharedDrawingView.drawLines(canvas);
 
+        bitmap = PointUtility.trimBitmap(bitmap, Color.WHITE);
+
+        //TODO To improve image quality.     insertImage compresses at 50% !  So try to replace this.
         String url = MediaStore.Images.Media.insertImage(activity.getContentResolver(), bitmap,
                 activity.getResources().getString(R.string.share_name_prefix),
                 activity.getResources().getString(R.string.share_description));
@@ -73,7 +77,7 @@ public class ShareIntent {
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
                     Manifest.permission.READ_CONTACTS)) {
 
-                // Show an expanation to the user *asynchronously* -- don't block
+                // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
 

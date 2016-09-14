@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             if (BuildConfig.DEBUG) {
                 Toast.makeText(MainActivity.this, "Caught Exception " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
+            e.printStackTrace();
         }
 
         return super.onOptionsItemSelected(item);
