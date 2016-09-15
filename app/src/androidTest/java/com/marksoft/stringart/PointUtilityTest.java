@@ -30,7 +30,7 @@ public class PointUtilityTest extends TestCase {
         points.add(new Point(20, 10));
         points.add(new Point(22, 200));
     }
-
+/*
     @SmallTest
     public void testCalculateMaxSize() {
         Point maxPoint = PointUtility.calculateMaxSize(points);
@@ -57,7 +57,7 @@ public class PointUtilityTest extends TestCase {
         assertEquals(20, maxPoint.x);
         assertEquals(20, maxPoint.y);
     }
-
+*/
 
     @SmallTest
       public void testToArrayReturnsCorrectNumber() {

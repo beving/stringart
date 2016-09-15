@@ -1,7 +1,6 @@
 package com.marksoft.stringart;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Point;
 
 import java.util.Collection;
@@ -30,26 +29,6 @@ public class PointUtility {
             i++;
         }
         return returnValue;
-    }
-
-    public static Point calculateMinSize(List<Point> points) {
-        Point minPoint = null;
-        if (points.iterator().hasNext()) {
-            minPoint = points.iterator().next(); //Just a point to start with
-
-            for (Point point : points) {
-                if (point.x < minPoint.x) {
-                    minPoint.x = point.x;
-                }
-                if (point.y < minPoint.y) {
-                    minPoint.y = point.y;
-                }
-            }
-            //Add a little bit extra for a border
-            minPoint.x -= 20;
-            minPoint.y -= 20;
-        }
-        return minPoint;
     }
 
     public static Point calculateMaxSize(List<Point> points) {
@@ -136,7 +115,5 @@ public class PointUtility {
         );
 
     }
-
-
 
 }

@@ -9,10 +9,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
-import android.provider.MediaStore;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 
 public class ShareIntent {
@@ -38,15 +42,29 @@ public class ShareIntent {
 
         bitmap = PointUtility.trimBitmap(bitmap, Color.WHITE);
 
-        //TODO To improve image quality.     insertImage compresses at 50% !  So try to replace this.
-        String url = MediaStore.Images.Media.insertImage(activity.getContentResolver(), bitmap,
-                activity.getResources().getString(R.string.share_name_prefix),
-                activity.getResources().getString(R.string.share_description));
+        Uri fileLocation = saveBitmap(bitmap);
 
-        Log.d(TAG, "Shared url: " + url);
-
-        Intent intent = ShareIntent.getImageIntent(Uri.parse(url));
+        Log.d(TAG, "Shared fileLocation uri: " + fileLocation);
+        Intent intent = ShareIntent.getImageIntent(fileLocation);
         activity.startActivity(intent);
+    }
+
+    public static Uri saveBitmap(Bitmap bitmap) {
+        File imagePath = new File(Environment.getExternalStorageDirectory() + "/tempStringArtImage.png");
+        FileOutputStream fos;
+
+        try {
+            fos = new FileOutputStream(imagePath);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            Log.e("GREC", e.getMessage(), e);
+        } catch (IOException e) {
+            Log.e("GREC", e.getMessage(), e);
+        }
+
+        return Uri.fromFile(imagePath);
     }
 
     public static Intent getImageIntent(Uri imageUri) {
@@ -66,7 +84,7 @@ public class ShareIntent {
      * See: https://developer.android.com/training/permissions/requesting.html
      *
      * @param activity
-     */
+    */
     public static void requestPermissions(Activity activity) {
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(activity,
