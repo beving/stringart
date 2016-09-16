@@ -26,7 +26,6 @@ public class DrawingView extends View {
     private DataHandler dataHandler;
     private Gesture gesture;
     private final Paint paint = new Paint();
-    private Canvas canvas;
 
     public DrawingView(Context context) {
         super(context);
@@ -35,8 +34,6 @@ public class DrawingView extends View {
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         gesture = new Gesture(this);
-        //gestureDetector = new GestureDetector(this.getContext(), gesture);
-
     }
 
     @Override
@@ -47,8 +44,6 @@ public class DrawingView extends View {
         drawGridLines(canvas);
         drawPoints(canvas);
         drawLines(canvas);
-
-        this.canvas = canvas;
     }
 
     public void drawBackGround(Canvas canvas) {
@@ -244,14 +239,8 @@ public class DrawingView extends View {
         return dataHandler;
     }
 
-
     public void setDataHandler(DataHandler dataHandler) {
         this.dataHandler = dataHandler;
-    }
-
-
-    public Canvas getCanvas() {
-        return canvas;
     }
 
 }

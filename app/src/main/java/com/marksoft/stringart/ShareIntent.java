@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -26,12 +25,8 @@ public class ShareIntent {
 
     public static void share(Activity activity, final DrawingView drawingView) {
 
-        //Point maxPoint = PointUtility.calculateMaxSize(drawingView.getDataHandler().getDataFragment().getPoints());
-
         //Create a canvas instance using this bitmap using Canvas(Bitmap) constructor
         Bitmap bitmap = Bitmap.createBitmap(drawingView.getWidth(), drawingView.getHeight(),
-//                drawingView.getCanvas().getWidth(),
-//                drawingView.getCanvas().getHeight(),
                 Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(bitmap);
@@ -102,7 +97,6 @@ public class ShareIntent {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-
             } else {
                 ActivityCompat.requestPermissions(activity,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},

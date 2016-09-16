@@ -5,7 +5,6 @@ import android.graphics.Point;
 import android.util.Log;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Utility to convert a Collection of points to an array of floats,
@@ -14,6 +13,9 @@ import java.util.List;
  */
 
 public class PointUtility {
+
+    public static final int MARGIN_SZ = 30;
+
     /**
      * Convert Collection<Point> to float[]
      * @param points A collection of points
@@ -30,25 +32,6 @@ public class PointUtility {
             i++;
         }
         return returnValue;
-    }
-
-    public static Point calculateMaxSize(List<Point> points) {
-        Point maxPoint = new Point(0, 0);
-
-        for (Point point : points) {
-            if (point.x > maxPoint.x) {
-                maxPoint.x = point.x;
-            }
-            if (point.y > maxPoint.y) {
-                maxPoint.y = point.y;
-            }
-        }
-
-        //Add a little bit extra for a border
-        maxPoint.x +=80;
-        maxPoint.y +=80;
-
-        return maxPoint;
     }
 
     public static Bitmap trimBitmap(Bitmap bmp, int backgroundColor) {
@@ -107,30 +90,17 @@ public class PointUtility {
             } else break;
         }
 
-        startHeight-=30;
-        startWidth-=30;
-
-        endHeight+=30;
-        endWidth+=30;
-
-        int x =  startWidth;
-        int y = startHeight;
-        int width = endWidth - startWidth;
-        int height = endHeight - startHeight;
-
-        Log.d("PointUtility", "X: " + x + " Y: " + y + " width: " + width + " height: " + height + " endWidth: " + endWidth + " endHeight: " + endHeight);
-        //java.lang.IllegalArgumentException: x + width must be <= bitmap.width()
-
-        Log.d("PointUtility", " bmp.width: " + bmp.getWidth() + " bmp.height: " + bmp.getHeight());
-
-
+        startHeight-= MARGIN_SZ;
+        startWidth-= MARGIN_SZ;
+        endHeight+= MARGIN_SZ;
+        endWidth+= MARGIN_SZ;
 
         return Bitmap.createBitmap(
                 bmp,
-                x,
-                y,
-                width,
-                height        );
+                startWidth,
+                startHeight,
+                endWidth - startWidth,
+                endHeight - startHeight);
 
     }
 
