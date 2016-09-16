@@ -26,10 +26,14 @@ public class ShareIntent {
 
     public static void share(Activity activity, final DrawingView drawingView) {
 
-        Point maxPoint = PointUtility.calculateMaxSize(drawingView.getDataHandler().getDataFragment().getPoints());
+        //Point maxPoint = PointUtility.calculateMaxSize(drawingView.getDataHandler().getDataFragment().getPoints());
 
         //Create a canvas instance using this bitmap using Canvas(Bitmap) constructor
-        Bitmap bitmap = Bitmap.createBitmap(maxPoint.x, maxPoint.y, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(drawingView.getWidth(), drawingView.getHeight(),
+//                drawingView.getCanvas().getWidth(),
+//                drawingView.getCanvas().getHeight(),
+                Bitmap.Config.ARGB_8888);
+
         Canvas canvas = new Canvas(bitmap);
 
         DrawingView sharedDrawingView = new DrawingView(drawingView.getContext());

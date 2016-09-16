@@ -2,6 +2,7 @@ package com.marksoft.stringart;
 
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.util.Log;
 
 import java.util.Collection;
 import java.util.List;
@@ -44,8 +45,8 @@ public class PointUtility {
         }
 
         //Add a little bit extra for a border
-        maxPoint.x +=20;
-        maxPoint.y +=20;
+        maxPoint.x +=80;
+        maxPoint.y +=80;
 
         return maxPoint;
     }
@@ -106,13 +107,30 @@ public class PointUtility {
             } else break;
         }
 
+        startHeight-=30;
+        startWidth-=30;
+
+        endHeight+=30;
+        endWidth+=30;
+
+        int x =  startWidth;
+        int y = startHeight;
+        int width = endWidth - startWidth;
+        int height = endHeight - startHeight;
+
+        Log.d("PointUtility", "X: " + x + " Y: " + y + " width: " + width + " height: " + height + " endWidth: " + endWidth + " endHeight: " + endHeight);
+        //java.lang.IllegalArgumentException: x + width must be <= bitmap.width()
+
+        Log.d("PointUtility", " bmp.width: " + bmp.getWidth() + " bmp.height: " + bmp.getHeight());
+
+
+
         return Bitmap.createBitmap(
                 bmp,
-                startWidth,
-                startHeight,
-                endWidth - startWidth,
-                endHeight - startHeight
-        );
+                x,
+                y,
+                width,
+                height        );
 
     }
 
