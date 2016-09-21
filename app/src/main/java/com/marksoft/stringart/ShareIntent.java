@@ -41,15 +41,20 @@ public class ShareIntent {
 
         bitmap = PointUtility.trimBitmap(bitmap, Color.WHITE);
 
-        Uri fileLocation = saveBitmap(bitmap);
+        Uri fileLocation = saveBitmap(bitmap, activity);
 
         Log.d(TAG, "Shared fileLocation uri: " + fileLocation);
         Intent intent = ShareIntent.getImageIntent(fileLocation);
         activity.startActivity(intent);
     }
 
-    public static Uri saveBitmap(Bitmap bitmap) {
-        File imagePath = new File(Environment.getExternalStorageDirectory() + "/tempStringArtImage.png");
+    public static Uri saveBitmap(Bitmap bitmap, Activity activity) {
+
+        File imagePath = new File(Environment.getExternalStorageDirectory() + "/" +
+                activity.getResources().getString(R.string.share_name_prefix));
+
+        removeOldFile(imagePath);
+
         FileOutputStream fos;
 
         try {
@@ -64,6 +69,13 @@ public class ShareIntent {
         }
 
         return Uri.fromFile(imagePath);
+    }
+
+    //Remove old file keeping only one around
+    private static void removeOldFile(File imageFile) {
+        if (imageFile.exists()) {
+            imageFile.delete();
+        }
     }
 
     public static Intent getImageIntent(Uri imageUri) {
