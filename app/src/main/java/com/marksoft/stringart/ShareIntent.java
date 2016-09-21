@@ -33,7 +33,6 @@ public class ShareIntent {
 
         DrawingView sharedDrawingView = new DrawingView(drawingView.getContext());
         sharedDrawingView.setDataHandler(drawingView.getDataHandler());
-        sharedDrawingView.getDataHandler().getDataFragment().setDrawGridLines(false);
 
         sharedDrawingView.drawBackGround(canvas);
         sharedDrawingView.drawPoints(canvas);
@@ -42,6 +41,9 @@ public class ShareIntent {
         bitmap = PointUtility.trimBitmap(bitmap, Color.WHITE);
 
         Uri fileLocation = saveBitmap(bitmap, activity);
+
+        sharedDrawingView.getDataHandler().getDataFragment().setDrawGridLines(
+                sharedDrawingView.getDataHandler().getDataFragment().isDrawGridLines());
 
         Log.d(TAG, "Shared fileLocation uri: " + fileLocation);
         Intent intent = ShareIntent.getImageIntent(fileLocation);
