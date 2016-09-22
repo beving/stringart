@@ -1,6 +1,8 @@
 package com.marksoft.stringart;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.v4.app.FragmentManager;
@@ -38,9 +40,30 @@ public class ColorDialog {
                                     context.getResources().getString(R.string.color_set) + " " +
                                     Integer.toHexString(color).toUpperCase(),
                                     Toast.LENGTH_LONG).show();
-                            drawingView.getDataHandler().getDataFragment().setLastSelectedColor(color);
+                            SharedPreferencesUtility.setLineColor(context, color);
                         }
                     }
                 }).build().show(fragmentManager, "");
+    }
+
+    //TODO Fix this
+    public static void chooseContext(final Context context, final DrawingView drawingView, final int color) {
+
+        new AlertDialog.Builder(context)
+                .setTitle("Apply Color")
+                .setMessage("Apply color to All current lines?  \nOr just New ones?")
+                .setPositiveButton("All", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setNegativeButton("New", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferencesUtility.setLineColor(context, color);
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
     }
 }

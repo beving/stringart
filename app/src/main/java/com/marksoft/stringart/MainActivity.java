@@ -2,6 +2,7 @@ package com.marksoft.stringart;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     private long lastBackPressTime = 0;
     private DataHandler dataHandler = new DataHandler();
+    private SharedPreferences sharedPreferences;
 
 
     @Override
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
 
+        sharedPreferences = SharedPreferencesUtility.init(MainActivity.this);
         getDrawingView().setDataHandler(dataHandler);
         getDrawingView().getDataHandler().initDataFragment(getFragmentManager(), savedInstanceState);
 
@@ -89,8 +92,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case (R.id.action_toggle_grid): {
                     //Set to the opposite of what it is currently
-                    getDataFragment().setDrawGridLines(!getDataFragment().isDrawGridLines());
-                    item.setChecked(getDataFragment().isDrawGridLines());
+
+                    boolean currentState = SharedPreferencesUtility.isGridLinesOn(sharedPreferences);
+                    SharedPreferencesUtility.setGridLines(MainActivity.this, !currentState);
+                    item.setChecked(currentState);
                     break;
                 }
                 case (R.id.action_grid_size): {
@@ -136,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem checkable = menu.findItem(R.id.action_toggle_grid);
-        checkable.setChecked(getDataFragment().isDrawGridLines());
+        checkable.setChecked(SharedPreferencesUtility.isGridLinesOn(sharedPreferences));
         return true;
     }
 

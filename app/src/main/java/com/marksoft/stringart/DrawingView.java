@@ -1,6 +1,7 @@
 package com.marksoft.stringart;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -26,14 +27,17 @@ public class DrawingView extends View {
     private DataHandler dataHandler;
     private Gesture gesture;
     private final Paint paint = new Paint();
+    private SharedPreferences sharedPreferences;
 
     public DrawingView(Context context) {
         super(context);
+        sharedPreferences = SharedPreferencesUtility.init(context);
     }
 
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         gesture = new Gesture(this);
+        sharedPreferences = SharedPreferencesUtility.init(context);
     }
 
     @Override
@@ -56,7 +60,7 @@ public class DrawingView extends View {
         //Draw Lines
         for (Line line : dataHandler.getDataFragment().getLines()) {
 
-            paint.setStrokeWidth(dataHandler.getDataFragment().getStrokeWidth());
+            paint.setStrokeWidth(SharedPreferencesUtility.getStrokeWidth(sharedPreferences));
             paint.setStyle(Paint.Style.STROKE);
 
             paint.setColor(line.getColor());  //Set the color for the line
@@ -81,9 +85,9 @@ public class DrawingView extends View {
 
     private void drawGridLines(Canvas canvas) {
         //Draw Dotted (Grid) Lines
-        if (dataHandler.getDataFragment().isDrawGridLines()) {
+        if (SharedPreferencesUtility.isGridLinesOn(sharedPreferences)) {
 
-            int spacing = dataHandler.getDataFragment().getGridSpacing();
+            int spacing = SharedPreferencesUtility.getGridSpacing(sharedPreferences);
 
             //Draw Dotted Lines along the X axis (horizontally)
             for (int y = 0; y < canvas.getHeight(); y+=spacing) {
@@ -125,8 +129,8 @@ public class DrawingView extends View {
     @NonNull
     private Point createRoundedPoint(float x, float y) {
         return new Point(
-                round(x, dataHandler.getDataFragment().getGridSpacing()),
-                round(y, dataHandler.getDataFragment().getGridSpacing()));
+                round(x, SharedPreferencesUtility.getGridSpacing(sharedPreferences)),
+                round(y, SharedPreferencesUtility.getGridSpacing(sharedPreferences)));
     }
 
     public boolean cutPoint(float x, float y) {
@@ -162,7 +166,7 @@ public class DrawingView extends View {
         for (Point otherPoint : getPoints()) {
 
             Line newLine = new Line(newPoint, otherPoint,
-                    dataHandler.getDataFragment().getLastSelectedColor());
+                    SharedPreferencesUtility.getLineColor(sharedPreferences));
 
             if (!getLines().contains(newLine)) {
                 getLines().add(newLine);

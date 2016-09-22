@@ -127,23 +127,23 @@ public class DrawingViewTest {
         }
     }
 
-    @Test
-    public void shouldChangeColorOfLines() {
-        onView(withId(R.id.drawingView)).perform(swipeRight());
-
-        for (Line line : retainedFragment.getLines()) {
-            assertEquals(Color.RED, line.getColor());
-        }
-        drawingView.getDataHandler().getDataFragment().setLastSelectedColor(Color.BLACK);
-
-        onView(withId(R.id.drawingView)).perform(swipeDown());
-
-        Line lastLine = retainedFragment.getLines().get(retainedFragment.getLines().size()-1);
-        Line firstLine = retainedFragment.getLines().get(0);
-
-        assertEquals(Color.RED, firstLine.getColor());
-        assertEquals(Color.BLACK, lastLine.getColor());
-    }
+//    @Test
+//    public void shouldChangeColorOfLines() {
+//        onView(withId(R.id.drawingView)).perform(swipeRight());
+//
+//        for (Line line : retainedFragment.getLines()) {
+//            assertEquals(Color.RED, line.getColor());
+//        }
+//        drawingView.getDataHandler().getDataFragment().setLastSelectedColor(Color.BLACK);
+//
+//        onView(withId(R.id.drawingView)).perform(swipeDown());
+//
+//        Line lastLine = retainedFragment.getLines().get(retainedFragment.getLines().size()-1);
+//        Line firstLine = retainedFragment.getLines().get(0);
+//
+//        assertEquals(Color.RED, firstLine.getColor());
+//        assertEquals(Color.BLACK, lastLine.getColor());
+//    }
 
     @Test
     public void rotatingScreenShouldNotLooseData() {
@@ -177,36 +177,36 @@ public class DrawingViewTest {
         assertEquals(0, mainActivity.getDrawingView().getDataHandler().getDataFragment().getPoints().size());
     }
 
-    @Test
-    public void shouldTurnGridLinesOff() {
-
-        //Grid lines should start off being turned on.
-        assertEquals(true, drawingView.getDataHandler().getDataFragment().isDrawGridLines());
-
-        //Turn Off Grid Lines.
-        openActionBarOverflowOrOptionsMenu(mainActivity.getDrawingView().getContext());
-        onView(withText(R.string.toggle_grid)).perform(click());
-
-        assertEquals(false, drawingView.getDataHandler().getDataFragment().isDrawGridLines());
-    }
-
-    @Test
-    public void shouldChangeLineSize() {
-        assertEquals(2, drawingView.getDataHandler().getDataFragment().getStrokeWidth());
-
-        //Get the Biggest line size from our simple selectable list.
-        final ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
-                mainActivity.getDrawingView().getContext(),
-                R.array.line_sizes, android.R.layout.simple_selectable_list_item);
-        String biggestLineSize = (arrayAdapter.getItem(arrayAdapter.getCount() - 1)).toString();
-
-
-        openActionBarOverflowOrOptionsMenu(mainActivity.getDrawingView().getContext());
-        onView(withText(R.string.line_size)).perform(click());
-        onView(withText(biggestLineSize)).perform(click());
-
-        assertEquals(biggestLineSize, drawingView.getDataHandler().getDataFragment().getStrokeWidth()+"");
-    }
+//    @Test
+//    public void shouldTurnGridLinesOff() {
+//
+//        //Grid lines should start off being turned on.
+//        assertEquals(true, drawingView.getDataHandler().getDataFragment().isDrawGridLines());
+//
+//        //Turn Off Grid Lines.
+//        openActionBarOverflowOrOptionsMenu(mainActivity.getDrawingView().getContext());
+//        onView(withText(R.string.toggle_grid)).perform(click());
+//
+//        assertEquals(false, drawingView.getDataHandler().getDataFragment().isDrawGridLines());
+//    }
+//
+//    @Test
+//    public void shouldChangeLineSize() {
+//        assertEquals(2, drawingView.getDataHandler().getDataFragment().getStrokeWidth());
+//
+//        //Get the Biggest line size from our simple selectable list.
+//        final ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
+//                mainActivity.getDrawingView().getContext(),
+//                R.array.line_sizes, android.R.layout.simple_selectable_list_item);
+//        String biggestLineSize = (arrayAdapter.getItem(arrayAdapter.getCount() - 1)).toString();
+//
+//
+//        openActionBarOverflowOrOptionsMenu(mainActivity.getDrawingView().getContext());
+//        onView(withText(R.string.line_size)).perform(click());
+//        onView(withText(biggestLineSize)).perform(click());
+//
+//        assertEquals(biggestLineSize, drawingView.getDataHandler().getDataFragment().getStrokeWidth()+"");
+//    }
 
 //    @Test
 //    public void shouldChangeGridSpacing() {

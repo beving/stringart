@@ -24,17 +24,9 @@ public class RetainedFragment extends Fragment {
     //Keys for Saving State in the Bundle
     private static final String POINTS = "points";
     private static final String LINES = "lines";
-    private static final String LAST_SELECTED_COLOR = "lastSelectedColor";
-    private static final String STROKE_WIDTH = "strokeWidth";
-    private static final String ROUND_TO_THE_NEAREST = "gridSpacing";
-    private static final String DRAW_DOTTED_LINES = "drawGridLines";
     private static final String CUT_POINT = "cutPoint";
 
     //Defaults
-    private int lastSelectedColor = Color.RED;
-    private int strokeWidth = 2;
-    private int gridSpacing = 100;
-    private boolean drawGridLines = true;
     private boolean cutPoint = false;
     private boolean permissibleToShare = false;
 
@@ -59,38 +51,6 @@ public class RetainedFragment extends Fragment {
         return lines;
     }
 
-    public int getLastSelectedColor() {
-        return lastSelectedColor;
-    }
-
-    public void setLastSelectedColor(int lastSelectedColor) {
-        this.lastSelectedColor = lastSelectedColor;
-    }
-
-    public int getStrokeWidth() {
-        return strokeWidth;
-    }
-
-    public void setStrokeWidth(int strokeWidth) {
-        this.strokeWidth = strokeWidth;
-    }
-
-    public int getGridSpacing() {
-        return gridSpacing;
-    }
-
-    public void setGridSpacing(int gridSpacing) {
-        this.gridSpacing = gridSpacing;
-    }
-
-    public void setDrawGridLines(boolean drawGridLines) {
-        this.drawGridLines = drawGridLines;
-    }
-
-    public boolean isDrawGridLines() {
-        return drawGridLines;
-    }
-
     public boolean isCutPoint() {
         return cutPoint;
     }
@@ -113,11 +73,6 @@ public class RetainedFragment extends Fragment {
 
         outState.putParcelableArrayList(POINTS, (ArrayList<Point>)points); //TODO make constants for all of these
         outState.putParcelableArrayList(LINES, (ArrayList<Line>)lines);
-
-        outState.putInt(LAST_SELECTED_COLOR, lastSelectedColor);
-        outState.putInt(STROKE_WIDTH, strokeWidth);
-        outState.putInt(ROUND_TO_THE_NEAREST, gridSpacing);
-        outState.putBoolean(DRAW_DOTTED_LINES, drawGridLines);
         outState.putBoolean(CUT_POINT, cutPoint);
     }
 
@@ -127,11 +82,6 @@ public class RetainedFragment extends Fragment {
         if (savedInstanceState != null) {
             points = savedInstanceState.getParcelableArrayList(POINTS);
             lines = savedInstanceState.getParcelableArrayList(LINES);
-
-            lastSelectedColor = savedInstanceState.getInt(LAST_SELECTED_COLOR);
-            strokeWidth = savedInstanceState.getInt(STROKE_WIDTH);
-            gridSpacing = savedInstanceState.getInt(ROUND_TO_THE_NEAREST);
-            drawGridLines = savedInstanceState.getBoolean(DRAW_DOTTED_LINES);
             cutPoint = savedInstanceState.getBoolean(CUT_POINT);
         }
     }

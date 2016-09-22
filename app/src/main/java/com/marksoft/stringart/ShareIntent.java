@@ -42,8 +42,8 @@ public class ShareIntent {
 
         Uri fileLocation = saveBitmap(bitmap, activity);
 
-        sharedDrawingView.getDataHandler().getDataFragment().setDrawGridLines(
-                sharedDrawingView.getDataHandler().getDataFragment().isDrawGridLines());
+//        sharedDrawingView.getDataHandler().getDataFragment().setDrawGridLines(
+//                sharedDrawingView.getDataHandler().getDataFragment().isDrawGridLines());
 
         Log.d(TAG, "Shared fileLocation uri: " + fileLocation);
         Intent intent = ShareIntent.getImageIntent(fileLocation);

@@ -3,6 +3,7 @@ package com.marksoft.stringart;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ public class NumberChooserDialog {
                                 arrayAdapter.getItem(which).toString());
                         Log.d(TAG, R.string.line_size_set + ": " + selectedInteger);
 
-                        drawingView.getDataHandler().getDataFragment().setStrokeWidth(selectedInteger);
+                        SharedPreferencesUtility.setStrokeWidth(context, selectedInteger);
                         drawingView.reDraw();
                         Toast.makeText(context,
                                 context.getResources().getString(R.string.line_size_set) + " "
@@ -66,7 +67,8 @@ public class NumberChooserDialog {
                             Integer selectedInteger = Integer.parseInt(
                                     arrayAdapter.getItem(which).toString());
 
-                            drawingView.getDataHandler().getDataFragment().setGridSpacing(selectedInteger);
+                            SharedPreferencesUtility.setGridSpacing(context, selectedInteger);
+
                             drawingView.reDraw();
                             Toast.makeText(context,
                                     context.getResources().getString(R.string.grid_spacing_set) + " "
@@ -74,7 +76,6 @@ public class NumberChooserDialog {
                                     Toast.LENGTH_LONG).show();
                         }
                     });
-
 
             alertDialog.show();
     }
