@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -26,7 +28,7 @@ public class ShareIntent {
     public static void share(Activity activity, final DrawingView drawingView) {
 
         //Create a canvas instance using this bitmap using Canvas(Bitmap) constructor
-        Bitmap bitmap = Bitmap.createBitmap(drawingView.getWidth()*2, drawingView.getHeight()*2,
+        Bitmap bitmap = Bitmap.createBitmap(drawingView.getWidth(), drawingView.getHeight(),
                 Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(bitmap);
@@ -36,14 +38,11 @@ public class ShareIntent {
 
         sharedDrawingView.drawBackGround(canvas);
         sharedDrawingView.drawPoints(canvas);
-        sharedDrawingView.drawLines(canvas, 2);
+        sharedDrawingView.drawLines(canvas);
 
-        bitmap = PointUtility.trimBitmap(bitmap, Color.WHITE);
+        canvas.scale(2000,2000);
 
         Uri fileLocation = saveBitmap(bitmap, activity);
-
-//        sharedDrawingView.getDataHandler().getDataFragment().setDrawGridLines(
-//                sharedDrawingView.getDataHandler().getDataFragment().isDrawGridLines());
 
         Log.d(TAG, "Shared fileLocation uri: " + fileLocation);
         Intent intent = ShareIntent.getImageIntent(fileLocation);

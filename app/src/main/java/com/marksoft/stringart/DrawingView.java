@@ -47,7 +47,7 @@ public class DrawingView extends View {
         drawBackGround(canvas);
         drawGridLines(canvas);
         drawPoints(canvas);
-        drawLines(canvas, 1);
+        drawLines(canvas);
     }
 
     public void drawBackGround(Canvas canvas) {
@@ -56,7 +56,7 @@ public class DrawingView extends View {
         canvas.drawPaint(paint);
     }
 
-    public void drawLines(Canvas canvas, int multiplier) {
+    public void drawLines(Canvas canvas) {
         //Draw Lines
         for (Line line : dataHandler.getDataFragment().getLines()) {
 
@@ -67,8 +67,8 @@ public class DrawingView extends View {
             canvas.drawLine(
                     Math.round(line.getStartPoint().x),  //starting coordinates
                     Math.round(line.getStartPoint().y),
-                    Math.round(line.getEndPoint().x * multiplier),    //ending coordinates
-                    Math.round(line.getEndPoint().y* multiplier),
+                    Math.round(line.getEndPoint().x ),    //ending coordinates
+                    Math.round(line.getEndPoint().y),
                     paint);
         }
     }
