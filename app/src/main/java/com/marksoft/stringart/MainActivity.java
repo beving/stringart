@@ -82,7 +82,12 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_change_color): {
-                    ColorDialog.show(getBaseContext(), getDrawingView(),
+                    ColorDialog.selectLineColor(getBaseContext(), getDrawingView(),
+                            getSupportFragmentManager());
+                    break;
+                }
+                case (R.id.action_background_color): {
+                    new ColorDialog().selectBackgroundColor(getBaseContext(), getDrawingView(),
                             getSupportFragmentManager());
                     break;
                 }

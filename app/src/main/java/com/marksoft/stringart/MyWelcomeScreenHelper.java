@@ -8,7 +8,7 @@ import com.stephentuso.welcome.ui.WelcomeActivity;
 
 /**
  * This is a copy of WelcomeScreenHelper, that had to be done since there is a bug in that code that
- * did not allow the show(Bundle) to work properly.  The Welcome Screen would not come up.
+ * did not allow the selectLineColor(Bundle) to work properly.  The Welcome Screen would not come up.
  * @see com.stephentuso.welcome.WelcomeScreenHelper
  * Created by e62032 on 7/20/2016.
  */

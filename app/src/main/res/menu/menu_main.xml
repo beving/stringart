@@ -58,6 +58,13 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_background_color"
+        android:orderInCategory="90"
+        android:title="@string/action_background_color"
+        app:showAsAction="never" />
+
+
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"

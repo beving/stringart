@@ -26,7 +26,7 @@ public class ShareIntent {
     public static void share(Activity activity, final DrawingView drawingView) {
 
         //Create a canvas instance using this bitmap using Canvas(Bitmap) constructor
-        Bitmap bitmap = Bitmap.createBitmap(drawingView.getWidth(), drawingView.getHeight(),
+        Bitmap bitmap = Bitmap.createBitmap(drawingView.getWidth()*2, drawingView.getHeight()*2,
                 Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(bitmap);
@@ -36,7 +36,7 @@ public class ShareIntent {
 
         sharedDrawingView.drawBackGround(canvas);
         sharedDrawingView.drawPoints(canvas);
-        sharedDrawingView.drawLines(canvas);
+        sharedDrawingView.drawLines(canvas, 2);
 
         bitmap = PointUtility.trimBitmap(bitmap, Color.WHITE);
 
@@ -104,7 +104,7 @@ public class ShareIntent {
                 Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
+            // Should we selectLineColor an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
                     Manifest.permission.READ_CONTACTS)) {
 

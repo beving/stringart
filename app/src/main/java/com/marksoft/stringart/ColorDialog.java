@@ -20,11 +20,9 @@ import com.thebluealliance.spectrum.SpectrumDialog;
  */
 public class ColorDialog {
 
-    private ColorDialog() {}
-
-    public static void show(final Context context,
-                             final DrawingView drawingView,
-                             FragmentManager fragmentManager) {
+    public static void selectLineColor(final Context context,
+                                       final DrawingView drawingView,
+                                       FragmentManager fragmentManager) {
 
         int[] colors = context.getResources().getIntArray(R.array.available_colors);
 
@@ -38,9 +36,35 @@ public class ColorDialog {
                         if (positiveResult) {
                             Toast.makeText(context,
                                     context.getResources().getString(R.string.color_set) + " " +
-                                    Integer.toHexString(color).toUpperCase(),
+                                            Integer.toHexString(color).toUpperCase(),
                                     Toast.LENGTH_LONG).show();
                             SharedPreferencesUtility.setLineColor(context, color);
+                        }
+                    }
+                }).build().show(fragmentManager, "");
+    }
+
+    public static void selectBackgroundColor(final Context context,
+                            final DrawingView drawingView,
+                            FragmentManager fragmentManager) {
+
+        int[] colors = context.getResources().getIntArray(R.array.available_colors);
+
+        new SpectrumDialog.Builder(context)
+                .setColors(colors)
+                .setSelectedColorRes(R.color.white)
+                .setDismissOnColorSelected(true)
+                .setOnColorSelectedListener(new SpectrumDialog.OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(boolean positiveResult, @ColorInt int color ) {
+                        if (positiveResult) {
+                            Toast.makeText(context,
+                                    context.getResources().getString(R.string.color_set) + " " +
+                                            Integer.toHexString(color).toUpperCase(),
+                                    Toast.LENGTH_LONG).show();
+
+                            SharedPreferencesUtility.setBackgroundColor(context, color);
+                            drawingView.reDraw();
                         }
                     }
                 }).build().show(fragmentManager, "");

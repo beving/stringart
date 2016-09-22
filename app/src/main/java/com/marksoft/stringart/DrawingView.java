@@ -47,16 +47,16 @@ public class DrawingView extends View {
         drawBackGround(canvas);
         drawGridLines(canvas);
         drawPoints(canvas);
-        drawLines(canvas);
+        drawLines(canvas, 1);
     }
 
     public void drawBackGround(Canvas canvas) {
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.WHITE);  //Set the color for the canvas background
+        paint.setColor(SharedPreferencesUtility.getBackgroundColor(sharedPreferences));  //Set the color for the canvas background
         canvas.drawPaint(paint);
     }
 
-    public void drawLines(Canvas canvas) {
+    public void drawLines(Canvas canvas, int multiplier) {
         //Draw Lines
         for (Line line : dataHandler.getDataFragment().getLines()) {
 
@@ -67,14 +67,14 @@ public class DrawingView extends View {
             canvas.drawLine(
                     Math.round(line.getStartPoint().x),  //starting coordinates
                     Math.round(line.getStartPoint().y),
-                    Math.round(line.getEndPoint().x),    //ending coordinates
-                    Math.round(line.getEndPoint().y),
+                    Math.round(line.getEndPoint().x * multiplier),    //ending coordinates
+                    Math.round(line.getEndPoint().y* multiplier),
                     paint);
         }
     }
 
     public void drawPoints(Canvas canvas) {
-        //Only draw a point for the first one
+        //Only draw a point when there is only just one point, so the user can see it on the screen
         if (dataHandler.getDataFragment().getPoints().size()==1) {
             paint.setColor(Color.BLACK); //Set the color for the points
             paint.setStyle(Paint.Style.STROKE);
