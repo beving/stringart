@@ -28,7 +28,7 @@
     <string name="color_set">Color set to </string>
     <string name="grid_spacing_set">Grid spacing set to </string>
     <string name="line_size_set">Line size set to</string>
-    <string name="share_name_prefix">StringArt_Image</string>
+    <string name="share_name_prefix">StringArt_Image.png</string>
 
     <string name="share_description">The image captured by MediaStore from the canvas of StringArt.</string>
 
