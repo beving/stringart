@@ -2,7 +2,9 @@ package com.marksoft.stringart;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 
 /**
  * Created by e62032 on 7/22/2016.
@@ -10,12 +12,21 @@ import android.support.v7.app.AppCompatActivity;
  */
 public class SplashActivity extends AppCompatActivity {
 
+    public static final int DELAY_MILLIS = 2000;  //Not best practice, but using since app loads too fast
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(this, MainActivity.class); //TODO may want a timer because my app starts so fast ;)
-        startActivity(intent);
-        finish();
-    }
-}
+        /* New Handler to start the Menu-Activity
+         * and close this Splash-Screen after some seconds.*/
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }, DELAY_MILLIS);
+            }
+        }
