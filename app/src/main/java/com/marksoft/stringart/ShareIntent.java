@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -50,32 +47,38 @@ public class ShareIntent {
     }
 
     public static Uri saveBitmap(Bitmap bitmap, Activity activity) {
-
-        File imagePath = new File(Environment.getExternalStorageDirectory() + "/" +
-                activity.getResources().getString(R.string.share_name_prefix));
-
-        removeOldFile(imagePath);
-
-        FileOutputStream fos;
-
+        File imagePath = null;
         try {
+            String fileNamePrefix = activity.getResources().getString(R.string.share_name_prefix);
+            removeOldFiles(fileNamePrefix);
+
+            imagePath = File.createTempFile(fileNamePrefix,
+                    ".png",
+                    Environment.getExternalStorageDirectory());
+
+            FileOutputStream fos;
             fos = new FileOutputStream(imagePath);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.flush();
             fos.close();
         } catch (FileNotFoundException e) {
-            Log.e("GREC", e.getMessage(), e);
+            Log.e(TAG, e.getMessage(), e);
         } catch (IOException e) {
-            Log.e("GREC", e.getMessage(), e);
+            Log.e(TAG, e.getMessage(), e);
         }
 
         return Uri.fromFile(imagePath);
     }
 
-    //Remove old file keeping only one around
-    private static void removeOldFile(File imageFile) {
-        if (imageFile.exists()) {
-            imageFile.delete();
+    //Clean up old files
+    private static void removeOldFiles(String filesToCleanUp) {
+
+        File dir = new File(Environment.getExternalStorageDirectory().getPath());
+        for (File file : dir.listFiles()) {
+            if (file.getName().contains(filesToCleanUp)) {
+                Log.d(TAG, "Removing Old File: " + file.getName());
+                file.delete();
+            }
         }
     }
 

@@ -4,13 +4,6 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/action_change_color"
-        android:icon="@drawable/ic_palette"
-        android:title="@string/color"
-        android:orderInCategory="5"
-        app:showAsAction="ifRoom"/>
-
-    <item
         android:id="@+id/action_cut"
         android:icon="@drawable/ic_content_cut"
         android:title="@string/cut"
@@ -29,6 +22,13 @@
         android:icon="@drawable/ic_clear_all"
         android:title="@string/clear"
         android:orderInCategory="6"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_change_color"
+        android:icon="@drawable/ic_palette"
+        android:title="@string/line_color"
+        android:orderInCategory="15"
         app:showAsAction="ifRoom"/>
 
     <item
@@ -63,10 +63,9 @@
         android:title="@string/action_background_color"
         app:showAsAction="never" />
 
-
-    <item
+    <!--item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="never" /-->
 </menu>

@@ -60,6 +60,13 @@ public class DrawingView extends View {
         //Draw Lines
         for (Line line : dataHandler.getDataFragment().getLines()) {
 
+
+            /*set the paint settings
+            paint.setAntiAlias(false);
+            paint.setDither(true);
+            paint.setFilterBitmap(false); */
+
+
             paint.setStrokeWidth(SharedPreferencesUtility.getStrokeWidth(sharedPreferences));
             paint.setStyle(Paint.Style.STROKE);
 
