@@ -6,7 +6,7 @@
     <string name="cleared">The lines have been cleared.</string>
     <string name="close">Press back again to close this app.</string>
     <string name="cut">Cut</string>
-    <string name="color">Change Color</string>
+    <string name="line_color">Line Color</string>
     <string name="clear">Clear</string>
     <string name="cancel">Cancel</string>
     <string name="undo">Undo</string>
@@ -29,7 +29,7 @@
     <string name="color_set">Color set to </string>
     <string name="grid_spacing_set">Grid spacing set to </string>
     <string name="line_size_set">Line size set to</string>
-    <string name="share_name_prefix">StringArt_Image.png</string>
+    <string name="share_name_prefix">StringArt_Image</string>
 
     <string name="share_description">The image captured by MediaStore from the canvas of StringArt.</string>
 
