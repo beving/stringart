@@ -1,18 +1,18 @@
 package com.marksoft.stringart;
 
 import android.app.FragmentManager;
+import android.content.Context;
 import android.os.Bundle;
 
 /**
  * Handles the storing and retrieving of the data for this application.
- * //TODO consider removing this class
  * Created by e62032 on 4/18/2016.
  */
 public class DataHandler {
 
     private RetainedFragment dataFragment;
 
-    public void initDataFragment(FragmentManager fragmentManager, Bundle bundle) {
+    public void initDataFragment(Context context, FragmentManager fragmentManager, Bundle bundle) {
 
         // find the retained fragment on activity restarts
         if (bundle != null) {
@@ -25,6 +25,9 @@ public class DataHandler {
         if (dataFragment == null) {
             // add the fragment
             dataFragment = new RetainedFragment();
+            dataFragment.setLines(SharedPreferencesUtility.getLines(context));
+            dataFragment.setPoints(SharedPreferencesUtility.getPoints(context));
+
             fragmentManager.beginTransaction().add(dataFragment, RetainedFragment.TAG).commit();
         }
     }
@@ -33,4 +36,13 @@ public class DataHandler {
         return dataFragment;
     }
 
+    /**
+     * Persist line and point data to the SharedPreferences.
+     * This is called when the application is paused.
+     * @param context
+     */
+    public void persistData(Context context) {
+        SharedPreferencesUtility.setLines(context, dataFragment.getLines());
+        SharedPreferencesUtility.setPoints(context, dataFragment.getPoints());
+    }
 }

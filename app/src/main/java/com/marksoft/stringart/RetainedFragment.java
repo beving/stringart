@@ -51,6 +51,14 @@ public class RetainedFragment extends Fragment {
         return lines;
     }
 
+    public void setPoints(List<Point> points) {
+        this.points = points;
+    }
+
+    public void setLines(List<Line> lines) {
+        this.lines = lines;
+    }
+
     public boolean isCutPoint() {
         return cutPoint;
     }

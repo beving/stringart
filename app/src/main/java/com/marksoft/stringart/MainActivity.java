@@ -28,12 +28,18 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = SharedPreferencesUtility.init(MainActivity.this);
         getDrawingView().setDataHandler(dataHandler);
-        getDrawingView().getDataHandler().initDataFragment(getFragmentManager(), savedInstanceState);
+        getDrawingView().getDataHandler().initDataFragment(getBaseContext(), getFragmentManager(), savedInstanceState);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dataHandler.persistData(getBaseContext());
     }
 
     @Override

@@ -3,6 +3,15 @@ package com.marksoft.stringart;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.preference.PreferenceManager;
+
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Utility to help handle SharedPreferences.
@@ -16,6 +25,8 @@ public class SharedPreferencesUtility {
     public static final String GRID_LINES = "gridLines";
     public static final String LINE_COLOR = "lineColor";
     public static final String BACKGROUND_COLOR = "backgroundColor";
+    public static final String LINES = "lines";
+    public static final String POINTS = "points";
 
     public static SharedPreferences init(Context context) {
         return context.getSharedPreferences(PREF_NAME, context.MODE_PRIVATE);
@@ -25,7 +36,7 @@ public class SharedPreferencesUtility {
         return sharedPreferences.getInt(STROKE_WIDTH, 2);  //Default is 2
     }
 
-    public static void setStrokeWidth (Context context, int strokeWidth) {
+    public static void setStrokeWidth(Context context, int strokeWidth) {
         SharedPreferences.Editor editor = init(context).edit();
         editor.putInt(STROKE_WIDTH, strokeWidth);
         editor.commit();
@@ -69,5 +80,66 @@ public class SharedPreferencesUtility {
         SharedPreferences.Editor editor = init(context).edit();
         editor.putInt(BACKGROUND_COLOR, backgroundColor);
         editor.commit();
+    }
+
+    public static void addLine(Context context, Line line) { //TODO rm is not used
+        List<Line> lines = getLines(context);
+        lines.add(line);
+        setLines(context, lines);
+    }
+
+    public static void setLines(Context context, List<Line> lines) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        Gson gson = new Gson();
+
+        String json = gson.toJson(lines);
+
+        editor.putString(LINES, json);
+        editor.commit();
+    }
+
+    public static List<Line> getLines(Context context) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = sharedPrefs.getString(LINES, "");
+        Type type = new TypeToken<ArrayList<Line>>() {}.getType();
+        List<Line> lines = gson.fromJson(json, type);
+
+        if (lines == null) {
+            lines = new ArrayList<Line>();
+        }
+        return lines;
+    }
+
+    public static List<Point> getPoints(Context context) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        Gson gson = new Gson();
+        String json = sharedPrefs.getString(POINTS, "");
+        Type type = new TypeToken<ArrayList<Point>>() {}.getType();
+        List<Point> points = gson.fromJson(json, type);
+
+        if (points == null) {
+            points = new ArrayList<Point>();
+        }
+        return points;
+    }
+
+    public static void setPoints(Context context, List<Point> points) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+
+        Gson gson = new Gson();
+
+        String json = gson.toJson(points);
+
+        editor.putString(POINTS, json);
+
+        editor.putString("TEST!", "TEST123");
+        editor.commit();
+    }
+
+    public static void clear(SharedPreferences sharedPreferences) {
+        sharedPreferences.edit().clear();
+        sharedPreferences.edit().commit();
     }
 }

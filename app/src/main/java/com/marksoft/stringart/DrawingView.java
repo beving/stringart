@@ -59,14 +59,6 @@ public class DrawingView extends View {
     public void drawLines(Canvas canvas) {
         //Draw Lines
         for (Line line : dataHandler.getDataFragment().getLines()) {
-
-
-            /*set the paint settings
-            paint.setAntiAlias(false);
-            paint.setDither(true);
-            paint.setFilterBitmap(false); */
-
-
             paint.setStrokeWidth(SharedPreferencesUtility.getStrokeWidth(sharedPreferences));
             paint.setStyle(Paint.Style.STROKE);
 
@@ -253,5 +245,4 @@ public class DrawingView extends View {
     public void setDataHandler(DataHandler dataHandler) {
         this.dataHandler = dataHandler;
     }
-
 }
