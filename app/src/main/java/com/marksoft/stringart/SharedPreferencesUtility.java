@@ -46,6 +46,11 @@ public class SharedPreferencesUtility {
         return sharedPreferences.getInt(GRID_SPACING, 100);  //Default is 100
     }
 
+    public static int getGridSpacing(Context context) {
+        SharedPreferences sharedPreferences = init(context);
+        return sharedPreferences.getInt(GRID_SPACING, 100);  //Default is 100
+    }
+
     public static void setGridSpacing(Context context, Integer gridSpacing) {
         SharedPreferences.Editor editor = init(context).edit();
         editor.putInt(GRID_SPACING, gridSpacing);
