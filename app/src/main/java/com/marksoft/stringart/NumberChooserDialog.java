@@ -35,7 +35,8 @@ public class NumberChooserDialog {
                 });
 
         alertDialog.setTitle(context.getResources().getString(R.string.line_size));
-        alertDialog.setSingleChoiceItems(R.array.line_sizes, getIndexOfCurrentChoice(context),
+        alertDialog.setSingleChoiceItems(R.array.line_sizes,
+                getIndexOfCurrentChoice(context, R.string.line_size),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int selectedInteger) {
@@ -74,7 +75,7 @@ public class NumberChooserDialog {
 
         alertDialog.setTitle(context.getResources().getString(R.string.grid_spacing));
         alertDialog.setSingleChoiceItems(R.array.grid_sizes,
-                getIndexOfCurrentChoice(context),
+                getIndexOfCurrentChoice(context, R.array.grid_sizes),
                 new DialogInterface.OnClickListener() {
 
                     @Override
@@ -98,8 +99,8 @@ public class NumberChooserDialog {
         alertDialog.show();
     }
 
-    private static int getIndexOfCurrentChoice(Context context) {
-        List<String> aList = Arrays.asList(context.getResources().getStringArray(R.array.grid_sizes));
+    private static int getIndexOfCurrentChoice(Context context, int id) {
+        List<String> aList = Arrays.asList(context.getResources().getStringArray(id));
         return aList.indexOf(SharedPreferencesUtility.getGridSpacing(context)+"");
     }
 }
