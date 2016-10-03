@@ -1,13 +1,8 @@
 package com.marksoft.stringart;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,33 +17,34 @@ public class NumberChooserDialog {
 
     private NumberChooserDialog(){}
 
-    public static void lineSize(final Context context, final DrawingView drawingView, int gridSpacing) {
+    public static void lineSize(final DrawingView drawingView, int gridSpacing) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(drawingView.getContext());
 
-        alertDialog.setNegativeButton(context.getResources().getString(R.string.cancel),
+        alertDialog.setNegativeButton(drawingView.getContext().getResources().getString(R.string.cancel),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
+        List<String> aList = Arrays.asList(drawingView.getContext().getResources().getStringArray(R.array.line_sizes));
+        int currentSelection =  aList.indexOf(SharedPreferencesUtility.getStrokeWidth(drawingView.getContext()) + "");
 
-        alertDialog.setTitle(context.getResources().getString(R.string.line_size));
-        alertDialog.setSingleChoiceItems(R.array.line_sizes,
-                getIndexOfCurrentChoice(context, R.string.line_size),
+        alertDialog.setTitle(drawingView.getContext().getResources().getString(R.string.line_size));
+        alertDialog.setSingleChoiceItems(R.array.line_sizes, currentSelection,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int selectedInteger) {
 
                         try {
-                            String choices[] = context.getResources().getStringArray(R.array.line_sizes);
+                            String choices[] = drawingView.getContext().getResources().getStringArray(R.array.line_sizes);
 
-                            SharedPreferencesUtility.setStrokeWidth(context,
+                            SharedPreferencesUtility.setStrokeWidth(drawingView.getContext(),
                                     Integer.parseInt(choices[selectedInteger]));
                             drawingView.reDraw();
 
-                            Toast.makeText(context.getApplicationContext(),
+                            Toast.makeText(drawingView.getContext().getApplicationContext(),
                                     "You Choose : " + choices[selectedInteger],
                                     Toast.LENGTH_LONG).show();
 
@@ -59,13 +55,13 @@ public class NumberChooserDialog {
                     }
                 });
         alertDialog.show();
-    }  //TODO do we really need context.  Could I not just just drawingView.getContext ?
+    }
 
-    public static void gridSize(final Context context, final DrawingView drawingView, int gridSpacing) {
+    public static void gridSize(final DrawingView drawingView, int gridSpacing) {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(drawingView.getContext());
 
-        alertDialog.setNegativeButton(context.getResources().getString(R.string.cancel),
+        alertDialog.setNegativeButton(drawingView.getContext().getResources().getString(R.string.cancel),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -73,21 +69,24 @@ public class NumberChooserDialog {
                     }
                 });
 
-        alertDialog.setTitle(context.getResources().getString(R.string.grid_spacing));
+        List<String> aList = Arrays.asList(drawingView.getContext().getResources().getStringArray(R.array.grid_sizes));
+        int currentSelection =  aList.indexOf(SharedPreferencesUtility.getGridSpacing(drawingView.getContext()) + "");
+
+        alertDialog.setTitle(drawingView.getContext().getResources().getString(R.string.grid_spacing));
         alertDialog.setSingleChoiceItems(R.array.grid_sizes,
-                getIndexOfCurrentChoice(context, R.array.grid_sizes),
+                currentSelection,
                 new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int selectedInteger) {
 
                         try {
-                            String choices[] = context.getResources().getStringArray(R.array.grid_sizes);
+                            String choices[] = drawingView.getContext().getResources().getStringArray(R.array.grid_sizes);
 
-                            SharedPreferencesUtility.setGridSpacing(context, Integer.parseInt(choices[selectedInteger]));
+                            SharedPreferencesUtility.setGridSpacing(drawingView.getContext(), Integer.parseInt(choices[selectedInteger]));
                             drawingView.reDraw();
 
-                            Toast.makeText(context.getApplicationContext(),
+                            Toast.makeText(drawingView.getContext().getApplicationContext(),
                                     "You Choose : " + choices[selectedInteger],
                                     Toast.LENGTH_LONG).show();
                             dialog.dismiss();
@@ -99,8 +98,4 @@ public class NumberChooserDialog {
         alertDialog.show();
     }
 
-    private static int getIndexOfCurrentChoice(Context context, int id) {
-        List<String> aList = Arrays.asList(context.getResources().getStringArray(id));
-        return aList.indexOf(SharedPreferencesUtility.getGridSpacing(context)+"");
-    }
 }

@@ -32,7 +32,8 @@ public class SharedPreferencesUtility {
         return context.getSharedPreferences(PREF_NAME, context.MODE_PRIVATE);
     }
 
-    public static int getStrokeWidth(SharedPreferences sharedPreferences) {
+    public static int getStrokeWidth(Context context) {
+        SharedPreferences sharedPreferences = init(context);
         return sharedPreferences.getInt(STROKE_WIDTH, 2);  //Default is 2
     }
 

@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_line_thickness): {
-                    NumberChooserDialog.lineSize(MainActivity.this, getDrawingView(), item.getItemId());
+                    NumberChooserDialog.lineSize(getDrawingView(), item.getItemId());
                     break;
                 }
                 case (R.id.action_toggle_grid): {
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_grid_size): {
-                    NumberChooserDialog.gridSize(MainActivity.this, getDrawingView(), item.getItemId());
+                    NumberChooserDialog.gridSize(getDrawingView(), item.getItemId());
                     break;
                 }
                 case (R.id.action_share): {

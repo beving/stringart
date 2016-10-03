@@ -59,7 +59,7 @@ public class DrawingView extends View {
     public void drawLines(Canvas canvas) {
         //Draw Lines
         for (Line line : dataHandler.getDataFragment().getLines()) {
-            paint.setStrokeWidth(SharedPreferencesUtility.getStrokeWidth(sharedPreferences));
+            paint.setStrokeWidth(SharedPreferencesUtility.getStrokeWidth(getContext()));
             paint.setStyle(Paint.Style.STROKE);
 
             paint.setColor(line.getColor());  //Set the color for the line
