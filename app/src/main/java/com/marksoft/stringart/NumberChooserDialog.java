@@ -23,25 +23,38 @@ public class NumberChooserDialog {
     private NumberChooserDialog(){}
 
     public static void lineSize(final Context context, final DrawingView drawingView, int gridSpacing) {
-        final ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(context,
-                R.array.line_sizes, android.R.layout.simple_selectable_list_item);
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        alertDialog.setTitle(context.getResources().getString(R.string.line_size));
-        alertDialog.setAdapter(arrayAdapter,
+
+        alertDialog.setNegativeButton(context.getResources().getString(R.string.cancel),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Integer selectedInteger = Integer.parseInt(
-                                arrayAdapter.getItem(which).toString());
-                        Log.d(TAG, R.string.line_size_set + ": " + selectedInteger);
+                        dialog.dismiss();
+                    }
+                });
 
-                        SharedPreferencesUtility.setStrokeWidth(context, selectedInteger);
-                        drawingView.reDraw();
-                        Toast.makeText(context,
-                                context.getResources().getString(R.string.line_size_set) + " "
-                                        + selectedInteger,
-                                Toast.LENGTH_LONG).show();
+        alertDialog.setTitle(context.getResources().getString(R.string.line_size));
+        alertDialog.setSingleChoiceItems(R.array.line_sizes, getIndexOfCurrentChoice(context),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int selectedInteger) {
+
+                        try {
+                            String choices[] = context.getResources().getStringArray(R.array.line_sizes);
+
+                            SharedPreferencesUtility.setStrokeWidth(context,
+                                    Integer.parseInt(choices[selectedInteger]));
+                            drawingView.reDraw();
+
+                            Toast.makeText(context.getApplicationContext(),
+                                    "You Choose : " + choices[selectedInteger],
+                                    Toast.LENGTH_LONG).show();
+
+                            dialog.dismiss();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
         alertDialog.show();
@@ -76,7 +89,6 @@ public class NumberChooserDialog {
                             Toast.makeText(context.getApplicationContext(),
                                     "You Choose : " + choices[selectedInteger],
                                     Toast.LENGTH_LONG).show();
-
                             dialog.dismiss();
                         } catch (Exception e) {
                             e.printStackTrace();
