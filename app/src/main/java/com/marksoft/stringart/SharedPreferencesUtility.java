@@ -68,7 +68,8 @@ public class SharedPreferencesUtility {
         editor.commit();
     }
 
-    public static int getLineColor(SharedPreferences sharedPreferences) {
+    public static int getLineColor(Context context) {
+        SharedPreferences sharedPreferences = init(context);
         return sharedPreferences.getInt(LINE_COLOR, Color.RED);
     }
 

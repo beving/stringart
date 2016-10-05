@@ -15,11 +15,13 @@ public class Line implements Parcelable {
     private Point startPoint;
     private Point endPoint;
     private int color = Color.RED; //Default
+    private int thickness = 2;
 
-    public Line(Point startPoint, Point endPoint,  int color) {
+    public Line(Point startPoint, Point endPoint, int color, int thickness) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.color = color;
+        this.thickness = thickness;
     }
 
     public Point getStartPoint() {
@@ -44,6 +46,14 @@ public class Line implements Parcelable {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public int getThickness() {
+        return thickness;
+    }
+
+    public void setThickness(int thickness) {
+        this.thickness = thickness;
     }
 
     public int describeContents() {

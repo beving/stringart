@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="pointless">Sorry, there are no points to connect.</string>
     <string name="clear_question">"Do you really want to clear all the lines and points?"</string>
+    <string name="clear_apply_to_all_lines">"Apply to New Lines or all Current Lines?"</string>
     <string name="cleared">The lines have been cleared.</string>
     <string name="close">Press back again to close this app.</string>
     <string name="cut">Cut</string>
@@ -10,9 +11,10 @@
     <string name="clear">Clear</string>
     <string name="cancel">Cancel</string>
     <string name="undo">Undo</string>
-
+    <string name="new_new">New</string>
+    <string name="all">All</string>
     <string name="toggle_grid">Grid Lines</string>
-    <string name="action_line_thickness">Line Size</string>
+    <string name="action_line_thickness">Line Thickness</string>
     <string name="action_grid_size">Grid Spacing</string>
     <string name="action_save">Share</string>
     <string name="action_background_color">Background Color</string>
@@ -22,13 +24,13 @@
     <!-- Toast Dialog Strings -->
     <string name="no_points_left_to_undo">No point left to undo.</string>
 
-    <string name="line_size">Line Size</string>
+    <string name="line_size">Line Thickness</string>
 
     <string name="grid_spacing">Grid Spacing</string>
 
     <string name="color_set">Color set to </string>
     <string name="grid_spacing_set">Grid spacing set to </string>
-    <string name="line_size_set">Line size set to</string>
+    <string name="line_size_set">Line thickness set to</string>
     <string name="share_name_prefix">StringArt_Image</string>
 
     <string name="share_description">The image captured by MediaStore from the canvas of StringArt.</string>

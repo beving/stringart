@@ -17,7 +17,7 @@ public class NumberChooserDialog {
 
     private NumberChooserDialog(){}
 
-    public static void lineSize(final DrawingView drawingView, int gridSpacing) {
+    public static void lineSize(final DrawingView drawingView, final boolean applyToAllLines) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(drawingView.getContext());
 
@@ -39,15 +39,20 @@ public class NumberChooserDialog {
 
                         try {
                             String choices[] = drawingView.getContext().getResources().getStringArray(R.array.line_sizes);
+                            int lineThickness = Integer.parseInt(choices[selectedInteger]);
 
-                            SharedPreferencesUtility.setStrokeWidth(drawingView.getContext(),
-                                    Integer.parseInt(choices[selectedInteger]));
-                            drawingView.reDraw();
+                            SharedPreferencesUtility.setStrokeWidth(drawingView.getContext(), lineThickness);
 
+                            if (applyToAllLines) {
+                                for (Line line : drawingView.getDataHandler().getDataFragment().getLines()) {
+                                    line.setThickness(lineThickness);
+                                }
+                            }
                             Toast.makeText(drawingView.getContext().getApplicationContext(),
                                     "You Choose : " + choices[selectedInteger],
                                     Toast.LENGTH_LONG).show();
 
+                            drawingView.reDraw();
                             dialog.dismiss();
                         } catch (Exception e) {
                             e.printStackTrace();

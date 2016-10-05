@@ -59,7 +59,7 @@ public class DrawingView extends View {
     public void drawLines(Canvas canvas) {
         //Draw Lines
         for (Line line : dataHandler.getDataFragment().getLines()) {
-            paint.setStrokeWidth(SharedPreferencesUtility.getStrokeWidth(getContext()));
+            paint.setStrokeWidth(line.getThickness());
             paint.setStyle(Paint.Style.STROKE);
 
             paint.setColor(line.getColor());  //Set the color for the line
@@ -165,7 +165,9 @@ public class DrawingView extends View {
         for (Point otherPoint : getPoints()) {
 
             Line newLine = new Line(newPoint, otherPoint,
-                    SharedPreferencesUtility.getLineColor(sharedPreferences));
+                    SharedPreferencesUtility.getLineColor(getContext()),
+                    SharedPreferencesUtility.getStrokeWidth(getContext())
+                    );
 
             if (!getLines().contains(newLine)) {
                 getLines().add(newLine);

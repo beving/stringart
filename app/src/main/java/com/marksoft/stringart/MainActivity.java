@@ -50,18 +50,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml..
         try {
             Log.d(TAG, "Item ID: " + item.getItemId());
             switch (item.getItemId()) {
-
-            /*case (R.id.action_settings): {
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                MainActivity.this.startActivity(intent);
-            }*/
                 case (R.id.action_undo): {
                     if (!getDrawingView().undoAdditionOfLastPoint()) {
                         Toast.makeText(MainActivity.this, R.string.no_points_left_to_undo, Toast.LENGTH_LONG).show();
@@ -98,7 +93,22 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_line_thickness): {
-                    NumberChooserDialog.lineSize(getDrawingView(), item.getItemId());
+                    new AlertDialog.Builder(this)
+                            .setTitle(R.string.line_size)
+                            .setMessage(R.string.clear_apply_to_all_lines)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(R.string.all, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    NumberChooserDialog.lineSize(getDrawingView(), true);
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton(R.string.new_new, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    NumberChooserDialog.lineSize(getDrawingView(), false);
+                                    dialog.dismiss();
+                                }
+                            }).show();
                     break;
                 }
                 case (R.id.action_toggle_grid): {
@@ -182,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //welcomeScreen.onSaveInstanceState(outState);
         getDataFragment().onSaveInstanceState(outState);
     }
 
