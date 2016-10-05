@@ -11,12 +11,13 @@
         <item value="7">7</item>
     </string-array>
     <string-array name="grid_sizes">
-        <item value="1">25</item>
-        <item value="2">50</item>
-        <item value="3">75</item>
-        <item value="4">100</item>
-        <item value="5">125</item>
-        <item value="6">150</item>
+        <item value="1">15</item>
+        <item value="2">25</item>
+        <item value="3">50</item>
+        <item value="4">75</item>
+        <item value="5">100</item>
+        <item value="6">125</item>
+        <item value="7">150</item>
     </string-array>
     <integer name="time_out_exit_application">4000</integer>
 

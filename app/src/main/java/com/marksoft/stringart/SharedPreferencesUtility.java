@@ -28,6 +28,7 @@ public class SharedPreferencesUtility {
     public static final String LINES = "lines";
     public static final String POINTS = "points";
 
+    //TODO Should this not be a Utility class?  Instead do init() once?
     public static SharedPreferences init(Context context) {
         return context.getSharedPreferences(PREF_NAME, context.MODE_PRIVATE);
     }
