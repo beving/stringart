@@ -6,14 +6,13 @@
     <color name="colorDark">#000000</color>
 
     <integer-array name="available_colors">
-        <item>0x00000000</item>
-        <item>0xFFFF0000</item>
         <item>0xFFFFFFFF</item>
-        <item>0xFF00FF00</item>
+        <item>0xFF000000</item>
+        <item>0xFFFF0000</item>
         <item>0xFF0000FF</item>
+        <item>0xFF00FF00</item>
         <item>0xFFFFFF00</item>
         <item>0xFF00FFFF</item>
-        <item>0xFF000000</item>
         <item>0xFF888888</item>
         <item>0xFF000080</item>
         <item>0xFF808000</item>
