@@ -2,9 +2,11 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorAccent">#000000</color>
-    <color name="text_theme_light">#FFFFFFFF</color>
+    <color name="text_theme_light">#000000</color>
+    <color name="colorDark">#000000</color>
 
     <integer-array name="available_colors">
+        <item>0x00000000</item>
         <item>0xFFFF0000</item>
         <item>0xFFFFFFFF</item>
         <item>0xFF00FF00</item>

@@ -84,6 +84,11 @@ public class SharedPreferencesUtility {
         return sharedPreferences.getInt(BACKGROUND_COLOR, Color.WHITE);
     }
 
+    public static int getBackgroundColor(Context context) {
+        SharedPreferences sharedPreferences = init(context);
+        return sharedPreferences.getInt(BACKGROUND_COLOR, Color.WHITE);
+    }
+
     public static void setBackgroundColor(Context context, int backgroundColor) {
         SharedPreferences.Editor editor = init(context).edit();
         editor.putInt(BACKGROUND_COLOR, backgroundColor);
