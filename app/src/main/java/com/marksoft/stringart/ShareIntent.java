@@ -12,7 +12,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -61,25 +60,25 @@ public class ShareIntent {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.flush();
             fos.close();
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, e.getMessage(), e);
         } catch (IOException e) {
             Log.e(TAG, e.getMessage(), e);
         }
-
         return Uri.fromFile(imagePath);
     }
 
     //Clean up old files
     private static void removeOldFiles(String filesToCleanUp) {
-
+        int numberOfFilesDeleted = 0;
         File dir = new File(Environment.getExternalStorageDirectory().getPath());
         for (File file : dir.listFiles()) {
             if (file.getName().contains(filesToCleanUp)) {
                 Log.d(TAG, "Removing Old File: " + file.getName());
-                file.delete();
+                if (file.delete()) {
+                    numberOfFilesDeleted++;
+                }
             }
         }
+        Log.d(TAG, "Number of files deleted was: " + numberOfFilesDeleted);
     }
 
     public static Intent getImageIntent(Uri imageUri) {
@@ -97,8 +96,6 @@ public class ShareIntent {
     /**
      * Request Permissions from user.
      * See: https://developer.android.com/training/permissions/requesting.html
-     *
-     * @param activity
     */
     public static void requestPermissions(Activity activity) {
         // Here, thisActivity is the current activity
@@ -110,6 +107,7 @@ public class ShareIntent {
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
                     Manifest.permission.READ_CONTACTS)) {
 
+                Log.d(TAG, "ActivityCompat.shouldShowRequestPermissionRationale");
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.

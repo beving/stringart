@@ -1,7 +1,6 @@
 package com.marksoft.stringart;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -27,17 +26,14 @@ public class DrawingView extends View {
     private DataHandler dataHandler;
     private Gesture gesture;
     private final Paint paint = new Paint();
-    private SharedPreferences sharedPreferences;
 
     public DrawingView(Context context) {
         super(context);
-        sharedPreferences = SharedPreferencesUtility.init(context);
     }
 
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         gesture = new Gesture(this);
-        sharedPreferences = SharedPreferencesUtility.init(context);
     }
 
     @Override
@@ -52,7 +48,7 @@ public class DrawingView extends View {
 
     public void drawBackGround(Canvas canvas) {
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(SharedPreferencesUtility.getBackgroundColor(sharedPreferences));  //Set the color for the canvas background
+        paint.setColor(SharedPreferencesUtility.getBackgroundColor(getContext()));  //Set the color for the canvas background
         canvas.drawPaint(paint);
     }
 
@@ -84,9 +80,9 @@ public class DrawingView extends View {
 
     private void drawGridLines(Canvas canvas) {
         //Draw Dotted (Grid) Lines
-        if (SharedPreferencesUtility.isGridLinesOn(sharedPreferences)) {
+        if (SharedPreferencesUtility.isGridLinesOn(getContext())) {
 
-            int spacing = SharedPreferencesUtility.getGridSpacing(sharedPreferences);
+            int spacing = SharedPreferencesUtility.getGridSpacing(getContext());
 
             //Draw Dotted Lines along the X axis (horizontally)
             for (int y = 0; y < canvas.getHeight(); y+=spacing) {
@@ -128,8 +124,8 @@ public class DrawingView extends View {
     @NonNull
     private Point createRoundedPoint(float x, float y) {
         return new Point(
-                round(x, SharedPreferencesUtility.getGridSpacing(sharedPreferences)),
-                round(y, SharedPreferencesUtility.getGridSpacing(sharedPreferences)));
+                round(x, SharedPreferencesUtility.getGridSpacing(getContext())),
+                round(y, SharedPreferencesUtility.getGridSpacing(getContext())));
     }
 
     public boolean cutPoint(float x, float y) {

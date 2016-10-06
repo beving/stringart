@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Utility to help handle SharedPreferences.
+ * Utility to handle SharedPreferences.
  * Created by e62032 on 9/21/2016.
  */
 public class SharedPreferencesUtility {
@@ -28,9 +28,8 @@ public class SharedPreferencesUtility {
     public static final String LINES = "lines";
     public static final String POINTS = "points";
 
-    //TODO Should this not be a Utility class?  Instead do init() once?
-    public static SharedPreferences init(Context context) {
-        return context.getSharedPreferences(PREF_NAME, context.MODE_PRIVATE);
+    private static SharedPreferences init(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
     public static int getStrokeWidth(Context context) {
@@ -41,11 +40,7 @@ public class SharedPreferencesUtility {
     public static void setStrokeWidth(Context context, int strokeWidth) {
         SharedPreferences.Editor editor = init(context).edit();
         editor.putInt(STROKE_WIDTH, strokeWidth);
-        editor.commit();
-    }
-
-    public static int getGridSpacing(SharedPreferences sharedPreferences) {
-        return sharedPreferences.getInt(GRID_SPACING, 100);  //Default is 100
+        editor.apply();
     }
 
     public static int getGridSpacing(Context context) {
@@ -56,49 +51,40 @@ public class SharedPreferencesUtility {
     public static void setGridSpacing(Context context, Integer gridSpacing) {
         SharedPreferences.Editor editor = init(context).edit();
         editor.putInt(GRID_SPACING, gridSpacing);
-        editor.commit();
+        editor.apply();
     }
 
-    public static boolean isGridLinesOn(SharedPreferences sharedPreferences) {
-        return sharedPreferences.getBoolean(GRID_LINES, true);
+    public static boolean isGridLinesOn(Context context) {
+        SharedPreferences sharedPreferences = init(context);
+        return sharedPreferences.getBoolean(GRID_LINES, true); //Default is true
     }
 
     public static void setGridLines(Context context, boolean gridLines) {
         SharedPreferences.Editor editor = init(context).edit();
         editor.putBoolean(GRID_LINES, gridLines);
-        editor.commit();
+        editor.apply();
     }
 
     public static int getLineColor(Context context) {
         SharedPreferences sharedPreferences = init(context);
-        return sharedPreferences.getInt(LINE_COLOR, Color.RED);
+        return sharedPreferences.getInt(LINE_COLOR, Color.RED); //Default color is red
     }
 
     public static void setLineColor(Context context, int lineColor) {
         SharedPreferences.Editor editor = init(context).edit();
         editor.putInt(LINE_COLOR, lineColor);
-        editor.commit();
-    }
-
-    public static int getBackgroundColor(SharedPreferences sharedPreferences) {
-        return sharedPreferences.getInt(BACKGROUND_COLOR, Color.WHITE);
+        editor.apply();
     }
 
     public static int getBackgroundColor(Context context) {
         SharedPreferences sharedPreferences = init(context);
-        return sharedPreferences.getInt(BACKGROUND_COLOR, Color.WHITE);
+        return sharedPreferences.getInt(BACKGROUND_COLOR, Color.WHITE); //Default color is white
     }
 
     public static void setBackgroundColor(Context context, int backgroundColor) {
         SharedPreferences.Editor editor = init(context).edit();
         editor.putInt(BACKGROUND_COLOR, backgroundColor);
-        editor.commit();
-    }
-
-    public static void addLine(Context context, Line line) { //TODO rm is not used
-        List<Line> lines = getLines(context);
-        lines.add(line);
-        setLines(context, lines);
+        editor.apply();
     }
 
     public static void setLines(Context context, List<Line> lines) {
@@ -108,7 +94,7 @@ public class SharedPreferencesUtility {
         String json = gson.toJson(lines);
 
         editor.putString(LINES, json);
-        editor.commit();
+        editor.apply();
     }
 
     public static List<Line> getLines(Context context) {
@@ -119,7 +105,7 @@ public class SharedPreferencesUtility {
         List<Line> lines = gson.fromJson(json, type);
 
         if (lines == null) {
-            lines = new ArrayList<Line>();
+            lines = new ArrayList<>();
         }
         return lines;
     }
@@ -133,7 +119,7 @@ public class SharedPreferencesUtility {
         List<Point> points = gson.fromJson(json, type);
 
         if (points == null) {
-            points = new ArrayList<Point>();
+            points = new ArrayList<>();
         }
         return points;
     }
@@ -143,6 +129,6 @@ public class SharedPreferencesUtility {
         Gson gson = new Gson();
         String json = gson.toJson(points);
         editor.putString(POINTS, json);
-        editor.commit();
+        editor.apply();
     }
 }

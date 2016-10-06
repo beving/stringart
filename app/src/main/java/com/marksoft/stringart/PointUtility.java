@@ -2,7 +2,6 @@ package com.marksoft.stringart;
 
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.util.Log;
 
 import java.util.Collection;
 
@@ -33,7 +32,7 @@ public class PointUtility {
         }
         return returnValue;
     }
-
+/*
     public static Bitmap trimBitmap(Bitmap bmp, int backgroundColor) {
         int imgHeight = bmp.getHeight();
         int imgWidth  = bmp.getWidth();
@@ -102,6 +101,6 @@ public class PointUtility {
                 endWidth - startWidth,
                 endHeight - startHeight);
 
-    }
+    }*/
 
 }

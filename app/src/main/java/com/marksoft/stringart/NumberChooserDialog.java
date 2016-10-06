@@ -13,8 +13,6 @@ import java.util.List;
 */
 public class NumberChooserDialog {
 
-    public static final String TAG = "NumberChooserDialog";
-
     private NumberChooserDialog(){}
 
     public static void lineSize(final DrawingView drawingView, final boolean applyToAllLines) {
@@ -62,7 +60,7 @@ public class NumberChooserDialog {
         alertDialog.show();
     }
 
-    public static void gridSize(final DrawingView drawingView, int gridSpacing) {
+    public static void gridSize(final DrawingView drawingView) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(drawingView.getContext());
 

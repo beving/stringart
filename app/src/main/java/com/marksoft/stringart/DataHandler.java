@@ -39,7 +39,6 @@ public class DataHandler {
     /**
      * Persist line and point data to the SharedPreferences.
      * This is called when the application is paused.
-     * @param context
      */
     public void persistData(Context context) {
         SharedPreferencesUtility.setLines(context, dataFragment.getLines());

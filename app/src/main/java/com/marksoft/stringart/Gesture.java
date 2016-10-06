@@ -7,27 +7,12 @@ import android.view.MotionEvent;
  * Borrowed by e62032 on 4/7/2016.
  * Originally from:  http://www.theappguruz.com/blog/android-gestures-tutorial-in-android
  */
-class Gesture /*extends GestureDetector.SimpleOnGestureListener */ {
+public class Gesture {
     private final DrawingView myView;
 
     public Gesture(DrawingView myView) {
         this.myView = myView;
     }
-
-//    @Override
-//    public void onLongPress(MotionEvent motionEvent) {
-//        Log.d("Gesture.onLongPress", "X Y: " + motionEvent.getX()+ " " + motionEvent.getY());
-//
-//        myView.createLine(
-//                myView.createPoint(
-//                        motionEvent.getX(), motionEvent.getY()));
-//
-//        myView.reDraw();
-//    }
-//
-//    @Override
-//    public boolean onDoubleTap(MotionEvent event) {
-
 
     public boolean onTouch(MotionEvent event) {
         try {
@@ -53,9 +38,6 @@ class Gesture /*extends GestureDetector.SimpleOnGestureListener */ {
             throw new RuntimeException(e);
         }
     }
-
-//    public boolean onFling(MotionEvent motionEvent1, MotionEvent motionEvent2, float velocityX, float velocityY) {
-
 
 }
 

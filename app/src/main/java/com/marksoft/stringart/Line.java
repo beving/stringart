@@ -1,7 +1,6 @@
 package com.marksoft.stringart;
 
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -28,16 +27,8 @@ public class Line implements Parcelable {
         return startPoint;
     }
 
-    public void setStartPoint(Point startPoint) {
-        this.startPoint = startPoint;
-    }
-
     public Point getEndPoint() {
         return endPoint;
-    }
-
-    public void setEndPoint(Point endPoint) {
-        this.endPoint = endPoint;
     }
 
     public int getColor() {
@@ -63,8 +54,8 @@ public class Line implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeInt(color);
-        out.writeParcelable((Parcelable) startPoint , flags);
-        out.writeParcelable((Parcelable) endPoint, flags);
+        out.writeParcelable(startPoint , flags);
+        out.writeParcelable(endPoint, flags);
     }
 
         public static final Parcelable.Creator<Line> CREATOR

@@ -1,7 +1,6 @@
 package com.marksoft.stringart;
 
 import android.app.Fragment;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 
