@@ -140,19 +140,9 @@ public class SharedPreferencesUtility {
 
     public static void setPoints(Context context, List<Point> points) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-
         Gson gson = new Gson();
-
         String json = gson.toJson(points);
-
         editor.putString(POINTS, json);
-
-        editor.putString("TEST!", "TEST123");
         editor.commit();
-    }
-
-    public static void clear(SharedPreferences sharedPreferences) {
-        sharedPreferences.edit().clear();
-        sharedPreferences.edit().commit();
     }
 }
