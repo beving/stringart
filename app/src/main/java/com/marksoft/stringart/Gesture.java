@@ -7,14 +7,14 @@ import android.view.MotionEvent;
  * Borrowed by e62032 on 4/7/2016.
  * Originally from:  http://www.theappguruz.com/blog/android-gestures-tutorial-in-android
  */
-public class Gesture {
+class Gesture {
     private final DrawingView myView;
 
     public Gesture(DrawingView myView) {
         this.myView = myView;
     }
 
-    public boolean onTouch(MotionEvent event) {
+    public void onTouch(MotionEvent event) {
         try {
             Log.d("Gesture", "Gesture.onTouch event.getAction: " + event.getAction());
             switch (event.getAction()) {
@@ -22,7 +22,7 @@ public class Gesture {
                 case MotionEvent.ACTION_UP:
                     if (myView.cutPoint(event.getX(), event.getY())) {
                         myView.reDraw();
-                        return true;
+                        return;
                     }
                 case MotionEvent.ACTION_DOWN:
                 case MotionEvent.ACTION_MOVE:
@@ -30,9 +30,7 @@ public class Gesture {
                     Log.d("Gesture", "Gesture.getAction x: " + event.getX() +
                             "    y: " + event.getY());
                     myView.reDraw();
-                    return true;
-                default:
-                    return false;
+                    return;
             }
         }catch (Exception e) {
             throw new RuntimeException(e);

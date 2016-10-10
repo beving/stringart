@@ -1,6 +1,5 @@
 package com.marksoft.stringart;
 
-import android.graphics.Bitmap;
 import android.graphics.Point;
 
 import java.util.Collection;
@@ -11,9 +10,7 @@ import java.util.Collection;
  * Created by e62032 on 4/13/2016.
  */
 
-public class PointUtility {
-
-    public static final int MARGIN_SZ = 30;
+class PointUtility {
 
     /**
      * Convert Collection<Point> to float[]

@@ -16,7 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class ShareIntent {
+class ShareIntent {
 
     private static final String TAG = "ShareIntent";
     public static final int PERMISSION_TO_SHARE = 8;
@@ -45,7 +45,7 @@ public class ShareIntent {
         activity.startActivity(intent);
     }
 
-    public static Uri saveBitmap(Bitmap bitmap, Activity activity) {
+    private static Uri saveBitmap(Bitmap bitmap, Activity activity) {
         File imagePath = null;
         try {
             String fileNamePrefix = activity.getResources().getString(R.string.share_name_prefix);
@@ -81,7 +81,7 @@ public class ShareIntent {
         Log.d(TAG, "Number of files deleted was: " + numberOfFilesDeleted);
     }
 
-    public static Intent getImageIntent(Uri imageUri) {
+    private static Intent getImageIntent(Uri imageUri) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
 

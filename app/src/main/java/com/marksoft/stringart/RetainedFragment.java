@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class RetainedFragment extends Fragment {
 
-    public static String TAG = "RetainedFragment";
+    public static final String TAG = "RetainedFragment";
 
     // data objects we want to retain
     private List<Point> points = new ArrayList<>();

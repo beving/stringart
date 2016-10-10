@@ -18,7 +18,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
  * @see ColorPickerDialogBuilder
  * Created by e62032 on 10/6/2016.
  */
-public class ColorDialog {
+class ColorDialog {
 
     public static void selectBackgroundColor(final DrawingView drawingView) {
         final Resources r = drawingView.getContext().getResources();

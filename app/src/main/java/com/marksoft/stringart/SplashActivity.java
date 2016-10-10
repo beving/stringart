@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
  */
 public class SplashActivity extends AppCompatActivity {
 
-    public static final int DELAY_MILLIS = 2000;  //Not best practice, but using since app loads too fast
+    private static final int DELAY_MILLIS = 2000;  //Not best practice, but using since app loads too fast
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

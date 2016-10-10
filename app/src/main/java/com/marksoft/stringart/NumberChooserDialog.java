@@ -11,7 +11,7 @@ import java.util.List;
  * Created by e62032 on 4/20/2016.
    see http://stackoverflow.com/questions/15762905/how-can-i-display-a-list-view-in-an-android-alert-dialog
 */
-public class NumberChooserDialog {
+class NumberChooserDialog {
 
     private NumberChooserDialog(){}
 

@@ -22,7 +22,7 @@ import java.util.List;
 public class DrawingView extends View {
 
     //NOTE: Do not store static data here, or else it will be lost when the orientation of the screen changes.
-    public static final String TAG = "DrawingView";
+    private static final String TAG = "DrawingView";
     private DataHandler dataHandler;
     private Gesture gesture;
     private final Paint paint = new Paint();

@@ -11,8 +11,8 @@ import android.os.Parcelable;
  */
 public class Line implements Parcelable {
 
-    private Point startPoint;
-    private Point endPoint;
+    private final Point startPoint;
+    private final Point endPoint;
     private int color = Color.RED; //Default
     private int thickness = 2;
 

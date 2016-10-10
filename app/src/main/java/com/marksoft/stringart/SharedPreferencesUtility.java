@@ -17,16 +17,16 @@ import java.util.List;
  * Utility to handle SharedPreferences.
  * Created by e62032 on 9/21/2016.
  */
-public class SharedPreferencesUtility {
+class SharedPreferencesUtility {
 
-    public static final String PREF_NAME = "prefName";
-    public static final String STROKE_WIDTH = "strokeWidth";
-    public static final String GRID_SPACING = "gridSpacing";
-    public static final String GRID_LINES = "gridLines";
-    public static final String LINE_COLOR = "lineColor";
-    public static final String BACKGROUND_COLOR = "backgroundColor";
-    public static final String LINES = "lines";
-    public static final String POINTS = "points";
+    private static final String PREF_NAME = "prefName";
+    private static final String STROKE_WIDTH = "strokeWidth";
+    private static final String GRID_SPACING = "gridSpacing";
+    private static final String GRID_LINES = "gridLines";
+    private static final String LINE_COLOR = "lineColor";
+    private static final String BACKGROUND_COLOR = "backgroundColor";
+    private static final String LINES = "lines";
+    private static final String POINTS = "points";
 
     private static SharedPreferences init(Context context) {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);

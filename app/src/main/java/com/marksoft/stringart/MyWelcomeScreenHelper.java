@@ -12,14 +12,14 @@ import com.stephentuso.welcome.ui.WelcomeActivity;
  * @see com.stephentuso.welcome.WelcomeScreenHelper
  * Created by e62032 on 7/20/2016.
  */
-public class MyWelcomeScreenHelper {
+class MyWelcomeScreenHelper {
 
-    public static final int DEFAULT_WELCOME_SCREEN_REQUEST = 1;
+    private static final int DEFAULT_WELCOME_SCREEN_REQUEST = 1;
 
     private static final String KEY_WELCOME_SCREEN_STARTED = "com.stephentuso.welcome.welcome_screen_started";
 
-    private Activity mActivity;
-    private Class<? extends WelcomeActivity> mActivityClass;
+    private final Activity mActivity;
+    private final Class<? extends WelcomeActivity> mActivityClass;
     private boolean welcomeScreenStarted = false;
 
     public MyWelcomeScreenHelper(Activity activity, Class<? extends WelcomeActivity> activityClass) {
@@ -39,22 +39,20 @@ public class MyWelcomeScreenHelper {
                 // !SharedPreferencesHelper.welcomeScreenCompleted(mActivity, WelcomeUtils.getKey(mActivityClass));//This was the bug that caused the problem!
     }
 
-    public boolean show(Bundle savedInstanceState) {
-        return show(savedInstanceState, DEFAULT_WELCOME_SCREEN_REQUEST);
-    }
+//    public boolean show(Bundle savedInstanceState) {
+//        return show(savedInstanceState);
+//    }
 
     /**
      * Shows the welcome screen if it hasn't already been started or completed yet
      * @param savedInstanceState Saved instance state Bundle
-     * @param requestCode The request code that will be returned with the result of the welcome screen
-     *                    in your Activity's onActivityResult
      * @return true if the welcome screen was shown, false if it wasn't
      */
-    public boolean show(Bundle savedInstanceState, int requestCode) {
+    private boolean show(Bundle savedInstanceState) {
         boolean shouldShow = shouldShow(savedInstanceState);
         if (shouldShow) {
             welcomeScreenStarted = true;
-            startActivity(requestCode);
+            startActivity(MyWelcomeScreenHelper.DEFAULT_WELCOME_SCREEN_REQUEST);
         }
         return shouldShow;
     }
