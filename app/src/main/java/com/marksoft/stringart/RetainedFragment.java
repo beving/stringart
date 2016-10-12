@@ -78,7 +78,7 @@ public class RetainedFragment extends Fragment {
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putParcelableArrayList(POINTS, (ArrayList<Point>)points); //TODO make constants for all of these
+        outState.putParcelableArrayList(POINTS, (ArrayList<Point>)points);
         outState.putParcelableArrayList(LINES, (ArrayList<Line>)lines);
         outState.putBoolean(CUT_POINT, cutPoint);
     }

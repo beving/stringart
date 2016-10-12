@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Test Point Utility class
+ * Test PointUtility class.
  * Created by e62032 on 7/26/2016.
  * @See PointUtility
  */
@@ -30,34 +30,6 @@ public class PointUtilityTest extends TestCase {
         points.add(new Point(20, 10));
         points.add(new Point(22, 200));
     }
-/*
-    @SmallTest
-    public void testCalculateMaxSize() {
-        Point maxPoint = PointUtility.calculateMaxSize(points);
-        assertEquals(120, maxPoint.x);
-        assertEquals(220, maxPoint.y);
-    }
-
-    @SmallTest
-    public void testCalculateMaxSizeIsNullPoints() {
-        try {
-            PointUtility.calculateMaxSize(null);
-            Assert.fail("Should have thrown NullPointer exception");
-        }
-        catch (NullPointerException e) {
-            //Success
-        }
-    }
-
-    @SmallTest
-    public void testCalculateMaxSizeIsEmptyReturns0() {
-        points = new ArrayList<>();
-
-        Point maxPoint = PointUtility.calculateMaxSize(points);
-        assertEquals(20, maxPoint.x);
-        assertEquals(20, maxPoint.y);
-    }
-*/
 
     @SmallTest
       public void testToArrayReturnsCorrectNumber() {

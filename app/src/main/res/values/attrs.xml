@@ -17,7 +17,7 @@
   -->
 
 <resources>
-    <declare-styleable name="DrawingView">
+    <!--declare-styleable name="DrawingView">
         <attr name="labelTextSize" format="dimension" />
         <attr name="labelTextColor" format="color" />
         <attr name="labelSeparation" format="dimension" />
@@ -27,5 +27,5 @@
         <attr name="dataColor" format="color" />
         <attr name="gridThickness" format="dimension" />
         <attr name="gridColor" format="color" />
-    </declare-styleable>
+    </declare-styleable-->
 </resources>

@@ -1,6 +1,7 @@
 package com.marksoft.stringart;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -157,13 +158,14 @@ public class DrawingView extends View {
     }
 
     public void createLine(Point newPoint) {
+
         //For now make all lines connect to our new point
         for (Point otherPoint : getPoints()) {
 
             Line newLine = new Line(newPoint, otherPoint,
                     SharedPreferencesUtility.getLineColor(getContext()),
                     SharedPreferencesUtility.getStrokeWidth(getContext())
-                    );
+            );
 
             if (!getLines().contains(newLine)) {
                 getLines().add(newLine);
@@ -173,13 +175,13 @@ public class DrawingView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
-        //gestureDetector.onTouchEvent(motionEvent);
         gesture.onTouch(motionEvent);
         return true;
     }
 
     public void clear() {
         dataHandler.getDataFragment().clear();
+        SharedPreferencesUtility.clear(getContext());
     }
 
     //Round so that it is easier to draw.
@@ -228,11 +230,11 @@ public class DrawingView extends View {
         }
     }
 
-    private List<Point> getPoints() {  //TODO change back to private
+    protected List<Point> getPoints() {
         return dataHandler.getDataFragment().getPoints();
     }
 
-    private List<Line> getLines() {
+    protected List<Line> getLines() {
         return dataHandler.getDataFragment().getLines();
     }
 

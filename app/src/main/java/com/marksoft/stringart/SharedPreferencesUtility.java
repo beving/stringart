@@ -28,7 +28,7 @@ class SharedPreferencesUtility {
     private static final String LINES = "lines";
     private static final String POINTS = "points";
 
-    private static SharedPreferences init(Context context) {
+    protected static SharedPreferences init(Context context) {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
@@ -130,5 +130,10 @@ class SharedPreferencesUtility {
         String json = gson.toJson(points);
         editor.putString(POINTS, json);
         editor.apply();
+    }
+
+    public static boolean clear(Context context) {
+        SharedPreferences sharedPreferences = SharedPreferencesUtility.init(context);
+        return sharedPreferences.edit().clear().commit();
     }
 }

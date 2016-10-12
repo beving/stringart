@@ -42,7 +42,7 @@ class NumberChooserDialog {
                             SharedPreferencesUtility.setStrokeWidth(drawingView.getContext(), lineThickness);
 
                             if (applyToAllLines) {
-                                for (Line line : drawingView.getDataHandler().getDataFragment().getLines()) {
+                                for (Line line : drawingView.getLines()) {
                                     line.setThickness(lineThickness);
                                 }
                             }
