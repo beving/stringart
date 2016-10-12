@@ -16,7 +16,7 @@
     <string name="toggle_grid">Grid Lines</string>
     <string name="action_line_thickness">Line Thickness</string>
     <string name="action_grid_size">Grid Spacing</string>
-    <string name="action_save">Share</string>
+    <string name="action_share">Share</string>
     <string name="action_background_color">Background Color</string>
     <string name="color_dialog_title">Select a color</string>
     <string name="gles_activity_name">Z gles_activity_name</string>

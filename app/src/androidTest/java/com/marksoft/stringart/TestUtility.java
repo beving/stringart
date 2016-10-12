@@ -4,8 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
+import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
 
 /**
  * Common utilities used for testing.
@@ -22,4 +27,32 @@ public class TestUtility {
                         ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE :
                         ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
+
+    public static void clickOnButtonWithLabel(String label) {
+        if (Build.VERSION.SDK_INT >= 23) {
+
+            UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+            UiObject allowPermissions = device.findObject(new UiSelector().text(label));
+            if (allowPermissions.exists()) {
+                try {
+                    allowPermissions.click();
+                } catch (UiObjectNotFoundException e) {
+                    throw new RuntimeException("There are no dialog with " + label +
+                            " to interact with ");
+                }
+            }
+        }
+    }
+
+    public static boolean doesExist(String label) {
+        if (Build.VERSION.SDK_INT >= 23) {
+
+            UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+            UiObject allowPermissions = device.findObject(new UiSelector().text(label));
+
+            return allowPermissions.exists();
+        }
+        return false;
+    }
+
 }

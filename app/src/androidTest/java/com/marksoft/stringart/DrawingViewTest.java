@@ -2,21 +2,25 @@ package com.marksoft.stringart;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.preference.PreferenceManager;
-import android.support.test.espresso.ViewInteraction;
+import android.os.Build;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
-import android.view.View;
+import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
 import android.widget.ArrayAdapter;
+import android.support.test.uiautomator.UiDevice;
 
-import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.awt.font.TextAttribute;
+
+import static android.os.Build.*;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -143,12 +147,13 @@ public class DrawingViewTest {
 
     @Test
     public void shouldChangeColorOfLines() {
-        //onView(withId(R.id.drawingView)).perform(swipeRight());
         createSomeLines();
 
         for (Line line : drawingView.getLines()) {
             assertEquals(Color.RED, line.getColor());
         }
+
+        //TODO Not really testing, but this is the best I can do for now.
         SharedPreferencesUtility.setLineColor(context, Color.BLACK);
 
         createSomeLines();
@@ -175,6 +180,7 @@ public class DrawingViewTest {
         assertEquals(numberOfPointsBefore, drawingView.getPoints().size());
         assertEquals(numberOfLinesBefore, drawingView.getLines().size());
     }
+
     @Test
     public void shouldDrawPoint() {
         //Create a point on the screen by touching it.
@@ -182,7 +188,6 @@ public class DrawingViewTest {
 
         assertEquals(1, drawingView.getPoints().size());
     }
-
 
     @Test
     public void cutOnePoint() {
@@ -197,7 +202,6 @@ public class DrawingViewTest {
         onView(withId(R.id.drawingView)).perform(click());
         assertEquals(0, drawingView.getPoints().size());
     }
-
 
     @Test
     public void shouldTurnGridLinesOff() {
@@ -252,6 +256,21 @@ public class DrawingViewTest {
 
         assertEquals(biggestGridSize, SharedPreferencesUtility.getGridSpacing(context) + "");
     }
+
+    @Test
+    public void shouldShare() {
+
+        openActionBarOverflowOrOptionsMenu(context);
+        onView(withText(R.string.action_share)).perform(click());
+
+        TestUtility.clickOnButtonWithLabel("Allow");
+
+        assertTrue(TestUtility.doesExist("Select conversation"));
+
+        TestUtility.clickOnButtonWithLabel("Cancel");
+    }
+
+    //TODO create test for background color, but I don't know how I can test it
 
     private void createSomeLines() {
         onView(withId(R.id.drawingView)).perform(swipeRight());
