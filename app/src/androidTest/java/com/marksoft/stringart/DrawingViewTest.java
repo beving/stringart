@@ -3,24 +3,15 @@ package com.marksoft.stringart;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
-import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiSelector;
 import android.widget.ArrayAdapter;
-import android.support.test.uiautomator.UiDevice;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.awt.font.TextAttribute;
-
-import static android.os.Build.*;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
