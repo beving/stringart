@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
+import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.widget.ArrayAdapter;
 
 import org.junit.Before;
@@ -44,15 +45,14 @@ public class DrawingViewTest {
         drawingView = activityRule.getActivity().getDrawingView();
         context = activityRule.getActivity().getApplicationContext();
 
-        openActionBarOverflowOrOptionsMenu(context);
-        onView(withText(R.string.clear)).perform(click());
+        TestUtility.clickOnViaTextOrId(context, context.getString(R.string.clear), R.id.action_clear);
         onView(withId(android.R.id.button1)).perform(click());
 
         SharedPreferencesUtility.clear(context);
     }
 
     @Test
-    public void clearShouldRemoveAllLinesAndPoints() {
+    public void clearShouldRemoveAllLinesAndPoints() throws UiObjectNotFoundException {
 
         createSomeLines();
         onView(withId(R.id.drawingView)).perform(swipeLeft());
@@ -60,10 +60,7 @@ public class DrawingViewTest {
         assertTrue(!drawingView.getLines().isEmpty());
         assertTrue(!drawingView.getPoints().isEmpty());
 
-        openActionBarOverflowOrOptionsMenu(context);
-        onView(withText(R.string.clear)).perform(click());
-
-        //onView(withId(R.id.action_clear)).perform(click());  //works on tablet but not on phone
+        TestUtility.clickOnViaTextOrId(context, context.getString(R.string.clear), R.id.action_clear);
         onView(withId(android.R.id.button1)).perform(click());
 
         assertTrue(drawingView.getLines().isEmpty());
@@ -254,11 +251,11 @@ public class DrawingViewTest {
         openActionBarOverflowOrOptionsMenu(context);
         onView(withText(R.string.action_share)).perform(click());
 
-        TestUtility.clickOnButtonWithLabel("Allow");
+        TestUtility.clickOnButton("Allow");
 
         assertTrue(TestUtility.doesExist("Select conversation"));
 
-        TestUtility.clickOnButtonWithLabel("Cancel");
+        TestUtility.clickOnButton("Cancel");
     }
 
     //TODO create test for background color, but I don't know how I can test it
