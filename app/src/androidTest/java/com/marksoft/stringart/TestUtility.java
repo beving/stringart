@@ -34,8 +34,7 @@ public class TestUtility {
                         ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-    public static void clickOnButton(String label) {
-
+    public static boolean clickOnButton(String label) {
         UiObject allowPermissions = getUiObject(label);
         if (allowPermissions.exists()) {
             try {
@@ -45,6 +44,7 @@ public class TestUtility {
                         " to interact with ");
             }
         }
+        return allowPermissions.exists();
     }
 
     public static boolean doesExist(String label) {
@@ -70,7 +70,6 @@ public class TestUtility {
     public static void clickOnViaTextOrId(Context context, String button, final int id) {
         try {
             onView(withId(id)).perform(click());
-
         } catch (NoMatchingViewException e) {
 
             openActionBarOverflowOrOptionsMenu(context);
