@@ -28,13 +28,19 @@ class SharedPreferencesUtility {
     private static final String LINES = "lines";
     private static final String POINTS = "points";
 
+    public static final int DEFAULT_STROKE_WIDTH = 2;
+    public static final int DEFAULT_GRID_SPACING = 100;
+    public static final boolean DEFAULT_GRID_LINES = true;
+    public static final int DEFAULT_LINE_COLOR = Color.RED;
+    public static final int DEFAULT_BACKGROUND_COLOR = Color.WHITE;
+
     protected static SharedPreferences init(Context context) {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
     public static int getStrokeWidth(Context context) {
         SharedPreferences sharedPreferences = init(context);
-        return sharedPreferences.getInt(STROKE_WIDTH, 2);  //Default is 2
+        return sharedPreferences.getInt(STROKE_WIDTH, DEFAULT_STROKE_WIDTH);
     }
 
     public static void setStrokeWidth(Context context, int strokeWidth) {
@@ -45,7 +51,7 @@ class SharedPreferencesUtility {
 
     public static int getGridSpacing(Context context) {
         SharedPreferences sharedPreferences = init(context);
-        return sharedPreferences.getInt(GRID_SPACING, 100);  //Default is 100
+        return sharedPreferences.getInt(GRID_SPACING, DEFAULT_GRID_SPACING);
     }
 
     public static void setGridSpacing(Context context, Integer gridSpacing) {
@@ -56,7 +62,7 @@ class SharedPreferencesUtility {
 
     public static boolean isGridLinesOn(Context context) {
         SharedPreferences sharedPreferences = init(context);
-        return sharedPreferences.getBoolean(GRID_LINES, true); //Default is true
+        return sharedPreferences.getBoolean(GRID_LINES, DEFAULT_GRID_LINES);
     }
 
     public static void setGridLines(Context context, boolean gridLines) {
@@ -67,7 +73,7 @@ class SharedPreferencesUtility {
 
     public static int getLineColor(Context context) {
         SharedPreferences sharedPreferences = init(context);
-        return sharedPreferences.getInt(LINE_COLOR, Color.RED); //Default color is red
+        return sharedPreferences.getInt(LINE_COLOR, DEFAULT_LINE_COLOR);
     }
 
     public static void setLineColor(Context context, int lineColor) {
@@ -78,7 +84,7 @@ class SharedPreferencesUtility {
 
     public static int getBackgroundColor(Context context) {
         SharedPreferences sharedPreferences = init(context);
-        return sharedPreferences.getInt(BACKGROUND_COLOR, Color.WHITE); //Default color is white
+        return sharedPreferences.getInt(BACKGROUND_COLOR, DEFAULT_BACKGROUND_COLOR);
     }
 
     public static void setBackgroundColor(Context context, int backgroundColor) {

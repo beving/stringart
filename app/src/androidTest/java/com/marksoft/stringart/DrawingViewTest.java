@@ -122,7 +122,7 @@ public class DrawingViewTest {
         onView(withId(R.id.drawingView)).perform(swipeRight());
 
         for (Line line : drawingView.getLines()) {
-            assertEquals(Color.RED, line.getColor());
+            assertEquals(SharedPreferencesUtility.DEFAULT_LINE_COLOR, line.getColor());
         }
     }
 
@@ -140,7 +140,7 @@ public class DrawingViewTest {
         createSomeLines();
 
         for (Line line : drawingView.getLines()) {
-            assertEquals(Color.RED, line.getColor());
+            assertEquals(SharedPreferencesUtility.DEFAULT_LINE_COLOR, line.getColor());
         }
 
         //TODO Not really testing, but this is the best I can do for now.
@@ -151,7 +151,7 @@ public class DrawingViewTest {
         Line lastLine = drawingView.getLines().get(drawingView.getLines().size() - 1);
         Line firstLine = drawingView.getLines().get(0);
 
-        assertEquals(Color.RED, firstLine.getColor());
+        assertEquals(SharedPreferencesUtility.DEFAULT_LINE_COLOR, firstLine.getColor());
         assertEquals(Color.BLACK, lastLine.getColor());
     }
 
@@ -209,7 +209,7 @@ public class DrawingViewTest {
     @Test
     public void shouldChangeLineSize() {
 
-        assertEquals(2, SharedPreferencesUtility.getStrokeWidth(context));
+        assertEquals(SharedPreferencesUtility.DEFAULT_STROKE_WIDTH, SharedPreferencesUtility.getStrokeWidth(context));
 
         //Get the Biggest line size from our simple selectable list.
         final ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
@@ -230,7 +230,7 @@ public class DrawingViewTest {
     @Test
     public void shouldChangeGridSpacing() {
 
-        assertEquals(100, SharedPreferencesUtility.getGridSpacing(context));
+        assertEquals(SharedPreferencesUtility.DEFAULT_GRID_SPACING, SharedPreferencesUtility.getGridSpacing(context));
 
         //Get the Biggest line size from our simple selectable list.
         final ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
