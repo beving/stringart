@@ -11,12 +11,16 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.action.ViewActions.swipeRight;
+import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -69,6 +73,28 @@ public class DrawingViewTest {
     }
 
     @Test
+    public void clearShouldRemoveLinesButNotChangeOtherPreferences() throws UiObjectNotFoundException {
+
+        SharedPreferencesUtility.setLineColor(context, Color.BLACK);
+        SharedPreferencesUtility.setGridSpacing(context, 150);
+
+        createSomeLines();
+        onView(withId(R.id.drawingView)).perform(swipeLeft());
+
+        assertTrue(!drawingView.getLines().isEmpty());
+        assertTrue(!drawingView.getPoints().isEmpty());
+
+        TestUtility.clickOnViaTextOrId(context, context.getString(R.string.clear), R.id.action_clear);
+        onView(withId(android.R.id.button1)).perform(click());
+
+        assertTrue(drawingView.getLines().isEmpty());
+        assertTrue(drawingView.getPoints().isEmpty());
+
+        assertEquals(Color.BLACK, SharedPreferencesUtility.getLineColor(context));
+        assertEquals(150, SharedPreferencesUtility.getGridSpacing(context));
+    }
+
+    @Test
     public void createOnePoint() {
         onView(withId(R.id.drawingView)).perform(click());
         assertEquals(1, drawingView.getPoints().size());
@@ -101,7 +127,6 @@ public class DrawingViewTest {
 
         onView(withId(R.id.drawingView)).perform(swipeRight());
 
-        int numberOfLines = drawingView.getLines().size();
         int numberOfPoints = drawingView.getPoints().size();
 
         onView(withId(R.id.action_undo)).perform(click());
@@ -207,7 +232,7 @@ public class DrawingViewTest {
     }
 
     @Test
-    public void shouldChangeLineSize() {
+     public void shouldChangeLineSize() {
 
         assertEquals(SharedPreferencesUtility.DEFAULT_STROKE_WIDTH, SharedPreferencesUtility.getStrokeWidth(context));
 
@@ -225,6 +250,34 @@ public class DrawingViewTest {
         onView(withText(biggestLineSize)).perform(click());
 
         assertEquals(biggestLineSize, SharedPreferencesUtility.getStrokeWidth(context) + "");
+    }
+
+    @Test
+    public void shouldHaveMultipleLineSizes() {
+        createSomeLines();
+        assertEquals(SharedPreferencesUtility.DEFAULT_STROKE_WIDTH, SharedPreferencesUtility.getStrokeWidth(context));
+
+        //Get the Biggest line size from our simple selectable list.
+        final ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
+                context,
+                R.array.line_sizes, android.R.layout.simple_selectable_list_item);
+        String biggestLineSize = (arrayAdapter.getItem(arrayAdapter.getCount() - 1)).toString();
+
+
+        openActionBarOverflowOrOptionsMenu(context);
+        onView(withText(R.string.line_size)).perform(click());
+        onView(withId(android.R.id.button2)).perform(click());
+        onView(withText(biggestLineSize)).perform(click());
+
+        createSomeMoreLines();
+
+        Set lineSizes = new HashSet();
+        for (Line line : drawingView.getLines()) {
+            if (!lineSizes.contains(line.getThickness())) {
+                lineSizes.add(line.getThickness());
+            }
+        }
+        assertTrue("Line Size larger than one.", lineSizes.size() > 1);
     }
 
     @Test
@@ -265,6 +318,12 @@ public class DrawingViewTest {
         onView(withId(R.id.drawingView)).perform(swipeRight());
         onView(withId(R.id.drawingView)).perform(swipeDown());
     }
+
+    private void createSomeMoreLines() {
+        onView(withId(R.id.drawingView)).perform(swipeLeft());
+        onView(withId(R.id.drawingView)).perform(swipeUp());
+    }
+
 
 }
 //Check for Toast

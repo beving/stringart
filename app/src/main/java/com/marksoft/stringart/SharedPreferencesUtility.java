@@ -138,6 +138,15 @@ class SharedPreferencesUtility {
         editor.apply();
     }
 
+    public static boolean clearLinesAndPoints(Context context) {
+
+        setPoints(context, new ArrayList<Point>());
+        setLines(context, new ArrayList<Line>());
+
+        SharedPreferences sharedPreferences = SharedPreferencesUtility.init(context);
+        return sharedPreferences.edit().commit();
+    }
+
     public static boolean clear(Context context) {
         SharedPreferences sharedPreferences = SharedPreferencesUtility.init(context);
         return sharedPreferences.edit().clear().commit();

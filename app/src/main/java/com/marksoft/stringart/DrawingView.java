@@ -181,7 +181,7 @@ public class DrawingView extends View {
 
     public void clear() {
         dataHandler.getDataFragment().clear();
-        SharedPreferencesUtility.clear(getContext());
+        SharedPreferencesUtility.clearLinesAndPoints(getContext());
     }
 
     //Round so that it is easier to draw.
