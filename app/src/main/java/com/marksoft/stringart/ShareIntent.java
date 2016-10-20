@@ -57,6 +57,8 @@ class ShareIntent {
 
             FileOutputStream fos;
             fos = new FileOutputStream(imagePath);
+            Log.d(TAG, "Temp file name is:" + imagePath);
+
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.flush();
             fos.close();

@@ -1,7 +1,6 @@
 package com.marksoft.stringart;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -63,7 +62,7 @@ public class DrawingView extends View {
             canvas.drawLine(
                     Math.round(line.getStartPoint().x),  //starting coordinates
                     Math.round(line.getStartPoint().y),
-                    Math.round(line.getEndPoint().x ),    //ending coordinates
+                    Math.round(line.getEndPoint().x),    //ending coordinates
                     Math.round(line.getEndPoint().y),
                     paint);
         }
@@ -71,7 +70,7 @@ public class DrawingView extends View {
 
     public void drawPoints(Canvas canvas) {
         //Only draw a point when there is only just one point, so the user can see it on the screen
-        if (dataHandler.getDataFragment().getPoints().size()==1) {
+        if (dataHandler.getDataFragment().getPoints().size() == 1) {
             paint.setColor(Color.BLACK); //Set the color for the points
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(10);
@@ -86,21 +85,21 @@ public class DrawingView extends View {
             int spacing = SharedPreferencesUtility.getGridSpacing(getContext());
 
             //Draw Dotted Lines along the X axis (horizontally)
-            for (int y = 0; y < canvas.getHeight(); y+=spacing) {
+            for (int y = 0; y < canvas.getHeight(); y += spacing) {
                 paint.setFlags(Paint.ANTI_ALIAS_FLAG);
                 paint.setAntiAlias(true);
                 paint.setFilterBitmap(true);
                 paint.setColor(Color.LTGRAY);
                 paint.setStrokeWidth(1);
                 paint.setStyle(Paint.Style.STROKE);
-                paint.setPathEffect(new DashPathEffect(new float[] {10,5}, 0));
+                paint.setPathEffect(new DashPathEffect(new float[]{10, 5}, 0));
 
                 canvas.drawLine(0, y,
                         canvas.getWidth(), y,
                         paint);
 
                 //Draw Dotted Lines along the Y axis (vertically)
-                for (int x = 0; x < canvas.getWidth(); x+=spacing) {
+                for (int x = 0; x < canvas.getWidth(); x += spacing) {
                     paint.setPathEffect(new DashPathEffect(new float[]{10, 5}, 0));
 
                     canvas.drawLine(x, 0,
@@ -144,7 +143,7 @@ public class DrawingView extends View {
             dataHandler.getDataFragment().getLines().removeAll(linesToDelete);
 
             List<Point> pointsToRemove = new ArrayList<>();
-            for (Point point: dataHandler.getDataFragment().getPoints()) {
+            for (Point point : dataHandler.getDataFragment().getPoints()) {
                 if (point.equals(pointToRemove)) {
                     pointsToRemove.add(point);
                 }
@@ -186,7 +185,7 @@ public class DrawingView extends View {
 
     //Round so that it is easier to draw.
     private int round(float numberF, int roundedToNearest) {
-        return roundedToNearest*(Math.round(numberF/roundedToNearest));
+        return roundedToNearest * (Math.round(numberF / roundedToNearest));
     }
 
     public boolean undoAdditionOfLastPoint() {
@@ -219,7 +218,7 @@ public class DrawingView extends View {
         dataHandler.getDataFragment().setCutPoint(true);
     }
 
-    public void reDraw(){
+    public void reDraw() {
         this.invalidate();
     }
 

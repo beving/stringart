@@ -87,9 +87,11 @@ public class DrawingViewTest {
         TestUtility.clickOnViaTextOrId(context, context.getString(R.string.clear), R.id.action_clear);
         onView(withId(android.R.id.button1)).perform(click());
 
+        //Verify the lines and points are gone
         assertTrue(drawingView.getLines().isEmpty());
         assertTrue(drawingView.getPoints().isEmpty());
 
+        //Other prefences remain the same
         assertEquals(Color.BLACK, SharedPreferencesUtility.getLineColor(context));
         assertEquals(150, SharedPreferencesUtility.getGridSpacing(context));
     }
@@ -168,7 +170,7 @@ public class DrawingViewTest {
             assertEquals(SharedPreferencesUtility.DEFAULT_LINE_COLOR, line.getColor());
         }
 
-        //TODO Not really testing, but this is the best I can do for now.
+        //TODO Not really testing, but this is the best I can do for now due to the ColorDialog
         SharedPreferencesUtility.setLineColor(context, Color.BLACK);
 
         createSomeLines();
