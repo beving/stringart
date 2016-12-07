@@ -24,7 +24,7 @@
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/logo1"
+        android:src="@drawable/triangle_3d"
         android:id="@+id/imageView"
         android:layout_alignTop="@+id/imageView3"
         android:layout_alignLeft="@+id/imageView4"
