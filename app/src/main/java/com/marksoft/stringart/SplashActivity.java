@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 public class SplashActivity extends AppCompatActivity {
 
     //Not best practice, but using since app loads too fast to see the image
-    private static final int DELAY_MILLIS = 5000;
+    private static final int DELAY_MILLIS = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

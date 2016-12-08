@@ -4,6 +4,8 @@
     <color name="colorAccent">#000000</color>
     <color name="text_theme_light">#000000</color>
     <color name="colorDark">#000000</color>
+    <color name="colorLight">#FFFFFF</color>
+
 
     <integer-array name="available_colors">
         <item>0xFFFFFFFF</item>
