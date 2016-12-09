@@ -35,7 +35,7 @@ public class Line implements Parcelable {
         return color;
     }
 
-    public void setColor(int color) {
+    private void setColor(int color) {
         this.color = color;
     }
 

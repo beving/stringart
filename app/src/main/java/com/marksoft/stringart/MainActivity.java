@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 getDataFragment().setPermissableToShare(true);
             }
         }
+        getDataFragment().setPermissableToShare(false);
     }
 
     @Override

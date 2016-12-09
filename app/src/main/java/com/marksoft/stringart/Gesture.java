@@ -30,7 +30,6 @@ class Gesture {
                     Log.d("Gesture", "Gesture.getAction x: " + event.getX() +
                             "    y: " + event.getY());
                     myView.reDraw();
-                    return;
             }
         }catch (Exception e) {
             throw new RuntimeException(e);

@@ -2,59 +2,8 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorAccent">#000000</color>
-    <color name="text_theme_light">#000000</color>
+
     <color name="colorDark">#000000</color>
     <color name="colorLight">#FFFFFF</color>
 
-
-    <integer-array name="available_colors">
-        <item>0xFFFFFFFF</item>
-        <item>0xFF000000</item>
-        <item>0xFFFF0000</item>
-        <item>0xFF0000FF</item>
-        <item>0xFF00FF00</item>
-        <item>0xFFFFFF00</item>
-        <item>0xFF00FFFF</item>
-        <item>0xFF888888</item>
-        <item>0xFF000080</item>
-        <item>0xFF808000</item>
-        <item>0xFF800080</item>
-        <item>0xFF008080</item>
-        <item>0xFFFF6600</item>
-        <item>0xFFFF9900</item>
-        <item>0xFF9999FF</item>
-        <item>0xFF993366</item>
-        <item>0xFFFFFFCC</item>
-        <item>0xFFCCFFFF</item>
-        <item>0xFF660066</item>
-        <item>0xFFFF8080</item>
-        <item>0xFF0066CC</item>
-        <item>0xFFCCCCFF</item>
-        <item>0xFF000080</item>
-        <item>0xFFFFFF00</item>
-        <item>0xFF00FFFF</item>
-        <item>0xFF800080</item>
-        <item>0xFF800000</item>
-        <item>0xFF008080</item>
-        <item>0xFF0000FF</item>
-        <item>0xFF00CCFF</item>
-        <item>0xFFCCFFFF</item>
-        <item>0xFFCCFFCC</item>
-        <item>0xFFFFFF99</item>
-        <item>0xFF99CCFF</item>
-        <item>0xFFFF99CC</item>
-        <item>0xFFCC99FF</item>
-        <item>0xFFFFCC99</item>
-        <item>0xFF3366FF</item>
-        <item>0xFF33CCCC</item>
-        <item>0xFF99CC00</item>
-        <item>0xFFFFCC00</item>
-        <item>0xFF666699</item>
-        <item>0xFF969696</item>
-        <item>0xFF003366</item>
-        <item>0xFF339966</item>
-        <item>0xFF003300</item>
-        <item>0xFF333300</item>
-        <item>0xFF993300</item>
-    </integer-array>
 </resources>

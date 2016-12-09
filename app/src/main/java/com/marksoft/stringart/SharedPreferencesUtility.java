@@ -34,7 +34,7 @@ class SharedPreferencesUtility {
     public static final int DEFAULT_LINE_COLOR = Color.RED;
     public static final int DEFAULT_BACKGROUND_COLOR = Color.WHITE;
 
-    protected static SharedPreferences init(Context context) {
+    private static SharedPreferences init(Context context) {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
@@ -138,13 +138,13 @@ class SharedPreferencesUtility {
         editor.apply();
     }
 
-    public static boolean clearLinesAndPoints(Context context) {
+    public static void clearLinesAndPoints(Context context) {
 
         setPoints(context, new ArrayList<Point>());
         setLines(context, new ArrayList<Line>());
 
         SharedPreferences sharedPreferences = SharedPreferencesUtility.init(context);
-        return sharedPreferences.edit().commit();
+        sharedPreferences.edit().commit();
     }
 
     public static boolean clear(Context context) {

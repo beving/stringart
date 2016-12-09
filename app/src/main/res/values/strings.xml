@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">String Art</string>
-    <string name="action_settings">Settings</string>
     <string name="clear_question">"Do you really want to clear all the lines and points?"</string>
     <string name="clear_apply_to_all_lines">"Apply to New Lines or all Current Lines?"</string>
     <string name="cleared">The lines have been cleared.</string>
@@ -19,7 +18,6 @@
     <string name="action_share">Share</string>
     <string name="action_background_color">Background Color</string>
     <string name="color_dialog_title">Select a color</string>
-    <string name="gles_activity_name">Z gles_activity_name</string>
 
 
     <!-- Toast Dialog Strings -->
@@ -30,24 +28,18 @@
     <string name="grid_spacing">Grid Spacing</string>
 
     <string name="color_set">Color set to </string>
-    <string name="grid_spacing_set">Grid spacing set to </string>
-    <string name="line_size_set">Line thickness set to</string>
     <string name="share_name_prefix">StringArt_Image</string>
 
     <!-- Strings related to Settings -->
 
-    <!-- Example General settings -->
+    <!-- Example General settings
+    <string name="pref_title_display_name">Display name</string> -->
 
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
+    <!-- Example settings for Data & Sync
 
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string name="pref_title_sync_frequency">Sync frequency</string> -->
 
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-
+    <!-- CODE INSPECTION CHANGES
     <string-array name="pref_sync_frequency_values">
         <item>15</item>
         <item>30</item>
@@ -55,6 +47,6 @@
         <item>180</item>
         <item>360</item>
         <item>-1</item>
-    </string-array>
+    </string-array> -->
 
 </resources>
