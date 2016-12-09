@@ -150,10 +150,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ShareIntent.PERMISSION_TO_SHARE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 ShareIntent.share(this, getDrawingView());
-                getDataFragment().setPermissableToShare(true);
+                getDataFragment().setPermissibleToShare(true);
             }
         }
-        getDataFragment().setPermissableToShare(false);
+        getDataFragment().setPermissibleToShare(false);
     }
 
     @Override

@@ -70,7 +70,7 @@ public class RetainedFragment extends Fragment {
         return permissibleToShare;
     }
 
-    public void setPermissableToShare(boolean share) {
+    public void setPermissibleToShare(boolean share) {
         this.permissibleToShare = share;
     }
 

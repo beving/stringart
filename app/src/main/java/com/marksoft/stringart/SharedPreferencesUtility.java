@@ -144,7 +144,7 @@ class SharedPreferencesUtility {
         setLines(context, new ArrayList<Line>());
 
         SharedPreferences sharedPreferences = SharedPreferencesUtility.init(context);
-        sharedPreferences.edit().commit();
+        sharedPreferences.edit().apply();
     }
 
     public static boolean clear(Context context) {
