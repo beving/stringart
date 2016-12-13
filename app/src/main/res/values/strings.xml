@@ -1,7 +1,9 @@
 <resources>
+
     <string name="app_name">String Art</string>
+    <string name="label">String Art</string>
     <string name="clear_question">"Do you really want to clear all the lines and points?"</string>
-    <string name="clear_apply_to_all_lines">"Apply to New Lines or all Current Lines?"</string>
+    <string name="apply_to_all_lines">"Apply to New Lines or all Current Lines?"</string>
     <string name="cleared">The lines have been cleared.</string>
     <string name="close">Press back again to close this app.</string>
     <string name="cut">Cut</string>

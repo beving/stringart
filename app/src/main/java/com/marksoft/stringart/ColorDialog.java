@@ -57,7 +57,7 @@ class ColorDialog {
                 .show();
     }
 
-    public static void selectLineColor(final DrawingView drawingView) {
+    public static void selectLineColor(final DrawingView drawingView, final boolean applyToAllLines) {
         final Resources r = drawingView.getContext().getResources();
         final Context context = drawingView.getContext();
 
@@ -81,6 +81,11 @@ class ColorDialog {
                             @Override
                             public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
                                 SharedPreferencesUtility.setLineColor(context, selectedColor);
+                                if (applyToAllLines) {
+                                    for (Line line : drawingView.getLines()) {
+                                        line.setColor(selectedColor);
+                                    }
+                                }
                                 drawingView.reDraw();
                             }
                         })

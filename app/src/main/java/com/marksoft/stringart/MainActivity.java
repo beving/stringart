@@ -80,7 +80,23 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case (R.id.action_change_color): {
-                    ColorDialog.selectLineColor(getDrawingView());
+                    new AlertDialog.Builder(this)
+                            .setTitle(R.string.line_color)
+                            .setMessage(R.string.apply_to_all_lines)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(R.string.all, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    ColorDialog.selectLineColor(getDrawingView(), true);
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton(R.string.new_new, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    ColorDialog.selectLineColor(getDrawingView(), false);
+                                    dialog.dismiss();
+                                }
+                            }).show();
+
                     break;
                 }
                 case (R.id.action_background_color): {
@@ -90,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 case (R.id.action_line_thickness): {
                     new AlertDialog.Builder(this)
                             .setTitle(R.string.line_size)
-                            .setMessage(R.string.clear_apply_to_all_lines)
+                            .setMessage(R.string.apply_to_all_lines)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setPositiveButton(R.string.all, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
