@@ -63,6 +63,13 @@
         android:title="@string/action_background_color"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_help"
+        android:orderInCategory="400"
+        android:title="@string/action_help"
+        android:onClick="sendHelp"
+        app:showAsAction="never" />
+
     <!--item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

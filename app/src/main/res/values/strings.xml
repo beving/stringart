@@ -19,6 +19,7 @@
     <string name="action_grid_size">Grid Spacing</string>
     <string name="action_share">Share</string>
     <string name="action_background_color">Background Color</string>
+    <string name="action_help">Help</string>
     <string name="color_dialog_title">Select a color</string>
 
 

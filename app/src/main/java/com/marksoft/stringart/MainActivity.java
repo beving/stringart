@@ -2,6 +2,7 @@ package com.marksoft.stringart;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -158,6 +159,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void sendHelp(MenuItem item) {
+        Intent intent = new Intent(this, HelpMenu.class);
+        startActivity(intent);
     }
 
     @Override
