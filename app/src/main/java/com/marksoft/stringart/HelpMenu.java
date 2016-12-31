@@ -1,6 +1,10 @@
 package com.marksoft.stringart;
 
 /**
+ * Right now this is really not being used.
+ *
+ * It was intended to be used with a help menu that has images
+ *
  * Copied from http://stackoverflow.com/questions/16396462/android-textview-settext-in-html-fromhtml-to-display-image-and-text
  */
 import android.app.Activity;
@@ -64,11 +68,11 @@ public class HelpMenu extends Activity implements ImageGetter {
         if (arg0.equals("tu1.png")) {
             id = R.drawable.ic_clear_all;
         }
-        LevelListDrawable d = new LevelListDrawable();
+        LevelListDrawable d = new LevelListDrawable(); /* Commented out, but this should be used if HelpMenu is used.
         Drawable empty = getResources().getDrawable(id);//TODO deprectated.
         d.addLevel(0, 0, empty);
         d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight()); //TODO code checker said this may do a null ptr
-
+       */
         return d;
     }
 

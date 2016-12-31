@@ -33,23 +33,26 @@
     <string name="color_set">Color set to </string>
     <string name="share_name_prefix">StringArt_Image</string>
 
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings
-    <string name="pref_title_display_name">Display name</string> -->
-
-    <!-- Example settings for Data & Sync
-
-    <string name="pref_title_sync_frequency">Sync frequency</string> -->
-
-    <!-- CODE INSPECTION CHANGES
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array> -->
+    <!-- Help Menu Strings -->
+    <string name="help_title">How to use StringArt</string>
+    <string name="help_txt"><![CDATA[
+<p><p><br><br><strong>The basics:</strong></p>
+<p>Touching anywhere on the grid will create a point.</p>
+<p>Touching again will create another point, that is connected to the first point with a line.</p>
+<p>All points are connected to each other.</p>
+<p>A swipe will create a point for each area of the grid touched.</p>
+<p><strong>The options are:</strong></p>
+<p><strong>Undo</strong> <br />Undo the last created point and lines. This can be repeated.</p>
+<p><strong>Cut</strong> <br />Remove a point and it\'s associated lines.</p>
+<p><strong>Clear</strong> <br />Remove all lines and points.</p>
+<p><strong>Line Color</strong> <br />Change the color of all the lines, or change the color of the new lines that are going to be created.</p>
+<p><strong>Grid Lines</strong><br />Remove the gridlines from the background.</p>
+<p><strong>Line Thickness</strong><br />Change how thick the existing lines are, or how thick the new lines that are going to be created will be.</p>
+<p><strong>Grid Spacing</strong><br />Change how close or wide the grid spacing will be in pixels.</p>
+<p><strong>Share</strong><br />Share the image with friends, or save it.</p>
+<p><strong>Background Color</strong><br />Change the color of the current background.</p>
+<p><br /><strong>Notes</strong></p>
+<p>This application can be used in portrait or landscape mode.</p>
+<p>Image data will be saved, for next time the application is loaded. To start over use Clear.</p>]]></string>
 
 </resources>

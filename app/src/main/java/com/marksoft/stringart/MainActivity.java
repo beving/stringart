@@ -8,9 +8,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -157,13 +161,30 @@ public class MainActivity extends AppCompatActivity {
             }
             e.printStackTrace();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     public void sendHelp(MenuItem item) {
-        Intent intent = new Intent(this, HelpMenu.class);
-        startActivity(intent);
+        LayoutInflater inflater= LayoutInflater.from(this);
+        View view=inflater.inflate(R.layout.activity_help, null);
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setView(view);
+        alertDialog.setNegativeButton(this.getResources().getString(R.string.ok),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        alertDialog.setTitle(this.getResources().getString(R.string.help_title));
+
+        TextView textview=(TextView)view.findViewById(R.id.help_text_view);
+        textview.setText(Html.fromHtml(this.getResources().getString(R.string.help_txt)));
+
+        AlertDialog alert = alertDialog.create();
+        alert.show();
     }
 
     @Override
