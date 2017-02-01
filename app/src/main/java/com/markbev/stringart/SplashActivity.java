@@ -1,4 +1,4 @@
-package com.marksoft.stringart;
+package com.markbev.stringart;
 
 import android.content.Intent;
 import android.os.Bundle;

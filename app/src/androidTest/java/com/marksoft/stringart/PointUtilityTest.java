@@ -1,9 +1,8 @@
-package com.marksoft.stringart;
+package com.markbev.stringart;
 
 import android.graphics.Point;
 import android.test.suitebuilder.annotation.SmallTest;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;

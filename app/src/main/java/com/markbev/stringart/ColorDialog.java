@@ -1,4 +1,4 @@
-package com.marksoft.stringart;
+package com.markbev.stringart;
 
 import android.content.Context;
 import android.content.DialogInterface;

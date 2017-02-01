@@ -1,7 +1,6 @@
-package com.marksoft.stringart;
+package com.markbev.stringart;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.rule.ActivityTestRule;
 

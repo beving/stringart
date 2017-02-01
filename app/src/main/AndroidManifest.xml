@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.marksoft.stringart">
+    package="com.markbev.stringart">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SEND_SMS"/>
         <application
@@ -14,7 +14,7 @@
             tools:replace="android:allowBackup"
             android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.markbev.stringart.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter android:label="@string/label">
@@ -33,12 +33,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HelpMenu"
+            android:name="com.markbev.stringart.HelpMenu"
             android:label="Help Menu"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name="com.markbev.stringart.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

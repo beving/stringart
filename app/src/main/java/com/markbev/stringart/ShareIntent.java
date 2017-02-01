@@ -1,4 +1,4 @@
-package com.marksoft.stringart;
+package com.markbev.stringart;
 
 import android.Manifest;
 import android.app.Activity;

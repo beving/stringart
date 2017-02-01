@@ -1,4 +1,4 @@
-package com.marksoft.stringart;
+package com.markbev.stringart;
 
 /**
  * Right now this is really not being used.
@@ -12,14 +12,11 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.*;
 import android.text.Html.ImageGetter;
 import android.util.Log;
 import android.widget.*;
 
 import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 public class HelpMenu extends Activity implements ImageGetter {
 
