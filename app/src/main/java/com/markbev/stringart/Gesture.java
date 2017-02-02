@@ -31,7 +31,7 @@ class Gesture {
                             "    y: " + event.getY());
                     myView.reDraw();
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

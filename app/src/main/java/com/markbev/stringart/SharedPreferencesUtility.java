@@ -107,7 +107,8 @@ class SharedPreferencesUtility {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         String json = sharedPrefs.getString(LINES, "");
-        Type type = new TypeToken<ArrayList<Line>>() {}.getType();
+        Type type = new TypeToken<ArrayList<Line>>() {
+        }.getType();
         List<Line> lines = gson.fromJson(json, type);
 
         if (lines == null) {
@@ -121,7 +122,8 @@ class SharedPreferencesUtility {
 
         Gson gson = new Gson();
         String json = sharedPrefs.getString(POINTS, "");
-        Type type = new TypeToken<ArrayList<Point>>() {}.getType();
+        Type type = new TypeToken<ArrayList<Point>>() {
+        }.getType();
         List<Point> points = gson.fromJson(json, type);
 
         if (points == null) {

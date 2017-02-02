@@ -2,11 +2,12 @@ package com.markbev.stringart;
 
 /**
  * Right now this is really not being used.
- *
+ * <p/>
  * It was intended to be used with a help menu that has images
- *
+ * <p/>
  * Copied from http://stackoverflow.com/questions/16396462/android-textview-settext-in-html-fromhtml-to-display-image-and-text
  */
+
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
@@ -21,12 +22,12 @@ import com.google.android.gms.appindexing.Action;
 public class HelpMenu extends Activity implements ImageGetter {
 
     TextView message;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     //TODO private GoogleApiClient client;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);  //TODO this was guess

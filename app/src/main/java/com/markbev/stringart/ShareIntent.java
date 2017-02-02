@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,7 +37,7 @@ class ShareIntent {
         sharedDrawingView.drawPoints(canvas);
         sharedDrawingView.drawLines(canvas);
 
-        canvas.scale(2000,2000);
+        canvas.scale(2000, 2000);
 
         Uri fileLocation = saveBitmap(bitmap, activity);
 
@@ -98,7 +99,7 @@ class ShareIntent {
     /**
      * Request Permissions from user.
      * See: https://developer.android.com/training/permissions/requesting.html
-    */
+     */
     public static void requestPermissions(Activity activity) {
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(activity,

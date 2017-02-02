@@ -14,6 +14,7 @@ class PointUtility {
 
     /**
      * Convert Collection<Point> to float[]
+     *
      * @param points A collection of points
      * @return floats[]
      */

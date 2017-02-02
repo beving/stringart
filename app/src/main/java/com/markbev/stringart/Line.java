@@ -5,8 +5,9 @@ import android.graphics.Point;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**A Line contains two points.  It contains a unique object to paint with.
- *    Therefore giving a line unique attributes like: a different color, size, solid/dotted, etc.
+/**
+ * A Line contains two points.  It contains a unique object to paint with.
+ * Therefore giving a line unique attributes like: a different color, size, solid/dotted, etc.
  * Created by e62032 on 4/27/2016.
  */
 public class Line implements Parcelable {
@@ -54,25 +55,25 @@ public class Line implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeInt(color);
-        out.writeParcelable(startPoint , flags);
+        out.writeParcelable(startPoint, flags);
         out.writeParcelable(endPoint, flags);
     }
 
-        public static final Parcelable.Creator<Line> CREATOR
-                = new Parcelable.Creator<Line>() {
-            public Line createFromParcel(Parcel in) {
-                return new Line(in);
-            }
-
-            public Line[] newArray(int size) {
-                return new Line[size];
-            }
-        };
-
-        private Line(Parcel in) {
-            setColor(in.readInt());
-            startPoint = in.readParcelable(Point.class.getClassLoader());
-            endPoint = in.readParcelable(Point.class.getClassLoader());
+    public static final Parcelable.Creator<Line> CREATOR
+            = new Parcelable.Creator<Line>() {
+        public Line createFromParcel(Parcel in) {
+            return new Line(in);
         }
+
+        public Line[] newArray(int size) {
+            return new Line[size];
+        }
+    };
+
+    private Line(Parcel in) {
+        setColor(in.readInt());
+        startPoint = in.readParcelable(Point.class.getClassLoader());
+        endPoint = in.readParcelable(Point.class.getClassLoader());
+    }
 
 }

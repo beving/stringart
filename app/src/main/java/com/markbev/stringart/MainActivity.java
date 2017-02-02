@@ -164,8 +164,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendHelp(MenuItem item) {
-        LayoutInflater inflater= LayoutInflater.from(this);
-        View view=inflater.inflate(R.layout.activity_help, null);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.activity_help, null);
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setView(view);
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
         alertDialog.setTitle(this.getResources().getString(R.string.help_title));
 
-        TextView textview=(TextView)view.findViewById(R.id.help_text_view);
+        TextView textview = (TextView) view.findViewById(R.id.help_text_view);
         textview.setText(Html.fromHtml(this.getResources().getString(R.string.help_txt)));
 
         AlertDialog alert = alertDialog.create();
