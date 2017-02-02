@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 /**
  * A Line contains two points.  It contains a unique object to paint with.
@@ -12,10 +13,14 @@ import android.os.Parcelable;
  */
 public class Line implements Parcelable {
 
+    @NonNull
     private final Point startPoint;
+    @NonNull
     private final Point endPoint;
-    private int color = Color.RED; //Default
-    private int thickness = 2;
+
+    //Defaults
+    private int color = Color.RED;
+    private int thickness = R.integer.default_line_thickness;
 
     public Line(Point startPoint, Point endPoint, int color, int thickness) {
         this.startPoint = startPoint;
@@ -76,4 +81,36 @@ public class Line implements Parcelable {
         endPoint = in.readParcelable(Point.class.getClassLoader());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Line line = (Line) o;
+
+        if (color != line.color) return false;
+        if (thickness != line.thickness) return false;
+        if (!startPoint.equals(line.startPoint)) return false;
+        return endPoint.equals(line.endPoint);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = startPoint.hashCode();
+        result = 31 * result + endPoint.hashCode();
+        result = 31 * result + color;
+        result = 31 * result + thickness;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Line{" +
+                "startPoint=" + startPoint +
+                ", endPoint=" + endPoint +
+                ", color=" + color +
+                ", thickness=" + thickness +
+                '}';
+    }
 }

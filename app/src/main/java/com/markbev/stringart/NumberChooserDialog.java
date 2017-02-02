@@ -2,7 +2,7 @@ package com.markbev.stringart;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.widget.Toast;
+import android.support.annotation.NonNull;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +15,7 @@ class NumberChooserDialog {
 
     private NumberChooserDialog(){}
 
-    public static void lineSize(final DrawingView drawingView, final boolean applyToAllLines) {
+    public static void lineSize(@NonNull final DrawingView drawingView, final boolean applyToAllLines) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(drawingView.getContext());
 
@@ -46,10 +46,6 @@ class NumberChooserDialog {
                                     line.setThickness(lineThickness);
                                 }
                             }
-                            Toast.makeText(drawingView.getContext().getApplicationContext(),
-                                    "You Choose : " + choices[selectedInteger],
-                                    Toast.LENGTH_LONG).show();
-
                             drawingView.reDraw();
                             dialog.dismiss();
                         } catch (Exception e) {
@@ -60,7 +56,7 @@ class NumberChooserDialog {
         alertDialog.show();
     }
 
-    public static void gridSize(final DrawingView drawingView) {
+    public static void gridSize(@NonNull final DrawingView drawingView) {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(drawingView.getContext());
 
@@ -89,9 +85,6 @@ class NumberChooserDialog {
                             SharedPreferencesUtility.setGridSpacing(drawingView.getContext(), Integer.parseInt(choices[selectedInteger]));
                             drawingView.reDraw();
 
-                            Toast.makeText(drawingView.getContext().getApplicationContext(),
-                                    "You Choose : " + choices[selectedInteger],
-                                    Toast.LENGTH_LONG).show();
                             dialog.dismiss();
                         } catch (Exception e) {
                             e.printStackTrace();

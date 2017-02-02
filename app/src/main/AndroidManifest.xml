@@ -32,12 +32,7 @@
                 -->
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.markbev.stringart.HelpMenu"
-            android:label="Help Menu"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
+            <activity
             android:name="com.markbev.stringart.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>

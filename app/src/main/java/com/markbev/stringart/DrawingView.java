@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -115,8 +114,6 @@ public class DrawingView extends View {
 
         if (!getPoints().contains(newPoint)) {
             getPoints().add(newPoint);
-        } else {
-            Log.d(TAG, "Point already added previously: " + newPoint.toString());
         }
         return newPoint;
     }

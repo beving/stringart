@@ -1,6 +1,7 @@
 package com.markbev.stringart;
 
 import android.graphics.Point;
+import android.support.annotation.NonNull;
 
 import java.util.Collection;
 
@@ -18,7 +19,7 @@ class PointUtility {
      * @param points A collection of points
      * @return floats[]
      */
-    public static float[] toArray(Collection<Point> points) {
+    public static float[] toArray(@NonNull Collection<Point> points) {
         int size = points.size();
         float[] returnValue = new float[size * 2];
         int i = 0;

@@ -20,5 +20,6 @@
         <item value="7">150</item>
     </string-array>
     <integer name="time_out_exit_application">4000</integer>
+    <integer name="default_line_thickness">2</integer>
 
 </resources>

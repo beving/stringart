@@ -16,7 +16,6 @@ class Gesture {
 
     public void onTouch(MotionEvent event) {
         try {
-            Log.d("Gesture", "Gesture.onTouch event.getAction: " + event.getAction());
             switch (event.getAction()) {
 
                 case MotionEvent.ACTION_UP:
@@ -27,8 +26,6 @@ class Gesture {
                 case MotionEvent.ACTION_DOWN:
                 case MotionEvent.ACTION_MOVE:
                     myView.createLine(myView.createPoint(event.getX(), event.getY()));
-                    Log.d("Gesture", "Gesture.getAction x: " + event.getX() +
-                            "    y: " + event.getY());
                     myView.reDraw();
             }
         } catch (Exception e) {
