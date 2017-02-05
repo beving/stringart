@@ -6,8 +6,7 @@ import android.support.annotation.NonNull;
 import java.util.Collection;
 
 /**
- * Utility to convert a Collection of points to an array of floats,
- * so that Canvas can draw the points.
+ * Utility to convert a Collection of points to an array of floats
  * Created by e62032 on 4/13/2016.
  */
 

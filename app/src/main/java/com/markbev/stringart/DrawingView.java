@@ -21,6 +21,7 @@ import java.util.List;
 public class DrawingView extends View {
 
     //NOTE: Do not store static data here, or else it will be lost when the orientation of the screen changes.
+    // Instead store data in the RetainedFragment
     private static final String TAG = "DrawingView";
     private DataHandler dataHandler;
     private Gesture gesture;
@@ -109,8 +110,11 @@ public class DrawingView extends View {
         }
     }
 
-    public Point createPoint(float x, float y) {
-        Point newPoint = createRoundedPoint(x, y);
+    @NonNull
+    public Point createRoundedPoint(float x, float y) {
+        Point newPoint = new Point(
+                round(x, SharedPreferencesUtility.getGridSpacing(getContext())),
+                round(y, SharedPreferencesUtility.getGridSpacing(getContext())));
 
         if (!getPoints().contains(newPoint)) {
             getPoints().add(newPoint);
@@ -118,12 +122,12 @@ public class DrawingView extends View {
         return newPoint;
     }
 
-    @NonNull
-    private Point createRoundedPoint(float x, float y) {
-        return new Point(
-                round(x, SharedPreferencesUtility.getGridSpacing(getContext())),
-                round(y, SharedPreferencesUtility.getGridSpacing(getContext())));
-    }
+//    @NonNull
+//    private Point createRoundedPoint(float x, float y) {
+//        return new Point(
+//                round(x, SharedPreferencesUtility.getGridSpacing(getContext())),
+//                round(y, SharedPreferencesUtility.getGridSpacing(getContext())));
+//    }
 
     public boolean cutPoint(float x, float y) {
 

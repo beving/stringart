@@ -25,7 +25,7 @@ class Gesture {
                     }
                 case MotionEvent.ACTION_DOWN:
                 case MotionEvent.ACTION_MOVE:
-                    myView.createLine(myView.createPoint(event.getX(), event.getY()));
+                    myView.createLine(myView.createRoundedPoint(event.getX(), event.getY()));
                     myView.reDraw();
             }
         } catch (Exception e) {
